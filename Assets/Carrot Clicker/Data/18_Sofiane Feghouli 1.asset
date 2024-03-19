@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31aaa88ddc1d38f46bf950b0238eb4a6, type: 3}
+  m_Name: 18_Sofiane Feghouli 1
+  m_EditorClassIdentifier: 
+  icon: {fileID: 21300000, guid: 7f3e9f47f9e3e124bb6853f6ad8145f6, type: 3}
+  title: Sofya Kekuli (KRG)
+  gen: 72
+  pos: 5
+  cpsPerLevel: 0.3
+  basePrice: 750
+  coefficient: 1.05
