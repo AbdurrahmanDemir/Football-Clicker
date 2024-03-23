@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public enum MatchState
@@ -13,35 +14,45 @@ public class MatchEngine : MonoBehaviour
     MatchState matchState;
 
     [Header("MY TEAM ELEMENTS")]
-    public float myTeamDefGen;
-    public float myTeamMidGen;
-    public float myTeamForGen;
-    public float myTeamTotalGen;
+     float myTeamDefGen;
+     float myTeamMidGen;
+     float myTeamForGen;
+     float myTeamTotalGen;
 
     [Header("OPPONENT TEAM ELEMENTS")]
-    public float opponentDefGen;
-    public float opponentMidGen;
-    public float opponentForGen;
-    public float opponentTotalGen;
+     float opponentDefGen;
+     float opponentMidGen;
+     float opponentForGen;
+     float opponentTotalGen;
 
     [Header("ATTACK STATS")]
     float pass;
     float dribble;
     float shoot;
     public static Action onAttack;
-    int attackMove;
+    int attackMove=3;
 
     [Header("DEFENCE STATS")]
     float press;
     float grab;
     public static Action onDefence;
-    int defenceMove;
+    int defenceMove=3;
+
+    [Header("Settings")]
+    [SerializeField] private TextMeshProUGUI defenceMoveText;
+    [SerializeField] private TextMeshProUGUI attackMoveText;
+    [SerializeField] private TextMeshProUGUI pressRateText;
+    [SerializeField] private TextMeshProUGUI grabRateText;
+    [SerializeField] private TextMeshProUGUI passRateText;
+    [SerializeField] private TextMeshProUGUI dribbleRateText;
+    [SerializeField] private TextMeshProUGUI shootRateText;
+
 
     private void Start()
     {
         matchState = MatchState.attack;
-
-        CalculateRate();
+        attackMoveText.text = attackMove.ToString();
+        defenceMoveText.text=defenceMove.ToString();
     }
 
     private void Update()
@@ -54,6 +65,21 @@ public class MatchEngine : MonoBehaviour
         {
             matchState = MatchState.attack;
         }
+    }
+
+    public void OpponentTeamConfig(float DefGen, float MidGen, float ForGen)
+    {
+        opponentDefGen = DefGen;
+        opponentMidGen= MidGen;
+        opponentForGen = ForGen;
+        opponentTotalGen = opponentDefGen + opponentForGen + opponentMidGen;
+    }
+    public void MyTeamConfig(float DefGen, float MidGen, float ForGen)
+    {
+        myTeamDefGen = DefGen;
+        myTeamMidGen = MidGen;
+        myTeamForGen = ForGen;
+        myTeamTotalGen = myTeamDefGen + myTeamForGen + myTeamMidGen;
     }
 
     public void EnumState()
@@ -71,13 +97,15 @@ public class MatchEngine : MonoBehaviour
         }
     }
 
-    void CalculateRate()
+    public void CalculateRate()
     {
         pass = (myTeamTotalGen / (myTeamTotalGen + opponentTotalGen))*100f;
         dribble = ((myTeamMidGen + myTeamForGen) / (myTeamMidGen + myTeamForGen + opponentMidGen + opponentDefGen))*100f;
         shoot = (myTeamForGen / (myTeamForGen + opponentDefGen)) * 100f;
-        press = (myTeamTotalGen / (myTeamTotalGen + opponentTotalGen)) ;
+        press = (myTeamTotalGen / (myTeamTotalGen + opponentTotalGen))*100f ;
         grab = (myTeamForGen / (myTeamForGen + opponentDefGen)) * 100f;
+
+        RateTextUpdate();
 
         Debug.Log(pass);
         Debug.Log(dribble);
@@ -88,7 +116,7 @@ public class MatchEngine : MonoBehaviour
 
     }
 
-    void PressButton()
+    public void PressButton()
     {
         float RandomRate = 50f;
 
@@ -96,14 +124,19 @@ public class MatchEngine : MonoBehaviour
         {
             press += 10f;
             defenceMove--;
+            attackMoveText.text = attackMove.ToString();
+            defenceMoveText.text = defenceMove.ToString();
         }
         else
         {
             press -= 10f;
             defenceMove--;
+            attackMoveText.text = attackMove.ToString();
+            defenceMoveText.text = defenceMove.ToString();
         }
+        RateTextUpdate();
     }
-    void GrabButton()
+    public void GrabButton()
     {
         float RandomRate = 50f;
 
@@ -111,14 +144,19 @@ public class MatchEngine : MonoBehaviour
         {
             matchState = MatchState.attack;
             defenceMove--;
+            attackMoveText.text = attackMove.ToString();
+            defenceMoveText.text = defenceMove.ToString();
         }
         else
         {
             Debug.Log("Baþarýsýz Kayma");
             defenceMove--;
+            attackMoveText.text = attackMove.ToString();
+            defenceMoveText.text = defenceMove.ToString();
         }
+        RateTextUpdate();
     }
-    void PassButton()
+    public void PassButton()
     {
         float RandomRate = 50f;
 
@@ -128,14 +166,19 @@ public class MatchEngine : MonoBehaviour
             dribble += 10f;
             shoot += 10f;
             attackMove--;
+            attackMoveText.text = attackMove.ToString();
+            defenceMoveText.text = defenceMove.ToString();
         }
         else
         {
             matchState = MatchState.defence;
             attackMove--;
+            attackMoveText.text = attackMove.ToString();
+            defenceMoveText.text = defenceMove.ToString();
         }
+        RateTextUpdate();
     }
-    void DribbleButton()
+    public void DribbleButton()
     {
         float RandomRate = 50f;
 
@@ -143,14 +186,19 @@ public class MatchEngine : MonoBehaviour
         {
             shoot += 10f;
             attackMove--;
+            attackMoveText.text = attackMove.ToString();
+            defenceMoveText.text = defenceMove.ToString();
         }
         else
         {
             matchState = MatchState.defence;
             attackMove--;
+            attackMoveText.text = attackMove.ToString();
+            defenceMoveText.text = defenceMove.ToString();
         }
+        RateTextUpdate();
     }
-    void ShootButton()
+    public void ShootButton()
     {
         float RandomRate = 50f;
 
@@ -158,12 +206,26 @@ public class MatchEngine : MonoBehaviour
         {
             Debug.Log("GOOOOLL");
             attackMove--;
+            attackMoveText.text = attackMove.ToString();
+            defenceMoveText.text = defenceMove.ToString();
         }
         else
         {
             matchState = MatchState.defence;
             attackMove--;
+            attackMoveText.text = attackMove.ToString();
+            defenceMoveText.text = defenceMove.ToString();
         }
+        RateTextUpdate();
+    }
+
+    void RateTextUpdate()
+    {
+        passRateText.text = pass.ToString();
+        dribbleRateText.text = dribble.ToString();
+        shootRateText.text = shoot.ToString();
+        pressRateText.text = press.ToString();
+        grabRateText.text = grab.ToString();
     }
 
 

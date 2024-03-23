@@ -29,6 +29,14 @@ public class MatchManager : MonoBehaviour
     private int opponentGoal;
     private bool isMatchStart=false;
 
+    [Header("New Match")]
+    MatchEngine matchEngine;
+    [SerializeField] private GameObject matchScene;
+
+
+
+
+
     [Header("Settings")]
     private TeamSO[] teams;
 
@@ -41,6 +49,7 @@ public class MatchManager : MonoBehaviour
     }
     private void Start()
     {
+        matchEngine= GetComponent<MatchEngine>();
         teams= LeagueManager.instance.GetTeams();
     }
    
@@ -57,11 +66,14 @@ public class MatchManager : MonoBehaviour
     }
     public void MatchPanel(int index)
     {
-        //TeamSO[] teams = LeagueManager.instance.GetTeams();
         TeamSO team = teams[index];
 
         myGenText.text = PitchManager.instance.GetTotalGen().ToString();
         oppenentGenText.text = team.teamGen.ToString();
+
+        matchEngine.OpponentTeamConfig(team.teamGen, team.teamGen, team.teamGen);
+        matchEngine.MyTeamConfig(PitchManager.instance.GetTotalGen(), PitchManager.instance.GetTotalGen(), PitchManager.instance.GetTotalGen());
+        matchEngine.CalculateRate();
 
         myGoalText.text = "0";
         opponentGoalText.text = "0";
@@ -88,27 +100,28 @@ public class MatchManager : MonoBehaviour
         {
             isMatchStart = true;
             startButton.SetActive(false);
+            matchScene.SetActive(true);
 
 
-            if (myGen > opponentGen)
-            {
-                myGoal = Random.Range(0, 10);
-                opponentGoal = Random.Range(0, myGoal);
-                myGoalText.text = myGoal.ToString();
-                opponentGoalText.text = opponentGoal.ToString();
-                timeText.text = "90'";
-                resultText.text = "KAZANDIN";
-                LeagueManager.instance.SetLevel();
-            }
-            else
-            {
-                opponentGoal = Random.Range(0, 10);
-                myGoal = Random.Range(0, opponentGoal);
-                myGoalText.text = myGoal.ToString();
-                opponentGoalText.text = opponentGoal.ToString();
-                timeText.text = "90'";
-                resultText.text = "KAYBETTÝN";
-            }
+            //if (myGen > opponentGen)
+            //{
+            //    myGoal = Random.Range(0, 10);
+            //    opponentGoal = Random.Range(0, myGoal);
+            //    myGoalText.text = myGoal.ToString();
+            //    opponentGoalText.text = opponentGoal.ToString();
+            //    timeText.text = "90'";
+            //    resultText.text = "KAZANDIN";
+            //    LeagueManager.instance.SetLevel();
+            //}
+            //else
+            //{
+            //    opponentGoal = Random.Range(0, 10);
+            //    myGoal = Random.Range(0, opponentGoal);
+            //    myGoalText.text = myGoal.ToString();
+            //    opponentGoalText.text = opponentGoal.ToString();
+            //    timeText.text = "90'";
+            //    resultText.text = "KAYBETTÝN";
+            //}
         }
         else
         {
