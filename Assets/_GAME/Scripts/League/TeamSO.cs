@@ -8,7 +8,10 @@ public class TeamSO : ScriptableObject
 {
     public Sprite teamLogo;
     public string teamName;
-    public int teamGen;
+    public int teamDefGen;
+    public int teamMidGen;
+    public int teamForGen;
+
     public int teamPrice;
 
 }

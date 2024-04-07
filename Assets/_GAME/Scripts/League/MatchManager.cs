@@ -25,13 +25,13 @@ public class MatchManager : MonoBehaviour
     [SerializeField] private Image opponentTeamLogo;
     [Header("Settings")]
     private int myGen;
-    private int myGoal;
-    private int opponentGoal;
+    public int myGoal;
+    public int opponentGoal;
     private bool isMatchStart=false;
 
     [Header("New Match")]
     MatchEngine matchEngine;
-    [SerializeField] private GameObject matchScene;
+    public GameObject matchScene;
 
 
 
@@ -69,10 +69,10 @@ public class MatchManager : MonoBehaviour
         TeamSO team = teams[index];
 
         myGenText.text = PitchManager.instance.GetTotalGen().ToString();
-        oppenentGenText.text = team.teamGen.ToString();
+        oppenentGenText.text = (team.teamDefGen+ team.teamMidGen+team.teamForGen).ToString();
 
-        matchEngine.OpponentTeamConfig(team.teamGen, team.teamGen, team.teamGen);
-        matchEngine.MyTeamConfig(PitchManager.instance.GetTotalGen(), PitchManager.instance.GetTotalGen(), PitchManager.instance.GetTotalGen());
+        matchEngine.OpponentTeamConfig(team.teamDefGen,team.teamMidGen,team.teamForGen);
+        matchEngine.MyTeamConfig(PitchManager.instance.GetDefGen(), PitchManager.instance.GetMidGen(), PitchManager.instance.GetForGen());
         matchEngine.CalculateRate();
 
         myGoalText.text = "0";
@@ -94,7 +94,7 @@ public class MatchManager : MonoBehaviour
     {
         TeamSO team = teams[index];
         myGen = PitchManager.instance.GetTotalGen();
-        int opponentGen = team.teamGen;
+        int opponentGen = team.teamDefGen + team.teamMidGen + team.teamForGen;
 
         if (PitchManager.instance.TryPurchase(team.teamPrice))
         {
@@ -103,25 +103,7 @@ public class MatchManager : MonoBehaviour
             matchScene.SetActive(true);
 
 
-            //if (myGen > opponentGen)
-            //{
-            //    myGoal = Random.Range(0, 10);
-            //    opponentGoal = Random.Range(0, myGoal);
-            //    myGoalText.text = myGoal.ToString();
-            //    opponentGoalText.text = opponentGoal.ToString();
-            //    timeText.text = "90'";
-            //    resultText.text = "KAZANDIN";
-            //    LeagueManager.instance.SetLevel();
-            //}
-            //else
-            //{
-            //    opponentGoal = Random.Range(0, 10);
-            //    myGoal = Random.Range(0, opponentGoal);
-            //    myGoalText.text = myGoal.ToString();
-            //    opponentGoalText.text = opponentGoal.ToString();
-            //    timeText.text = "90'";
-            //    resultText.text = "KAYBETTÝN";
-            //}
+            
         }
         else
         {
@@ -130,6 +112,29 @@ public class MatchManager : MonoBehaviour
 
 
 
+    }
+    public void MatchEnd(int myScore, int opponentScore)
+    {
+        if (myScore > opponentScore)
+        {
+            myGoal = myScore;
+            opponentGoal = opponentScore;
+            myGoalText.text = myGoal.ToString();
+            opponentGoalText.text = opponentGoal.ToString();
+            timeText.text = "90'";
+            resultText.text = "KAZANDIN";
+            LeagueManager.instance.SetLevel();
+        }
+        else
+        {
+            myGoal = myScore;
+            opponentGoal = opponentScore;
+            myGoalText.text = myGoal.ToString();
+            opponentGoalText.text = opponentGoal.ToString();
+            timeText.text = "90'";
+            resultText.text = "KAYBETTÝN";
+
+        }
     }
     public void CloseMatchPanel()
     {

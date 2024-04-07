@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teamLogo: {fileID: 21300000, guid: 749c76714cd9a6a45878b61d086879dc, type: 3}
   teamName: Kilis SK
-  teamGen: 700
+  teamDefGen: 800
+  teamMidGen: 700
+  teamForGen: 800
   teamPrice: 800

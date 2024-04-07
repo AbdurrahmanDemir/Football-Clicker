@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teamLogo: {fileID: 21300000, guid: f9f9547cfd43f48799eb35ebf9d37c19, type: 3}
   teamName: Sariyer SK
-  teamGen: 100
+  teamDefGen: 50
+  teamMidGen: 50
+  teamForGen: 50
   teamPrice: 100

@@ -58,7 +58,7 @@ public class LeagueManager : MonoBehaviour
 
         Sprite logo = team.teamLogo;
         string name= team.teamName;
-        string gen = team.teamGen.ToString();
+        string gen = (team.teamDefGen+team.teamMidGen+ team.teamForGen).ToString();
         string price= team.teamPrice.ToString();
 
 

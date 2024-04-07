@@ -25,6 +25,9 @@ public class PitchManager : MonoBehaviour
     [SerializeField] private UpgradeSO[] upgrades;
 
     public int totalTeamGen;
+    public int defGen;
+    public int midGen;
+    public int forGen;
     public TextMeshProUGUI totalTeamGenText;
     int savedElevenIndex;
     private void Awake()
@@ -96,6 +99,80 @@ public class PitchManager : MonoBehaviour
             }
             
         }
+
+        for (int i = 0; i < 5; i++)
+        {
+            if (PlayerPrefs.HasKey("Eleven" + i))
+            {
+                 savedElevenIndex = PlayerPrefs.GetInt("Eleven" + i);
+
+                if (savedElevenIndex >= 0 && savedElevenIndex < upgrades.Length)
+                {
+                    int upgradeLevel = ShopManager.instance.GetUpgradeLevel(savedElevenIndex);
+                    defGen += (upgrades[savedElevenIndex].gen + upgradeLevel);
+                }
+                else
+                {
+                    Debug.LogError("Hatalý eleven indeksi: " + savedElevenIndex);
+
+                }
+            }
+            else
+            {
+                continue;
+            }
+        }
+        for (int i = 5; i < 8; i++)
+        {
+            if (PlayerPrefs.HasKey("Eleven" + i))
+            {
+                savedElevenIndex = PlayerPrefs.GetInt("Eleven" + i);
+
+                if (savedElevenIndex >= 0 && savedElevenIndex < upgrades.Length)
+                {
+                    int upgradeLevel = ShopManager.instance.GetUpgradeLevel(savedElevenIndex);
+                    midGen += (upgrades[savedElevenIndex].gen + upgradeLevel);
+                }
+                else
+                {
+                    Debug.LogError("Hatalý eleven indeksi: " + savedElevenIndex);
+
+                }
+            }
+            else
+            {
+                continue;
+            }
+        }
+        for (int i = 8; i < 11; i++)
+        {
+            if (PlayerPrefs.HasKey("Eleven" + i))
+            {
+                savedElevenIndex = PlayerPrefs.GetInt("Eleven" + i);
+
+                if (savedElevenIndex >= 0 && savedElevenIndex < upgrades.Length)
+                {
+                    int upgradeLevel = ShopManager.instance.GetUpgradeLevel(savedElevenIndex);
+                    forGen += (upgrades[savedElevenIndex].gen + upgradeLevel);
+                }
+                else
+                {
+                    Debug.LogError("Hatalý eleven indeksi: " + savedElevenIndex);
+
+                }
+            }
+            else
+            {
+                continue;
+            }
+        }
+
+        Debug.Log(defGen);
+        Debug.Log(midGen);
+        Debug.Log(forGen);
+
+
+
 
     }
     public bool TryPurchase(double price)
@@ -192,6 +269,18 @@ public class PitchManager : MonoBehaviour
     public int GetTotalGen()
     {
         return totalTeamGen;
+    }
+    public int GetDefGen()
+    {
+        return defGen;
+    }
+    public int GetMidGen()
+    {
+        return midGen;
+    }
+    public int GetForGen()
+    {
+        return forGen;
     }
     public void ClubHouse()
     {

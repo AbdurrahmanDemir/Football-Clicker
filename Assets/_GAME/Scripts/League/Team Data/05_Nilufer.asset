@@ -14,5 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teamLogo: {fileID: 21300080, guid: 85165b344aa784048a7747c34315a3e7, type: 3}
   teamName: Nilufer Spor
-  teamGen: 255
+  teamDefGen: 50
+  teamMidGen: 200
+  teamForGen: 50
   teamPrice: 300
