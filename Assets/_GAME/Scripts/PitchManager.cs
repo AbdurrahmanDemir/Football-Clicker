@@ -99,6 +99,7 @@ public class PitchManager : MonoBehaviour
             }
             
         }
+        defGen = 0;
 
         for (int i = 0; i < 5; i++)
         {
@@ -122,6 +123,8 @@ public class PitchManager : MonoBehaviour
                 continue;
             }
         }
+
+        midGen = 0;
         for (int i = 5; i < 8; i++)
         {
             if (PlayerPrefs.HasKey("Eleven" + i))
@@ -144,6 +147,7 @@ public class PitchManager : MonoBehaviour
                 continue;
             }
         }
+        forGen = 0;
         for (int i = 8; i < 11; i++)
         {
             if (PlayerPrefs.HasKey("Eleven" + i))

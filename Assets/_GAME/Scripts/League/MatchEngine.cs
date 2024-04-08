@@ -66,6 +66,19 @@ public class MatchEngine : MonoBehaviour
     [SerializeField] private AnnouncerPrefabs announcerPrefabs;
     [SerializeField] private Transform announcerParents;
     [SerializeField] private TextMeshProUGUI announcerText;
+    [SerializeField] private string[] announcerPressSuccessful;
+    [SerializeField] private string[] announcerPressUnsuccessful;
+    [SerializeField] private string[] announcerGrabSuccessful;
+    [SerializeField] private string[] announcerGrabUnsuccessful;
+    [SerializeField] private string[] announcerPassSuccessful;
+    [SerializeField] private string[] announcerPassUnsuccessful;
+    [SerializeField] private string[] announcerDribbleSuccessful;
+    [SerializeField] private string[] announcerDribbleUnsuccessful;
+    [SerializeField] private string[] announcerShootSuccessful;
+    [SerializeField] private string[] announcerShootUnsuccessful;
+
+
+   
 
 
     private void Start()
@@ -88,10 +101,19 @@ public class MatchEngine : MonoBehaviour
             AttackState();
         }
 
-        if (myScore >= 3 || opponentScore > 3)
+        if (myScore >= 3 || opponentScore >= 3)
         {
             MatchManager.instance.matchScene.SetActive(false);
             MatchManager.instance.MatchEnd(myScore, opponentScore);
+            myScore = 0;
+            opponentScore= 0;
+            myScoreText.text = myScore.ToString();
+            opponentScoreText.text = opponentScore.ToString();
+
+            for (int i = 0; i < announcerParents.childCount; i++)
+            {
+                Destroy(announcerParents.GetChild(i).gameObject);
+            }
         }
 
 
@@ -177,33 +199,37 @@ public class MatchEngine : MonoBehaviour
     public void PressButton()
     {
         float RandomRate = UnityEngine.Random.Range(0, 100);
+        int announcerText= UnityEngine.Random.Range(0, announcerPressSuccessful.Length);
+        int announcerUnText= UnityEngine.Random.Range(0, announcerPressUnsuccessful.Length);
         Debug.Log(RandomRate);
         if (RandomRate < press)
         {
             DefenceRate(5f, 2f);
             defenceMove--;          
             MoveTextUpdate();
-            AnnouncerText("PRES BAÞARILI OLUYOR");
+            AnnouncerText(announcerPressSuccessful[announcerText]);
         }
         else
         {
             DefenceRate(-5f, -2f);
             defenceMove--;
             MoveTextUpdate();
-            AnnouncerText("PRES BAÞARILI OLUYOR");
+            AnnouncerText(announcerPressUnsuccessful[announcerUnText]);
         }
         RateTextUpdate();
     }
     public void GrabButton()
     {
         float RandomRate = UnityEngine.Random.Range(0, 100);
+        int announcerText = UnityEngine.Random.Range(0, announcerGrabSuccessful.Length);
+        int announcerUnText = UnityEngine.Random.Range(0, announcerGrabUnsuccessful.Length);
         Debug.Log(RandomRate);
 
         if (RandomRate < grab)
         {
             AttackState();
             MoveTextUpdate();
-            AnnouncerText("TOP ÇALMA BAÞARILI ÞÝMDÝ ATAK SIRASI");
+            AnnouncerText(announcerGrabSuccessful[announcerText]);
         }
         else
         {
@@ -212,27 +238,29 @@ public class MatchEngine : MonoBehaviour
             press = firstPressRate;
             grab = firstGrabRate;
             AttackState();
-            AnnouncerText("VE GOOL TOP ÇALMA BAÞARISIZ OLDU");
+            AnnouncerText(announcerGrabUnsuccessful[announcerUnText]);
         }
         RateTextUpdate();
     }
     public void PassButton()
     {
         float RandomRate = UnityEngine.Random.Range(0, 100);
+        int announcerText = UnityEngine.Random.Range(0, announcerPassSuccessful.Length);
+        int announcerUnText = UnityEngine.Random.Range(0, announcerPassUnsuccessful.Length);
         Debug.Log(RandomRate);
 
         if (RandomRate < pass)
         {
             AttackRate(10f, 5f, 3f);
             attackMove--;
-            AnnouncerText("GÜZEL PAS");
+            AnnouncerText(announcerPassSuccessful[announcerText]);
             MoveTextUpdate();
         }
         else
         {
             AttackRate(-5f, -5f, -3f);
             DefenceState();
-            AnnouncerText("KÖTÜ PAS BAÞARISIZ");
+            AnnouncerText(announcerPassUnsuccessful[announcerUnText]);
             MoveTextUpdate();
         }
         RateTextUpdate();
@@ -240,20 +268,22 @@ public class MatchEngine : MonoBehaviour
     public void DribbleButton()
     {
         float RandomRate = UnityEngine.Random.Range(0, 100);
+        int announcerText = UnityEngine.Random.Range(0, announcerDribbleSuccessful.Length);
+        int announcerUnText = UnityEngine.Random.Range(0, announcerDribbleUnsuccessful.Length);
         Debug.Log(RandomRate);
 
         if (RandomRate < dribble)
         {
             AttackRate(0f, 5f, 5f);
             attackMove--;
-            AnnouncerText("MUHTEÞEM BÝR KOÞU");
+            AnnouncerText(announcerDribbleSuccessful[announcerText]);
             MoveTextUpdate();
         }
         else
         {
             AttackRate(-8f, -5f, -5f);
             DefenceState();
-            AnnouncerText("DRÝBLÝNG BAÞARISIZ");
+            AnnouncerText(announcerDribbleUnsuccessful[announcerUnText]);
             MoveTextUpdate();
         }
         RateTextUpdate();
@@ -261,13 +291,15 @@ public class MatchEngine : MonoBehaviour
     public void ShootButton()
     {
         float RandomRate = UnityEngine.Random.Range(0, 100);
+        int announcerText = UnityEngine.Random.Range(0, announcerShootSuccessful.Length);
+        int announcerUnText = UnityEngine.Random.Range(0, announcerShootUnsuccessful.Length);
         Debug.Log(RandomRate);
 
         if (RandomRate < shoot)
         {
             myScore += 1;
             myScoreText.text = myScore.ToString();
-            AnnouncerText("OLALA HARÝKA BÝR GOL");
+            AnnouncerText(announcerShootSuccessful[announcerText]);
             pass = firstPassRate;
             dribble = firstDribbleRate;
             shoot = firstShootRate;
@@ -278,7 +310,7 @@ public class MatchEngine : MonoBehaviour
         {
             AttackRate(-10f, -8f, -5f);
             DefenceState();
-            AnnouncerText("ÇOK KÖTÜ BÝR ÞUT");
+            AnnouncerText(announcerShootUnsuccessful[announcerUnText]);
             MoveTextUpdate();
 
 
@@ -317,6 +349,8 @@ public class MatchEngine : MonoBehaviour
     void AnnouncerText(string text)
     {
         AnnouncerPrefabs announcer = Instantiate(announcerPrefabs, announcerParents);
+        announcer.transform.Rotate(0, 0, 180);
+        //Destroy(announcer.gameObject, 5f);
         announcer.Config(text);
     }
 
