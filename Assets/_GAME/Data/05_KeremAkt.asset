@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31aaa88ddc1d38f46bf950b0238eb4a6, type: 3}
   m_Name: 05_KeremAkt
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: cc7781dd24abc5a449f43ba3c138a1da, type: 3}
+  icon: {fileID: 21300000, guid: 7f3e9f47f9e3e124bb6853f6ad8145f6, type: 3}
   title: "Kerim Alt\xFCrko\u011Flu"
   gen: 77
   pos: 8

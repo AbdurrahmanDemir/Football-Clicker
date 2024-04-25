@@ -65,6 +65,10 @@ public class MatchEngine : MonoBehaviour
     [SerializeField] private GameObject defencePanel;
     [SerializeField] private AnnouncerPrefabs announcerPrefabs;
     [SerializeField] private Transform announcerParents;
+    [SerializeField] private GameObject announcerPanel;
+    [SerializeField] private GameObject attackButtonPanel;
+    [SerializeField] private GameObject defenceButtonPanel;
+    [SerializeField] private GameObject animPanel;
     [SerializeField] private TextMeshProUGUI announcerText;
     [SerializeField] private string[] announcerPressSuccessful;
     [SerializeField] private string[] announcerPressUnsuccessful;
@@ -76,6 +80,8 @@ public class MatchEngine : MonoBehaviour
     [SerializeField] private string[] announcerDribbleUnsuccessful;
     [SerializeField] private string[] announcerShootSuccessful;
     [SerializeField] private string[] announcerShootUnsuccessful;
+    [SerializeField] private string[] announcerMove;
+    [SerializeField] private Animator animator;
 
 
    
@@ -92,13 +98,16 @@ public class MatchEngine : MonoBehaviour
 
     private void Update()
     {
-        if(attackMove <= 0)
+        if (attackMove <= 0 && matchState != MatchState.defence)
         {
             DefenceState();
+            AnnouncerText(announcerMove[0]);
+
         }
-        if (defenceMove <= 0)
+        else if (defenceMove <= 0 && matchState != MatchState.attack)
         {
             AttackState();
+            AnnouncerText(announcerMove[1]);
         }
 
         if (myScore >= 3 || opponentScore >= 3)
@@ -106,7 +115,7 @@ public class MatchEngine : MonoBehaviour
             MatchManager.instance.matchScene.SetActive(false);
             MatchManager.instance.MatchEnd(myScore, opponentScore);
             myScore = 0;
-            opponentScore= 0;
+            opponentScore = 0;
             myScoreText.text = myScore.ToString();
             opponentScoreText.text = opponentScore.ToString();
 
@@ -116,9 +125,9 @@ public class MatchEngine : MonoBehaviour
             }
         }
 
-
         EnumState();
     }
+
 
     public void OpponentTeamConfig(float DefGen, float MidGen, float ForGen)
     {
@@ -173,30 +182,35 @@ public class MatchEngine : MonoBehaviour
         Debug.Log(shoot);
         Debug.Log(press);
         Debug.Log(grab);
-        
-
     }
     public void AttackState()
     {
-        matchState = MatchState.attack;
-        stateText.text = matchState.ToString();
-        attackPanel.SetActive(true);
-        defencePanel.SetActive(false);
-        attackMove = 3;
-        attackMoveText.text = attackMove.ToString();
-        moveAttackSlider.value = attackMove;
+            matchState = MatchState.attack;
+            stateText.text = matchState.ToString();
+            attackPanel.SetActive(true);
+            defencePanel.SetActive(false);
+            attackMove = 3;
+            attackMoveText.text = attackMove.ToString();
+            moveAttackSlider.value = attackMove;
+            Debug.Log("deneme1");
+        
     }
     public void DefenceState()
     {
-        matchState = MatchState.defence;
-        stateText.text = matchState.ToString();
-        defencePanel.SetActive(true);
-        attackPanel.SetActive(false);
-        defenceMove = 3;
-        defenceMoveText.text=defenceMove.ToString();
-        moveDefenceSlider.value=defenceMove;
+        
+            matchState = MatchState.defence;
+            stateText.text = matchState.ToString();
+            defencePanel.SetActive(true);
+            attackPanel.SetActive(false);
+            defenceMove = 3;
+            defenceMoveText.text = defenceMove.ToString();
+            moveDefenceSlider.value = defenceMove;
+
+        Debug.Log("deneme2");
+        
+            
     }
-    public void PressButton()
+    public IEnumerator PressButton()
     {
         float RandomRate = UnityEngine.Random.Range(0, 100);
         int announcerText= UnityEngine.Random.Range(0, announcerPressSuccessful.Length);
@@ -204,6 +218,9 @@ public class MatchEngine : MonoBehaviour
         Debug.Log(RandomRate);
         if (RandomRate < press)
         {
+            DefencePanelActive();
+            yield return new WaitForSeconds(1f);
+            DefencePanelActive();
             DefenceRate(5f, 2f);
             defenceMove--;          
             MoveTextUpdate();
@@ -211,14 +228,34 @@ public class MatchEngine : MonoBehaviour
         }
         else
         {
+            DefencePanelActive();
+            yield return new WaitForSeconds(1f);
             DefenceRate(-5f, -2f);
             defenceMove--;
-            MoveTextUpdate();
-            AnnouncerText(announcerPressUnsuccessful[announcerUnText]);
+
+            if (defenceMove < 1)
+            {   opponentScore += 1;
+                opponentScoreText.text = opponentScore.ToString();
+                press = firstPressRate;
+                grab = firstGrabRate;
+                AttackState();
+                AnnouncerText(announcerGrabUnsuccessful[announcerUnText]);
+            }
+            else
+            {
+                MoveTextUpdate();
+                AnnouncerText(announcerPressUnsuccessful[announcerUnText]);
+            }
+            
         }
         RateTextUpdate();
     }
-    public void GrabButton()
+    public void PressButtonn()
+    {
+        StartCoroutine(PressButton());
+    }
+
+    public IEnumerator GrabButton()
     {
         float RandomRate = UnityEngine.Random.Range(0, 100);
         int announcerText = UnityEngine.Random.Range(0, announcerGrabSuccessful.Length);
@@ -227,12 +264,16 @@ public class MatchEngine : MonoBehaviour
 
         if (RandomRate < grab)
         {
+            DefencePanelActive();
+            yield return new WaitForSeconds(1f);
             AttackState();
             MoveTextUpdate();
             AnnouncerText(announcerGrabSuccessful[announcerText]);
         }
         else
         {
+            DefencePanelActive();
+            yield return new WaitForSeconds(1f);
             opponentScore += 1;
             opponentScoreText.text = opponentScore.ToString();
             press = firstPressRate;
@@ -242,7 +283,11 @@ public class MatchEngine : MonoBehaviour
         }
         RateTextUpdate();
     }
-    public void PassButton()
+    public void GrabButtonn()
+    {
+        StartCoroutine(GrabButton());
+    }
+    public IEnumerator PassButton()
     {
         float RandomRate = UnityEngine.Random.Range(0, 100);
         int announcerText = UnityEngine.Random.Range(0, announcerPassSuccessful.Length);
@@ -251,21 +296,32 @@ public class MatchEngine : MonoBehaviour
 
         if (RandomRate < pass)
         {
+            AttackPanelActive();
+            yield return new WaitForSeconds(1f);
+            AttackPanelActive();
             AttackRate(10f, 5f, 3f);
             attackMove--;
             AnnouncerText(announcerPassSuccessful[announcerText]);
             MoveTextUpdate();
+
         }
         else
         {
+            AttackPanelActive();
+            yield return new WaitForSeconds(1f);
             AttackRate(-5f, -5f, -3f);
             DefenceState();
             AnnouncerText(announcerPassUnsuccessful[announcerUnText]);
             MoveTextUpdate();
         }
+        
         RateTextUpdate();
     }
-    public void DribbleButton()
+    public void PassButtonn()
+    {
+        StartCoroutine(PassButton());
+    }
+    public IEnumerator DribbleButton()
     {
         float RandomRate = UnityEngine.Random.Range(0, 100);
         int announcerText = UnityEngine.Random.Range(0, announcerDribbleSuccessful.Length);
@@ -274,6 +330,9 @@ public class MatchEngine : MonoBehaviour
 
         if (RandomRate < dribble)
         {
+            AttackPanelActive();
+            yield return new WaitForSeconds(1f);
+            AttackPanelActive();
             AttackRate(0f, 5f, 5f);
             attackMove--;
             AnnouncerText(announcerDribbleSuccessful[announcerText]);
@@ -281,6 +340,8 @@ public class MatchEngine : MonoBehaviour
         }
         else
         {
+            AttackPanelActive();
+            yield return new WaitForSeconds(1f);
             AttackRate(-8f, -5f, -5f);
             DefenceState();
             AnnouncerText(announcerDribbleUnsuccessful[announcerUnText]);
@@ -288,7 +349,12 @@ public class MatchEngine : MonoBehaviour
         }
         RateTextUpdate();
     }
-    public void ShootButton()
+    public void DribbleButtonn()
+    {
+        StartCoroutine(DribbleButton());
+    }
+
+    public IEnumerator ShootButton()
     {
         float RandomRate = UnityEngine.Random.Range(0, 100);
         int announcerText = UnityEngine.Random.Range(0, announcerShootSuccessful.Length);
@@ -297,6 +363,9 @@ public class MatchEngine : MonoBehaviour
 
         if (RandomRate < shoot)
         {
+            AttackPanelActive();
+            yield return new WaitForSeconds(1f);
+            AttackPanelActive();
             myScore += 1;
             myScoreText.text = myScore.ToString();
             AnnouncerText(announcerShootSuccessful[announcerText]);
@@ -308,6 +377,8 @@ public class MatchEngine : MonoBehaviour
         }
         else
         {
+            AttackPanelActive();
+            yield return new WaitForSeconds(1f);
             AttackRate(-10f, -8f, -5f);
             DefenceState();
             AnnouncerText(announcerShootUnsuccessful[announcerUnText]);
@@ -316,6 +387,10 @@ public class MatchEngine : MonoBehaviour
 
         }
         RateTextUpdate();
+    }
+    public void ShootButtonn()
+    {
+        StartCoroutine(ShootButton());
     }
 
     void AttackRate(float passRate, float dribbleRate, float shootRate)
@@ -332,11 +407,11 @@ public class MatchEngine : MonoBehaviour
 
     void RateTextUpdate()
     {
-        passRateText.text = pass.ToString("F1");
-        dribbleRateText.text = dribble.ToString("F1");
-        shootRateText.text = shoot.ToString("F1");
-        pressRateText.text = press.ToString("F1");
-        grabRateText.text = grab.ToString("F1");
+        passRateText.text = pass.ToString("F0");
+        dribbleRateText.text = dribble.ToString("F0");
+        shootRateText.text = shoot.ToString("F0");
+        pressRateText.text = press.ToString("F0");
+        grabRateText.text = grab.ToString("F0");
     }
     void MoveTextUpdate()
     {
@@ -353,8 +428,29 @@ public class MatchEngine : MonoBehaviour
         //Destroy(announcer.gameObject, 5f);
         announcer.Config(text);
     }
+    //public void AnnouncerPanelActive()
+    //{
+    //    if(announcerPanel.activeSelf)
+    //        announcerPanel.SetActive(false);
+    //    else
+    //        announcerPanel.SetActive(true);
+    //}
 
-    
+    public void AttackPanelActive()
+    {
+        if (attackButtonPanel.activeSelf)
+            attackButtonPanel.SetActive(false);
+        else
+            attackButtonPanel.SetActive(true);
+    }
+
+    public void DefencePanelActive()
+    {
+        if (defenceButtonPanel.activeSelf)
+            defenceButtonPanel.SetActive(false);
+        else
+            defenceButtonPanel.SetActive(true);
+    }
 
 
 }

@@ -989,15 +989,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: BunnyClicker
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b949642a3351b3d4a99f3480d214e725, type: 2}
-  m_sharedMaterial: {fileID: 1913032590436190494, guid: b949642a3351b3d4a99f3480d214e725, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 291b21775a94be74b9cf37c02d7576ce, type: 2}
+  m_sharedMaterial: {fileID: -2488139687579262658, guid: 291b21775a94be74b9cf37c02d7576ce, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4286033407
+  m_fontColor: {r: 1, g: 0.67655295, b: 0.4660377, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1014,10 +1014,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 49.4
-  m_fontSizeBase: 36
+  m_fontSize: 48.07
+  m_fontSizeBase: 48.07
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 297.1
   m_fontStyle: 0
@@ -1379,8 +1379,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: lvl 5 (+1 Cps)
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: b949642a3351b3d4a99f3480d214e725, type: 2}
-  m_sharedMaterial: {fileID: 1913032590436190494, guid: b949642a3351b3d4a99f3480d214e725, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: f59873ffba874aa49aaec4ff4822a85a, type: 2}
+  m_sharedMaterial: {fileID: -134751124673151901, guid: f59873ffba874aa49aaec4ff4822a85a, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -1404,7 +1404,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 38.2
+  m_fontSize: 37.25
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1

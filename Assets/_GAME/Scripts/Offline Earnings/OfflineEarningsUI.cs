@@ -26,7 +26,7 @@ public class OfflineEarningsUI : MonoBehaviour
 
         popup.GetClaimButton().onClick.AddListener(() => ClaimButtonClickedCallback(earnings));
 
-        popup.gameObject.SetActive(true);
+        //popup.gameObject.SetActive(true);
 
     }
 
