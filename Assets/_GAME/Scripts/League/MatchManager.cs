@@ -10,6 +10,7 @@ public class MatchManager : MonoBehaviour
 {
     public static MatchManager instance;
     [Header("Elements")]
+    [SerializeField] private TutorialManager tutorialManager;
     [SerializeField] private GameObject matchPanel;
     [SerializeField] private GameObject startButton;
     [SerializeField] private float timer;
@@ -101,6 +102,11 @@ public class MatchManager : MonoBehaviour
             isMatchStart = true;
             startButton.SetActive(false);
             matchScene.SetActive(true);
+
+            if (!PlayerPrefs.HasKey("TutorialPanel3"))
+            {
+                tutorialManager.TutorialPanel3Open();
+            }
 
 
             

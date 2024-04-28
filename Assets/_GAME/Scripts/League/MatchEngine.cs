@@ -66,6 +66,8 @@ public class MatchEngine : MonoBehaviour
     [SerializeField] private AnnouncerPrefabs announcerPrefabs;
     [SerializeField] private Transform announcerParents;
     [SerializeField] private GameObject announcerPanel;
+    [SerializeField] private GameObject AttackTimePanel;
+    [SerializeField] private GameObject DefenceTimePanel;
     [SerializeField] private GameObject attackButtonPanel;
     [SerializeField] private GameObject defenceButtonPanel;
     [SerializeField] private GameObject animPanel;
@@ -94,6 +96,9 @@ public class MatchEngine : MonoBehaviour
         moveDefenceSlider.maxValue = 3;
         myScoreText.text = myScore.ToString();
         opponentScoreText.text = opponentScore.ToString();
+
+        attackButtonPanel.SetActive(true);
+        defenceButtonPanel.SetActive(false);
     }
 
     private void Update()
@@ -101,12 +106,14 @@ public class MatchEngine : MonoBehaviour
         if (attackMove <= 0 && matchState != MatchState.defence)
         {
             DefenceState();
+            StartCoroutine(PanelTime(DefenceTimePanel));
             AnnouncerText(announcerMove[0]);
 
         }
         else if (defenceMove <= 0 && matchState != MatchState.attack)
         {
             AttackState();
+            StartCoroutine(PanelTime(AttackTimePanel));
             AnnouncerText(announcerMove[1]);
         }
 
@@ -150,10 +157,12 @@ public class MatchEngine : MonoBehaviour
         {
             case MatchState.attack:
                 stateText.text = matchState.ToString();
+                
                 onAttack?.Invoke();
                 break;
             case MatchState.defence:
                 stateText.text = matchState.ToString();
+                
                 onDefence?.Invoke();
                 break;
             default:
@@ -185,15 +194,16 @@ public class MatchEngine : MonoBehaviour
     }
     public void AttackState()
     {
-            matchState = MatchState.attack;
-            stateText.text = matchState.ToString();
-            attackPanel.SetActive(true);
-            defencePanel.SetActive(false);
-            attackMove = 3;
-            attackMoveText.text = attackMove.ToString();
-            moveAttackSlider.value = attackMove;
-            Debug.Log("deneme1");
-        
+        matchState = MatchState.attack; 
+
+        stateText.text = matchState.ToString();
+        attackPanel.SetActive(true);
+        defencePanel.SetActive(false);
+        attackMove = 3;
+        attackMoveText.text = attackMove.ToString();
+        moveAttackSlider.value = attackMove;
+        Debug.Log("deneme1");
+
     }
     public void DefenceState()
     {
@@ -230,6 +240,7 @@ public class MatchEngine : MonoBehaviour
         {
             DefencePanelActive();
             yield return new WaitForSeconds(1f);
+            DefencePanelActive();
             DefenceRate(-5f, -2f);
             defenceMove--;
 
@@ -240,6 +251,7 @@ public class MatchEngine : MonoBehaviour
                 grab = firstGrabRate;
                 AttackState();
                 AnnouncerText(announcerGrabUnsuccessful[announcerUnText]);
+                StartCoroutine(PanelTime(AttackTimePanel));
             }
             else
             {
@@ -267,8 +279,11 @@ public class MatchEngine : MonoBehaviour
             DefencePanelActive();
             yield return new WaitForSeconds(1f);
             AttackState();
-            MoveTextUpdate();
             AnnouncerText(announcerGrabSuccessful[announcerText]);
+            AttackTimePanel.SetActive(true);
+            yield return new WaitForSeconds(1.2f);
+            AttackTimePanel.SetActive(false);
+            MoveTextUpdate();
         }
         else
         {
@@ -280,6 +295,7 @@ public class MatchEngine : MonoBehaviour
             grab = firstGrabRate;
             AttackState();
             AnnouncerText(announcerGrabUnsuccessful[announcerUnText]);
+            StartCoroutine(PanelTime(AttackTimePanel));
         }
         RateTextUpdate();
     }
@@ -312,6 +328,7 @@ public class MatchEngine : MonoBehaviour
             AttackRate(-5f, -5f, -3f);
             DefenceState();
             AnnouncerText(announcerPassUnsuccessful[announcerUnText]);
+            StartCoroutine(PanelTime(DefenceTimePanel));
             MoveTextUpdate();
         }
         
@@ -345,6 +362,7 @@ public class MatchEngine : MonoBehaviour
             AttackRate(-8f, -5f, -5f);
             DefenceState();
             AnnouncerText(announcerDribbleUnsuccessful[announcerUnText]);
+            StartCoroutine(PanelTime(DefenceTimePanel));
             MoveTextUpdate();
         }
         RateTextUpdate();
@@ -373,6 +391,7 @@ public class MatchEngine : MonoBehaviour
             dribble = firstDribbleRate;
             shoot = firstShootRate;
             DefenceState();
+            StartCoroutine(PanelTime(DefenceTimePanel));
             MoveTextUpdate();
         }
         else
@@ -382,6 +401,7 @@ public class MatchEngine : MonoBehaviour
             AttackRate(-10f, -8f, -5f);
             DefenceState();
             AnnouncerText(announcerShootUnsuccessful[announcerUnText]);
+            StartCoroutine(PanelTime(DefenceTimePanel));
             MoveTextUpdate();
 
 
@@ -428,13 +448,6 @@ public class MatchEngine : MonoBehaviour
         //Destroy(announcer.gameObject, 5f);
         announcer.Config(text);
     }
-    //public void AnnouncerPanelActive()
-    //{
-    //    if(announcerPanel.activeSelf)
-    //        announcerPanel.SetActive(false);
-    //    else
-    //        announcerPanel.SetActive(true);
-    //}
 
     public void AttackPanelActive()
     {
@@ -451,6 +464,11 @@ public class MatchEngine : MonoBehaviour
         else
             defenceButtonPanel.SetActive(true);
     }
-
+    public IEnumerator PanelTime(GameObject panel)
+    {
+        panel.SetActive(true);
+        yield return new WaitForSeconds(1.2f);
+        panel.SetActive(false);
+    }
 
 }

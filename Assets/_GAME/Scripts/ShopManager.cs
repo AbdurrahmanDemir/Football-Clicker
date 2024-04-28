@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Reflection;
+using TMPro;
 
 public class ShopManager : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class ShopManager : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] private Transform[] elevenPoints;
+    [SerializeField] private TextMeshProUGUI[] elevenPointsText;
     int playerIndex;
 
     private void Awake()
@@ -41,7 +43,9 @@ public class ShopManager : MonoBehaviour
             if (savedElevenIndex != -1 && savedElevenIndex < upgrades.Length)
             {
                 elevenPoints[i].GetComponent<SpriteRenderer>().sprite = upgrades[savedElevenIndex].icon;
+                elevenPointsText[i].text = upgrades[savedElevenIndex].title;
             }
+
         }
     }
 
@@ -111,46 +115,58 @@ public class ShopManager : MonoBehaviour
             {
                 case PlayerPos.GK:
                     elevenPoints[0].GetComponent<SpriteRenderer>().sprite = upgrade.icon;
+                    elevenPointsText[0].text=upgrade.title;
                     PlayerPrefs.SetInt("Eleven" + 0, elevenIndex);
                     break;
                 case PlayerPos.LCB:
                     elevenPoints[1].GetComponent<SpriteRenderer>().sprite = upgrade.icon;
+                    elevenPointsText[1].text = upgrade.title;
                     PlayerPrefs.SetInt("Eleven" + 1, elevenIndex);
                     break;
                 case PlayerPos.RCB:
                     elevenPoints[2].GetComponent<SpriteRenderer>().sprite = upgrade.icon;
+                    elevenPointsText[2].text = upgrade.title;
                     PlayerPrefs.SetInt("Eleven" + 2, elevenIndex);
                     break;
                 case PlayerPos.LB:
                     elevenPoints[3].GetComponent<SpriteRenderer>().sprite = upgrade.icon;
+
+                    elevenPointsText[3].text = upgrade.title;
                     PlayerPrefs.SetInt("Eleven" + 3, elevenIndex);
                     break;
                 case PlayerPos.RB:
                     elevenPoints[4].GetComponent<SpriteRenderer>().sprite = upgrade.icon;
+                    elevenPointsText[4].text = upgrade.title;
                     PlayerPrefs.SetInt("Eleven" + 4, elevenIndex);
                     break;
                 case PlayerPos.LM:
                     elevenPoints[5].GetComponent<SpriteRenderer>().sprite = upgrade.icon;
+                    elevenPointsText[5].text = upgrade.title;
                     PlayerPrefs.SetInt("Eleven" + 5, elevenIndex);
                     break;
                 case PlayerPos.RM:
                     elevenPoints[6].GetComponent<SpriteRenderer>().sprite = upgrade.icon;
+                    elevenPointsText[6].text = upgrade.title;
                     PlayerPrefs.SetInt("Eleven" + 6, elevenIndex);
                     break;
                 case PlayerPos.CM:
                     elevenPoints[7].GetComponent<SpriteRenderer>().sprite = upgrade.icon;
+                    elevenPointsText[7].text = upgrade.title;
                     PlayerPrefs.SetInt("Eleven" + 7, elevenIndex);
                     break;
                 case PlayerPos.LW:
                     elevenPoints[8].GetComponent<SpriteRenderer>().sprite = upgrade.icon;
+                    elevenPointsText[8].text = upgrade.title;
                     PlayerPrefs.SetInt("Eleven" + 8, elevenIndex);
                     break;
                 case PlayerPos.RW:
                     elevenPoints[9].GetComponent<SpriteRenderer>().sprite = upgrade.icon;
+                    elevenPointsText[9].text = upgrade.title;
                     PlayerPrefs.SetInt("Eleven" + 9, elevenIndex);
                     break;
                 case PlayerPos.ST:
                     elevenPoints[10].GetComponent<SpriteRenderer>().sprite = upgrade.icon;
+                    elevenPointsText[10].text = upgrade.title;
                     PlayerPrefs.SetInt("Eleven" + 10, elevenIndex);
                     break;
                 default:

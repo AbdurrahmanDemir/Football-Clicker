@@ -6,7 +6,7 @@ TopEleven,ADD TOP ELEVEN,ILK 11'e EKLE
 Soon,Soon,Yakında
 LeagueNameText1,Bronze League 2,Bronz Lig 2
 LeagueNameText2,Bronze League 1,Bronz Lig 1
-MatchFee,Match Fee: ,Mac Ücreti:
+MatchFee,Match Fee: ,Mac Ucreti:
 MatchStart,START,BAŞLA
 MatchLeave,LEAVE THE MATCH,MAÇTAN AYRIL
 GoldRequired,GOLD ,ALTIN
@@ -17,3 +17,26 @@ ForwardAddText,ADD AS FORWARD,FORVET OLARAK EKLE
 MidAddText,ADD AS MIDFIELDER,ORTA SAHA OLARAK EKLE
 DefenderAddText,ADD AS DEFENDER,DEFANS OLARAK EKLE
 GKAddText,ADD AS GOALKEEPER,KALECI OLARAK EKLE
+Leaderboard,Leaderboard,Liderlik Tablosu
+Tutorial1,"Welcome!
+You earn gold every time you click on the field.
+Buy football players with the gold you earn.","Hosgeldin!
+Sahaya her tiklamanda altin kazanirsin. 
+Kazandigin altinlar ile futbolcular al. "
+Tutorial3,"You have 3 moves when attacking. When you pass and dribble, if you are successful, the odds increase. If you fail, you lose the ball.",Atak yaparken 3 hamle hakkin var. Pas ve Dribling yaptiğinda eğer başarili olursan oranlar artar. Başarisiz olursan topu kaybedersin.
+Tutorial4,"If you are successful when pressing, the odds increase. If you fail on the last move, you will concede a goal. If you cast ""GRABB"" and succeed, the attack passes to you. If you fail, you will concede a goal.","Eğer pres yaparken başarili olursan oranlar artar. Son hamlede başarisiz olursan gol yersin. ""KAY"" yapip başarili olursan atak sana geçer. Başarisiz olursan gol yersin. "
+Tutorial2,"1-Oyuncuyu satin almak icin 1.seviyeye yükselt. 
+
+2-Her oyuncu sadece altinda yazan pozisyonda oynar. Eğer orda başka biri varsa onun yerine geçer.
+
+3-Her yükseltmede oyuncunun otomatik altim kazandirma orani artar.
+
+DAHA DETAYLİ BİLGİ İCİN TİKLA.","1-Upgrade the player to level 1 to purchase it.
+
+2-Each player plays only in the position written below. If there is someone else there, he takes his place.
+
+3-With each upgrade, the player's automatic gold gain rate increases.
+
+CLICK FOR MORE DETAILED INFORMATION."
+AttackTime,ATTACK TIME!,ATAK ZAMANI!
+DefenceTime,DEFENCE TIME!,DEFANS ZAMANI!

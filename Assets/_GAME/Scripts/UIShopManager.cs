@@ -9,6 +9,7 @@ public class UIShopManager : MonoBehaviour
     [SerializeField] private RectTransform shopPanel;
     [SerializeField] private RectTransform leaderboardPanel;
     [SerializeField] private RectTransform leaguePanel;
+    [SerializeField] private GameObject firstElevenPanel;
 
 
     [Header(" Settings ")]
@@ -20,6 +21,8 @@ public class UIShopManager : MonoBehaviour
     private Vector2 leaderboardClosedPos;
     private Vector2 leagueOpenedPos;
     private Vector2 leagueClosedPos;
+
+    [SerializeField] private TutorialManager tutorialManager;
 
     // Start is called before the first frame update
     void Start()
@@ -42,12 +45,17 @@ public class UIShopManager : MonoBehaviour
     }
 
     public void ElevenPanelOpen()
-    {
+    {        
         LeanTween.cancel(elevenPanel);
         LeanTween.move(elevenPanel, elevenOpenedPos, .3f).setEase(LeanTweenType.easeInOutSine);
         LeanTween.move(shopPanel, shopClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
         LeanTween.move(leaderboardPanel, leaderboardClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
         LeanTween.move(leaguePanel, leagueClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
+
+        if (!PlayerPrefs.HasKey("TutorialPanel2"))
+        {
+            tutorialManager.TutorialPanel2Open();
+        }
     }
 
     public void ElevenPanelClose()
@@ -101,5 +109,14 @@ public class UIShopManager : MonoBehaviour
     {
         LeanTween.cancel(leaguePanel);
         LeanTween.move(leaguePanel, leagueClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
+    }
+
+    public void FirstElevenPanel()
+    {
+        if (firstElevenPanel.activeSelf)
+            firstElevenPanel.gameObject.SetActive(false);
+        else
+            firstElevenPanel.gameObject.SetActive(true);
+
     }
 }

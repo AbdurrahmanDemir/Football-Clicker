@@ -39,6 +39,7 @@ public class PitchManager : MonoBehaviour
 
         LoadData();
 
+
         carrotIncrement = GetCurrentMultiplier();
 
         InputManager.onPitchClicked += CarrotClickedCallback;
@@ -247,7 +248,14 @@ public class PitchManager : MonoBehaviour
 
     private void LoadData()
     {
+        if (PlayerPrefs.HasKey("Carrots"))
+        {
         double.TryParse(PlayerPrefs.GetString("Carrots"), out totalCarrotsCount);
+        }
+        else
+        {
+            AddCarrots(500);
+        }
 
         UpdateCarrotsText();
     }
