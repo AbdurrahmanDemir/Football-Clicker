@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Assets.SimpleLocalization.Scripts;
 
 public enum MatchState
 {
@@ -63,6 +64,7 @@ public class MatchEngine : MonoBehaviour
     [SerializeField] private TextMeshProUGUI moveSliderText;
     [SerializeField] private GameObject attackPanel;
     [SerializeField] private GameObject defencePanel;
+    [SerializeField] private GameObject[] infoPanels;
     [SerializeField] private AnnouncerPrefabs announcerPrefabs;
     [SerializeField] private Transform announcerParents;
     [SerializeField] private GameObject announcerPanel;
@@ -72,17 +74,30 @@ public class MatchEngine : MonoBehaviour
     [SerializeField] private GameObject defenceButtonPanel;
     [SerializeField] private GameObject animPanel;
     [SerializeField] private TextMeshProUGUI announcerText;
-    [SerializeField] private string[] announcerPressSuccessful;
-    [SerializeField] private string[] announcerPressUnsuccessful;
-    [SerializeField] private string[] announcerGrabSuccessful;
-    [SerializeField] private string[] announcerGrabUnsuccessful;
-    [SerializeField] private string[] announcerPassSuccessful;
-    [SerializeField] private string[] announcerPassUnsuccessful;
-    [SerializeField] private string[] announcerDribbleSuccessful;
-    [SerializeField] private string[] announcerDribbleUnsuccessful;
-    [SerializeField] private string[] announcerShootSuccessful;
-    [SerializeField] private string[] announcerShootUnsuccessful;
-    [SerializeField] private string[] announcerMove;
+    [Header("ANNOUNCER TR")]
+    [SerializeField] private string[] announcerPressSuccessfulTR;
+    [SerializeField] private string[] announcerPressUnsuccessfulTR;
+    [SerializeField] private string[] announcerGrabSuccessfulTR;
+    [SerializeField] private string[] announcerGrabUnsuccessfulTR;
+    [SerializeField] private string[] announcerPassSuccessfulTR;
+    [SerializeField] private string[] announcerPassUnsuccessfulTR;
+    [SerializeField] private string[] announcerDribbleSuccessfulTR;
+    [SerializeField] private string[] announcerDribbleUnsuccessfulTR;
+    [SerializeField] private string[] announcerShootSuccessfulTR;
+    [SerializeField] private string[] announcerShootUnsuccessfulTR;
+    [SerializeField] private string[] announcerMoveTR;
+    [Header("ANNOUNCER EN")]
+    [SerializeField] private string[] announcerPressSuccessfulEN;
+    [SerializeField] private string[] announcerPressUnsuccessfulEN;
+    [SerializeField] private string[] announcerGrabSuccessfulEN;
+    [SerializeField] private string[] announcerGrabUnsuccessfulEN;
+    [SerializeField] private string[] announcerPassSuccessfulEN;
+    [SerializeField] private string[] announcerPassUnsuccessfulEN;
+    [SerializeField] private string[] announcerDribbleSuccessfulEN;
+    [SerializeField] private string[] announcerDribbleUnsuccessfulEN;
+    [SerializeField] private string[] announcerShootSuccessfulEN;
+    [SerializeField] private string[] announcerShootUnsuccessfulEN;
+    [SerializeField] private string[] announcerMoveEN;
     [SerializeField] private Animator animator;
 
 
@@ -103,18 +118,41 @@ public class MatchEngine : MonoBehaviour
 
     private void Update()
     {
+        BalanceButton();
+
+        if (announcerParents.childCount > 6)
+        {
+            Destroy(announcerParents.GetChild(0).gameObject);
+        }
+
         if (attackMove <= 0 && matchState != MatchState.defence)
         {
             DefenceState();
             StartCoroutine(PanelTime(DefenceTimePanel));
-            AnnouncerText(announcerMove[0]);
+            if (LocalizationManager.Language == "Türkçe")
+            {
+                AnnouncerText(announcerMoveTR[0]);
+
+            }
+            else if (LocalizationManager.Language == "English")
+            {
+                AnnouncerText(announcerMoveEN[0]);
+            }
 
         }
         else if (defenceMove <= 0 && matchState != MatchState.attack)
         {
             AttackState();
             StartCoroutine(PanelTime(AttackTimePanel));
-            AnnouncerText(announcerMove[1]);
+            if (LocalizationManager.Language == "Türkçe")
+            {
+                AnnouncerText(announcerMoveTR[1]);
+
+            }
+            else if (LocalizationManager.Language == "English")
+            {
+                AnnouncerText(announcerMoveEN[1]);
+            }
         }
 
         if (myScore >= 3 || opponentScore >= 3)
@@ -135,6 +173,19 @@ public class MatchEngine : MonoBehaviour
         EnumState();
     }
 
+    private void BalanceButton()
+    {
+        if (pass >= 100)
+            pass = 100;
+        if (dribble >= 100)
+            dribble = 100;
+        if (shoot >= 100)
+            shoot = 100;
+        if (grab >= 100)
+            grab = 100;
+        if (press >= 100)
+            press = 100;
+    }
 
     public void OpponentTeamConfig(float DefGen, float MidGen, float ForGen)
     {
@@ -223,8 +274,10 @@ public class MatchEngine : MonoBehaviour
     public IEnumerator PressButton()
     {
         float RandomRate = UnityEngine.Random.Range(0, 100);
-        int announcerText= UnityEngine.Random.Range(0, announcerPressSuccessful.Length);
-        int announcerUnText= UnityEngine.Random.Range(0, announcerPressUnsuccessful.Length);
+        int announcerText= UnityEngine.Random.Range(0, announcerPressSuccessfulTR.Length);
+        int announcerTextEN= UnityEngine.Random.Range(0, announcerPressSuccessfulEN.Length);
+        int announcerUnText= UnityEngine.Random.Range(0, announcerPressUnsuccessfulTR.Length);
+        int announcerUnTextEN= UnityEngine.Random.Range(0, announcerPressUnsuccessfulEN.Length);
         Debug.Log(RandomRate);
         if (RandomRate < press)
         {
@@ -234,7 +287,14 @@ public class MatchEngine : MonoBehaviour
             DefenceRate(5f, 2f);
             defenceMove--;          
             MoveTextUpdate();
-            AnnouncerText(announcerPressSuccessful[announcerText]);
+            if (LocalizationManager.Language == "Türkçe")
+            {
+            AnnouncerText(announcerPressSuccessfulTR[announcerText]);
+
+            }else if (LocalizationManager.Language == "English")
+            {
+                AnnouncerText(announcerPressSuccessfulEN[announcerTextEN]);
+            }
         }
         else
         {
@@ -250,13 +310,30 @@ public class MatchEngine : MonoBehaviour
                 press = firstPressRate;
                 grab = firstGrabRate;
                 AttackState();
-                AnnouncerText(announcerGrabUnsuccessful[announcerUnText]);
+
+                if (LocalizationManager.Language == "Türkçe")
+                {
+                    AnnouncerText(announcerGrabUnsuccessfulTR[announcerUnText]);
+
+                }
+                else if (LocalizationManager.Language == "English")
+                {
+                    AnnouncerText(announcerGrabUnsuccessfulEN[announcerUnTextEN]);
+                }
                 StartCoroutine(PanelTime(AttackTimePanel));
             }
             else
             {
                 MoveTextUpdate();
-                AnnouncerText(announcerPressUnsuccessful[announcerUnText]);
+                if (LocalizationManager.Language == "Türkçe")
+                {
+                    AnnouncerText(announcerPressUnsuccessfulTR[announcerText]);
+
+                }
+                else if (LocalizationManager.Language == "English")
+                {
+                    AnnouncerText(announcerPressUnsuccessfulEN[announcerUnTextEN]);
+                }
             }
             
         }
@@ -270,8 +347,10 @@ public class MatchEngine : MonoBehaviour
     public IEnumerator GrabButton()
     {
         float RandomRate = UnityEngine.Random.Range(0, 100);
-        int announcerText = UnityEngine.Random.Range(0, announcerGrabSuccessful.Length);
-        int announcerUnText = UnityEngine.Random.Range(0, announcerGrabUnsuccessful.Length);
+        int announcerText = UnityEngine.Random.Range(0, announcerGrabSuccessfulTR.Length);
+        int announcerTextEN = UnityEngine.Random.Range(0, announcerGrabSuccessfulEN.Length);
+        int announcerUnText = UnityEngine.Random.Range(0, announcerGrabUnsuccessfulTR.Length);
+        int announcerUnTextEN = UnityEngine.Random.Range(0, announcerGrabUnsuccessfulEN.Length);
         Debug.Log(RandomRate);
 
         if (RandomRate < grab)
@@ -279,7 +358,15 @@ public class MatchEngine : MonoBehaviour
             DefencePanelActive();
             yield return new WaitForSeconds(1f);
             AttackState();
-            AnnouncerText(announcerGrabSuccessful[announcerText]);
+            if (LocalizationManager.Language == "Türkçe")
+            {
+                AnnouncerText(announcerGrabSuccessfulTR[announcerText]);
+
+            }
+            else if (LocalizationManager.Language == "English")
+            {
+                AnnouncerText(announcerGrabSuccessfulEN[announcerTextEN]);
+            }
             AttackTimePanel.SetActive(true);
             yield return new WaitForSeconds(1.2f);
             AttackTimePanel.SetActive(false);
@@ -294,7 +381,15 @@ public class MatchEngine : MonoBehaviour
             press = firstPressRate;
             grab = firstGrabRate;
             AttackState();
-            AnnouncerText(announcerGrabUnsuccessful[announcerUnText]);
+            if (LocalizationManager.Language == "Türkçe")
+            {
+                AnnouncerText(announcerGrabUnsuccessfulTR[announcerUnText]);
+
+            }
+            else if (LocalizationManager.Language == "English")
+            {
+                AnnouncerText(announcerGrabUnsuccessfulEN[announcerUnTextEN]);
+            }
             StartCoroutine(PanelTime(AttackTimePanel));
         }
         RateTextUpdate();
@@ -306,8 +401,10 @@ public class MatchEngine : MonoBehaviour
     public IEnumerator PassButton()
     {
         float RandomRate = UnityEngine.Random.Range(0, 100);
-        int announcerText = UnityEngine.Random.Range(0, announcerPassSuccessful.Length);
-        int announcerUnText = UnityEngine.Random.Range(0, announcerPassUnsuccessful.Length);
+        int announcerText = UnityEngine.Random.Range(0, announcerPassSuccessfulTR.Length);
+        int announcerTextEN = UnityEngine.Random.Range(0, announcerPassSuccessfulEN.Length);
+        int announcerUnText = UnityEngine.Random.Range(0, announcerPassUnsuccessfulTR.Length);
+        int announcerUnTextEN = UnityEngine.Random.Range(0, announcerPassUnsuccessfulEN.Length);
         Debug.Log(RandomRate);
 
         if (RandomRate < pass)
@@ -315,9 +412,17 @@ public class MatchEngine : MonoBehaviour
             AttackPanelActive();
             yield return new WaitForSeconds(1f);
             AttackPanelActive();
-            AttackRate(10f, 5f, 3f);
+            AttackRate(5f, 3f, 2f);
             attackMove--;
-            AnnouncerText(announcerPassSuccessful[announcerText]);
+            if (LocalizationManager.Language == "Türkçe")
+            {
+                AnnouncerText(announcerPassSuccessfulTR[announcerText]);
+
+            }
+            else if (LocalizationManager.Language == "English")
+            {
+                AnnouncerText(announcerPassSuccessfulEN[announcerTextEN]);
+            }
             MoveTextUpdate();
 
         }
@@ -325,9 +430,17 @@ public class MatchEngine : MonoBehaviour
         {
             AttackPanelActive();
             yield return new WaitForSeconds(1f);
-            AttackRate(-5f, -5f, -3f);
+            AttackRate(-5f, -3f, -2f);
             DefenceState();
-            AnnouncerText(announcerPassUnsuccessful[announcerUnText]);
+            if (LocalizationManager.Language == "Türkçe")
+            {
+                AnnouncerText(announcerPassUnsuccessfulTR[announcerUnText]);
+
+            }
+            else if (LocalizationManager.Language == "English")
+            {
+                AnnouncerText(announcerPassUnsuccessfulEN[announcerUnTextEN]);
+            }
             StartCoroutine(PanelTime(DefenceTimePanel));
             MoveTextUpdate();
         }
@@ -341,8 +454,10 @@ public class MatchEngine : MonoBehaviour
     public IEnumerator DribbleButton()
     {
         float RandomRate = UnityEngine.Random.Range(0, 100);
-        int announcerText = UnityEngine.Random.Range(0, announcerDribbleSuccessful.Length);
-        int announcerUnText = UnityEngine.Random.Range(0, announcerDribbleUnsuccessful.Length);
+        int announcerText = UnityEngine.Random.Range(0, announcerDribbleSuccessfulTR.Length);
+        int announcerTextEN = UnityEngine.Random.Range(0, announcerDribbleSuccessfulEN.Length);
+        int announcerUnText = UnityEngine.Random.Range(0, announcerDribbleUnsuccessfulTR.Length);
+        int announcerUnTextEN = UnityEngine.Random.Range(0, announcerDribbleUnsuccessfulEN.Length);
         Debug.Log(RandomRate);
 
         if (RandomRate < dribble)
@@ -350,18 +465,36 @@ public class MatchEngine : MonoBehaviour
             AttackPanelActive();
             yield return new WaitForSeconds(1f);
             AttackPanelActive();
-            AttackRate(0f, 5f, 5f);
+            AttackRate(5f, 5f, 5f);
             attackMove--;
-            AnnouncerText(announcerDribbleSuccessful[announcerText]);
+
+            if (LocalizationManager.Language == "Türkçe")
+            {
+                AnnouncerText(announcerDribbleSuccessfulTR[announcerText]);
+
+            }
+            else if (LocalizationManager.Language == "English")
+            {
+                AnnouncerText(announcerDribbleSuccessfulEN[announcerTextEN]);
+            }
             MoveTextUpdate();
         }
         else
         {
             AttackPanelActive();
             yield return new WaitForSeconds(1f);
-            AttackRate(-8f, -5f, -5f);
+            AttackRate(-5f, -5f, -5f);
             DefenceState();
-            AnnouncerText(announcerDribbleUnsuccessful[announcerUnText]);
+
+            if (LocalizationManager.Language == "Türkçe")
+            {
+                AnnouncerText(announcerDribbleUnsuccessfulTR[announcerUnText]);
+
+            }
+            else if (LocalizationManager.Language == "English")
+            {
+                AnnouncerText(announcerDribbleUnsuccessfulEN[announcerUnTextEN]);
+            }
             StartCoroutine(PanelTime(DefenceTimePanel));
             MoveTextUpdate();
         }
@@ -375,8 +508,10 @@ public class MatchEngine : MonoBehaviour
     public IEnumerator ShootButton()
     {
         float RandomRate = UnityEngine.Random.Range(0, 100);
-        int announcerText = UnityEngine.Random.Range(0, announcerShootSuccessful.Length);
-        int announcerUnText = UnityEngine.Random.Range(0, announcerShootUnsuccessful.Length);
+        int announcerText = UnityEngine.Random.Range(0, announcerShootSuccessfulTR.Length);
+        int announcerTextEN = UnityEngine.Random.Range(0, announcerShootSuccessfulEN.Length);
+        int announcerUnText = UnityEngine.Random.Range(0, announcerShootUnsuccessfulTR.Length);
+        int announcerUnTextEN = UnityEngine.Random.Range(0, announcerShootUnsuccessfulEN.Length);
         Debug.Log(RandomRate);
 
         if (RandomRate < shoot)
@@ -386,7 +521,15 @@ public class MatchEngine : MonoBehaviour
             AttackPanelActive();
             myScore += 1;
             myScoreText.text = myScore.ToString();
-            AnnouncerText(announcerShootSuccessful[announcerText]);
+            if (LocalizationManager.Language == "Türkçe")
+            {
+                AnnouncerText(announcerShootSuccessfulTR[announcerText]);
+
+            }
+            else if (LocalizationManager.Language == "English")
+            {
+                AnnouncerText(announcerShootSuccessfulEN[announcerTextEN]);
+            }
             pass = firstPassRate;
             dribble = firstDribbleRate;
             shoot = firstShootRate;
@@ -398,9 +541,18 @@ public class MatchEngine : MonoBehaviour
         {
             AttackPanelActive();
             yield return new WaitForSeconds(1f);
-            AttackRate(-10f, -8f, -5f);
+            AttackRate(-8f, -8f, -5f);
             DefenceState();
-            AnnouncerText(announcerShootUnsuccessful[announcerUnText]);
+
+            if (LocalizationManager.Language == "Türkçe")
+            {
+                AnnouncerText(announcerShootUnsuccessfulTR[announcerUnText]);
+
+            }
+            else if (LocalizationManager.Language == "English")
+            {
+                AnnouncerText(announcerShootUnsuccessfulEN[announcerUnTextEN]);
+            }
             StartCoroutine(PanelTime(DefenceTimePanel));
             MoveTextUpdate();
 
@@ -448,7 +600,15 @@ public class MatchEngine : MonoBehaviour
         //Destroy(announcer.gameObject, 5f);
         announcer.Config(text);
     }
-
+    public void infoPanelsOpen(int number)
+    {
+        if (!infoPanels[number].activeSelf)
+        {
+            infoPanels[number].SetActive(true);
+        }
+        else
+            infoPanels[number].SetActive(false);        
+    }
     public void AttackPanelActive()
     {
         if (attackButtonPanel.activeSelf)

@@ -12,18 +12,21 @@ public class ShopManager : MonoBehaviour
     [Header(" Elements ")]
     [SerializeField] private UpgradeButton upgradeButton;
     [SerializeField] private Transform upgradeButtonsParent;
-    [SerializeField] private GameObject elevenPanel;
+    [SerializeField] private Transform myPlayersParents;
 
     [Header(" Data ")]
     [SerializeField] private UpgradeSO[] upgrades;
 
     [Header(" Actions ")]
     public static Action<int> onUpgradePurchased;
+    public static Action onPlayerPurchased;
 
 
     [Header("Settings")]
     [SerializeField] private Transform[] elevenPoints;
     [SerializeField] private TextMeshProUGUI[] elevenPointsText;
+    [SerializeField] private GameObject myPlayersTransform;
+    [SerializeField] private GameObject transferMarketTransform;
     int playerIndex;
 
     private void Awake()
@@ -42,19 +45,68 @@ public class ShopManager : MonoBehaviour
             int savedElevenIndex = PlayerPrefs.GetInt("Eleven" + i, -1); // -1 varsayýlan bir deðer
             if (savedElevenIndex != -1 && savedElevenIndex < upgrades.Length)
             {
-                elevenPoints[i].GetComponent<SpriteRenderer>().sprite = upgrades[savedElevenIndex].icon;
+                elevenPoints[i].GetComponent<SpriteRenderer>().sprite = upgrades[savedElevenIndex].bodyImage;
                 elevenPointsText[i].text = upgrades[savedElevenIndex].title;
             }
 
         }
+        //myPlayersTransform.SetActive(true);
+        //transferMarketTransform.SetActive(false);
+
     }
+    //public void MyPlayersPanelOpen()
+    //{
+    //    if (myPlayersTransform.activeSelf)
+    //    {
+    //        myPlayersTransform.SetActive(true);
+    //        transferMarketTransform.SetActive(false);
+    //        for (int i = 0; i < myPlayersParents.childCount; i++)
+    //        {
+    //            Destroy(myPlayersParents.GetChild(i).gameObject);
+    //            Debug.Log("çalýþtý");
+    //        }
+    //        SpawnMyPlayers();
+    //    }
+    //    else
+    //    {
+    //        myPlayersTransform.SetActive(true);
+    //        transferMarketTransform.SetActive(false);
+    //        SpawnMyPlayers();
+    //    }
+    //}
+    //public void TransferMarketPanelOpen()
+    //{
+    //    if (transferMarketTransform.activeSelf)
+    //    {
+    //        myPlayersTransform.SetActive(false);
+    //        transferMarketTransform.SetActive(true);
+    //    }
+    //    else
+    //    {
+    //        myPlayersTransform.SetActive(false);
+    //        transferMarketTransform.SetActive(true);
+    //    }
+    //}
 
     private void SpawnButtons()
     {
         for (int i = 0; i < upgrades.Length; i++)
             SpawnButton(i);      
     }
+    //private void SpawnMyPlayers()
+    //{
+    //    for (int i = 0; i < elevenPoints.Length; i++)
+    //    {
+    //        int savedElevenIndex = PlayerPrefs.GetInt("Eleven" + i, -1); // -1 varsayýlan bir deðer
+    //        if (savedElevenIndex != -1 && savedElevenIndex < upgrades.Length)
+    //        {
+    //            elevenPoints[i].GetComponent<SpriteRenderer>().sprite = upgrades[savedElevenIndex].bodyImage;
+    //            elevenPointsText[i].text = upgrades[savedElevenIndex].title;
+    //            myPlayerSpawn(i);
+    //        }
 
+    //    }
+    //}
     private void SpawnButton(int index)
     {
         UpgradeButton upgradeButtonInstance = Instantiate(upgradeButton, upgradeButtonsParent);
@@ -73,31 +125,71 @@ public class ShopManager : MonoBehaviour
 
         int genText = upgradeLevel + upgrade.gen;
 
-        Sprite icon = upgrade.icon;
+        Sprite bodyIcon = upgrade.bodyImage;
+        Sprite kitIcon = upgrade.kitImage;
+        Sprite faceIcon = upgrade.faceImage;
+        Sprite hairIcon = upgrade.hairImage;
         string title = upgrade.title;
         string gen = genText.ToString();
         string subtitle = string.Format("level{0} (+{1} Cps)", upgradeLevel, upgrade.cpsPerLevel);
         string price = GetUpgradePriceString(index);
         string pos = upgrade.pos.ToString();
 
-        upgradeButtonInstance.Configure(icon, title, subtitle, price,gen,pos);
+        upgradeButtonInstance.Configure(bodyIcon,kitIcon,faceIcon,hairIcon, title, subtitle, price,gen,pos);
 
         upgradeButtonInstance.GetUpgradeButton().onClick.AddListener(() => UpgradeButtonClickedCallback(index,upgradeButtonInstance,upgrade));
         upgradeButtonInstance.GetElevenButton().onClick.AddListener(() => ElevenButtonClickedCallback(index));
     }
+    //public void myPlayerSpawn(int index)
+    //{
+    //    UpgradeButton upgradeButtonInstance = Instantiate(upgradeButton, myPlayersParents);
+
+    //    UpgradeSO upgrade = upgrades[index];
+
+    //    int upgradeLevel = GetUpgradeLevel(index);
+
+    //    if (upgradeLevel == 0)
+    //        upgradeButtonInstance.GetBuyButton().gameObject.SetActive(true);
+    //    else
+    //        upgradeButtonInstance.GetBuyButton().gameObject.SetActive(false);
+
+
+
+
+    //    int genText = upgradeLevel + upgrade.gen;
+
+    //    Sprite bodyIcon = upgrade.bodyImage;
+    //    Sprite kitIcon = upgrade.kitImage;
+    //    Sprite faceIcon = upgrade.faceImage;
+    //    Sprite hairIcon = upgrade.hairImage;
+    //    string title = upgrade.title;
+    //    string gen = genText.ToString();
+    //    string subtitle = string.Format("level{0} (+{1} Cps)", upgradeLevel, upgrade.cpsPerLevel);
+    //    string price = GetUpgradePriceString(index);
+    //    string pos = upgrade.pos.ToString();
+
+    //    upgradeButtonInstance.Configure(bodyIcon, kitIcon, faceIcon, hairIcon, title, subtitle, price, gen, pos);
+
+    //    upgradeButtonInstance.GetUpgradeButton().onClick.AddListener(() => UpgradeButtonClickedCallback(index, upgradeButtonInstance, upgrade));
+    //    upgradeButtonInstance.GetElevenButton().onClick.AddListener(() => ElevenButtonClickedCallback(index));
+    //}
 
     private void UpgradeButtonClickedCallback(int upgradeIndex, UpgradeButton activeButton, UpgradeSO upgrade)
     {
-        if (PitchManager.instance.TryPurchase(GetUpgradePrice(upgradeIndex)))
+        if (DataManager.instance.TryPurchaseGold(GetUpgradePrice(upgradeIndex)))
         {
             IncreaseUpgradeLevel(upgradeIndex);
 
 
             if (upgradeIndex >= 0)
+            {
                 activeButton.GetBuyButton().gameObject.SetActive(false);
+                onPlayerPurchased?.Invoke();
+
+            }
 
 
-            PitchManager.instance.totalGen();
+            DataManager.instance.totalGen();
             UIManager.instance.UpdateSlider();
 
         }
@@ -114,65 +206,65 @@ public class ShopManager : MonoBehaviour
             switch (upgrade.pos)
             {
                 case PlayerPos.GK:
-                    elevenPoints[0].GetComponent<SpriteRenderer>().sprite = upgrade.icon;
-                    elevenPointsText[0].text=upgrade.title;
+                    elevenPoints[0].GetComponent<SpriteRenderer>().sprite = upgrade.bodyImage;
+                    elevenPointsText[0].text = upgrade.title;
                     PlayerPrefs.SetInt("Eleven" + 0, elevenIndex);
                     break;
                 case PlayerPos.LCB:
-                    elevenPoints[1].GetComponent<SpriteRenderer>().sprite = upgrade.icon;
+                    elevenPoints[1].GetComponent<SpriteRenderer>().sprite = upgrade.bodyImage;
                     elevenPointsText[1].text = upgrade.title;
                     PlayerPrefs.SetInt("Eleven" + 1, elevenIndex);
                     break;
                 case PlayerPos.RCB:
-                    elevenPoints[2].GetComponent<SpriteRenderer>().sprite = upgrade.icon;
+                    elevenPoints[2].GetComponent<SpriteRenderer>().sprite = upgrade.bodyImage;
                     elevenPointsText[2].text = upgrade.title;
                     PlayerPrefs.SetInt("Eleven" + 2, elevenIndex);
                     break;
                 case PlayerPos.LB:
-                    elevenPoints[3].GetComponent<SpriteRenderer>().sprite = upgrade.icon;
+                    elevenPoints[3].GetComponent<SpriteRenderer>().sprite = upgrade.bodyImage;
 
                     elevenPointsText[3].text = upgrade.title;
                     PlayerPrefs.SetInt("Eleven" + 3, elevenIndex);
                     break;
                 case PlayerPos.RB:
-                    elevenPoints[4].GetComponent<SpriteRenderer>().sprite = upgrade.icon;
+                    elevenPoints[4].GetComponent<SpriteRenderer>().sprite = upgrade.bodyImage;
                     elevenPointsText[4].text = upgrade.title;
                     PlayerPrefs.SetInt("Eleven" + 4, elevenIndex);
                     break;
                 case PlayerPos.LM:
-                    elevenPoints[5].GetComponent<SpriteRenderer>().sprite = upgrade.icon;
+                    elevenPoints[5].GetComponent<SpriteRenderer>().sprite = upgrade.bodyImage;
                     elevenPointsText[5].text = upgrade.title;
                     PlayerPrefs.SetInt("Eleven" + 5, elevenIndex);
                     break;
                 case PlayerPos.RM:
-                    elevenPoints[6].GetComponent<SpriteRenderer>().sprite = upgrade.icon;
+                    elevenPoints[6].GetComponent<SpriteRenderer>().sprite = upgrade.bodyImage;
                     elevenPointsText[6].text = upgrade.title;
                     PlayerPrefs.SetInt("Eleven" + 6, elevenIndex);
                     break;
                 case PlayerPos.CM:
-                    elevenPoints[7].GetComponent<SpriteRenderer>().sprite = upgrade.icon;
+                    elevenPoints[7].GetComponent<SpriteRenderer>().sprite = upgrade.bodyImage;
                     elevenPointsText[7].text = upgrade.title;
                     PlayerPrefs.SetInt("Eleven" + 7, elevenIndex);
                     break;
                 case PlayerPos.LW:
-                    elevenPoints[8].GetComponent<SpriteRenderer>().sprite = upgrade.icon;
+                    elevenPoints[8].GetComponent<SpriteRenderer>().sprite = upgrade.bodyImage;
                     elevenPointsText[8].text = upgrade.title;
                     PlayerPrefs.SetInt("Eleven" + 8, elevenIndex);
                     break;
                 case PlayerPos.RW:
-                    elevenPoints[9].GetComponent<SpriteRenderer>().sprite = upgrade.icon;
+                    elevenPoints[9].GetComponent<SpriteRenderer>().sprite = upgrade.bodyImage;
                     elevenPointsText[9].text = upgrade.title;
                     PlayerPrefs.SetInt("Eleven" + 9, elevenIndex);
                     break;
                 case PlayerPos.ST:
-                    elevenPoints[10].GetComponent<SpriteRenderer>().sprite = upgrade.icon;
+                    elevenPoints[10].GetComponent<SpriteRenderer>().sprite = upgrade.bodyImage;
                     elevenPointsText[10].text = upgrade.title;
                     PlayerPrefs.SetInt("Eleven" + 10, elevenIndex);
                     break;
                 default:
                     break;
             }
-            PitchManager.instance.totalGen();
+            DataManager.instance.totalGen();
             UIManager.instance.UpdateSlider();
 
         }
@@ -181,33 +273,6 @@ public class ShopManager : MonoBehaviour
             Debug.LogError("Hatalý eleven indeksi!");
         }
     }
-
-    //public void AddEleven(int index)
-    //{
-
-    //    if (playerIndex != -1 && playerIndex < upgrades.Length)
-    //    {
-    //        UpgradeSO upgrade = upgrades[playerIndex];
-
-    //        if (index >= 0 && index < elevenPoints.Length)
-    //        {
-    //            Debug.Log("çalýþtý");
-    //            elevenPoints[index].GetComponent<SpriteRenderer>().sprite = upgrade.icon;
-    //            elevenPanel.SetActive(false);
-    //            PlayerPrefs.SetInt("Eleven" + index, playerIndex);
-
-    //            PitchManager.instance.totalGen();
-    //        }
-    //        else
-    //        {
-    //            Debug.LogError("Hatalý eleven pozisyonu!");
-    //        }
-    //    }
-    //    else
-    //    {
-    //        Debug.LogError("Geçerli bir eleven oyuncusu seçilmemiþ!");
-    //    }
-    //}
 
 
 

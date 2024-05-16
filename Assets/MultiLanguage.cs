@@ -19,7 +19,7 @@ public class MultiLanguage : MonoBehaviour
                 LocalizationManager.Language = "Türkçe";
                 break;
             default:
-                LocalizationManager.Language = "Türkçe";
+                LocalizationManager.Language = "English";
                 break;
 
 

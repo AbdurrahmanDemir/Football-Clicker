@@ -6,7 +6,10 @@ using UnityEngine;
 public class UpgradeSO : ScriptableObject
 {
     [Header(" General ")]
-    public Sprite icon;
+    public Sprite bodyImage;
+    public Sprite kitImage;
+    public Sprite faceImage;
+    public Sprite hairImage;
     public string title;
     public int gen;
     public PlayerPos pos;

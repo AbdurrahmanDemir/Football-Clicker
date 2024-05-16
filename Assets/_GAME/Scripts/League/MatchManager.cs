@@ -28,13 +28,15 @@ public class MatchManager : MonoBehaviour
     private int myGen;
     public int myGoal;
     public int opponentGoal;
-    private bool isMatchStart=false;
+    private bool isMatchStart = false;
 
     [Header("New Match")]
     MatchEngine matchEngine;
     public GameObject matchScene;
 
 
+    [Header("Action")]
+    public static Action onPlayMatch;
 
 
 
@@ -69,11 +71,11 @@ public class MatchManager : MonoBehaviour
     {
         TeamSO team = teams[index];
 
-        myGenText.text = PitchManager.instance.GetTotalGen().ToString();
+        myGenText.text = DataManager.instance.GetTotalGen().ToString();
         oppenentGenText.text = (team.teamDefGen+ team.teamMidGen+team.teamForGen).ToString();
 
         matchEngine.OpponentTeamConfig(team.teamDefGen,team.teamMidGen,team.teamForGen);
-        matchEngine.MyTeamConfig(PitchManager.instance.GetDefGen(), PitchManager.instance.GetMidGen(), PitchManager.instance.GetForGen());
+        matchEngine.MyTeamConfig(DataManager.instance.GetDefGen(), DataManager.instance.GetMidGen(), DataManager.instance.GetForGen());
         matchEngine.CalculateRate();
 
         myGoalText.text = "0";
@@ -94,14 +96,15 @@ public class MatchManager : MonoBehaviour
     public void StartButton(int index)
     {
         TeamSO team = teams[index];
-        myGen = PitchManager.instance.GetTotalGen();
+        myGen = DataManager.instance.GetTotalGen();
         int opponentGen = team.teamDefGen + team.teamMidGen + team.teamForGen;
 
-        if (PitchManager.instance.TryPurchase(team.teamPrice))
+        if (DataManager.instance.TryPurchaseGold(team.teamPrice))
         {
             isMatchStart = true;
             startButton.SetActive(false);
             matchScene.SetActive(true);
+            onPlayMatch?.Invoke();
 
             if (!PlayerPrefs.HasKey("TutorialPanel3"))
             {
@@ -129,6 +132,7 @@ public class MatchManager : MonoBehaviour
             opponentGoalText.text = opponentGoal.ToString();
             timeText.text = "90'";
             resultText.text = "KAZANDIN";
+
             LeagueManager.instance.SetLevel();
         }
         else
@@ -147,5 +151,10 @@ public class MatchManager : MonoBehaviour
         matchPanel.SetActive(false);
 
         LeagueManager.instance.SpawnTeams();
+    }
+    public void SaveWinTeam(string text)
+    {
+
+        PlayerPrefs.SetInt(text, 1);
     }
 }

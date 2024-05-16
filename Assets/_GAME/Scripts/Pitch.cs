@@ -14,10 +14,6 @@ public class Pitch : MonoBehaviour
     [SerializeField] private float fillRate;
     private bool isFrenzyModeActive;
 
-    [Header(" Actions ")]
-    public static Action onFrenzyModeStarted;
-    public static Action onFrenzyModeStopped;
-
     private void Awake()
     {
         InputManager.onPitchClicked += CarrotClickedCallback;
@@ -63,13 +59,11 @@ public class Pitch : MonoBehaviour
         LeanTween.value(1, 0, 5).setOnUpdate((value) => fillImage.fillAmount = value)
             .setOnComplete(StopFrenzyMode);
 
-        onFrenzyModeStarted?.Invoke();
     }
 
     private void StopFrenzyMode()
     {
         isFrenzyModeActive = false;
 
-        onFrenzyModeStopped?.Invoke();
     }
 }

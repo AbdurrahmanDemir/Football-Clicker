@@ -36,7 +36,7 @@ public class OfflineEarningsUI : MonoBehaviour
 
         popup.gameObject.SetActive(false);
 
-        PitchManager.instance.AddCarrots(earnings);
+        DataManager.instance.AddGoldDouble(earnings);
 
     }
 }

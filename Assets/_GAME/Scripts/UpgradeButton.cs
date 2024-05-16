@@ -7,7 +7,10 @@ using UnityEngine.UI;
 public class UpgradeButton : MonoBehaviour
 {
     [Header(" Elements ")]
-    [SerializeField] private Image iconImage;
+    [SerializeField] private Image bodyImage;
+    [SerializeField] private Image kitImage;
+    [SerializeField] private Image faceImage;
+    [SerializeField] private Image hairImage;
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private TextMeshProUGUI subtitleText;
     [SerializeField] private TextMeshProUGUI priceText;
@@ -17,9 +20,12 @@ public class UpgradeButton : MonoBehaviour
     [SerializeField] private Button elevenButton;
     [SerializeField] private Button buyButton;
 
-    public void Configure(Sprite icon, string title, string subtitle, string price,string gen,string pos)
+    public void Configure(Sprite body, Sprite kit, Sprite face, Sprite hair, string title, string subtitle, string price,string gen,string pos)
     {
-        iconImage.sprite = icon;
+        bodyImage.sprite = body;
+        kitImage.sprite = kit;
+        faceImage.sprite = face;
+        hairImage.sprite = hair;
         titleText.text = title;
         genText.text = gen;
         posText.text = pos;

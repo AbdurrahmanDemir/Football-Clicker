@@ -44,6 +44,14 @@ public class UIShopManager : MonoBehaviour
             
     }
 
+    public void HousePanelOpen()
+    {
+        LeanTween.move(elevenPanel, elevenClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
+        LeanTween.move(shopPanel, shopClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
+        LeanTween.move(leaderboardPanel, leaderboardClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
+        LeanTween.move(leaguePanel, leagueClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
+    }
+
     public void ElevenPanelOpen()
     {        
         LeanTween.cancel(elevenPanel);
@@ -87,7 +95,7 @@ public class UIShopManager : MonoBehaviour
         LeanTween.move(shopPanel, shopClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
         LeanTween.move(leaguePanel, leagueClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
 
-        PlayfabManager.instance.SendLeaderboard(PitchManager.instance.totalTeamGen);
+        //PlayfabManager.instance.SendLeaderboard(DataManager.instance.totalTeamGen);
     }
 
     public void LeaderboardPanelClose()

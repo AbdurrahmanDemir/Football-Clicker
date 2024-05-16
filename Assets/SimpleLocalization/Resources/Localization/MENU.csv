@@ -25,18 +25,41 @@ Sahaya her tiklamanda altin kazanirsin.
 Kazandigin altinlar ile futbolcular al. "
 Tutorial3,"You have 3 moves when attacking. When you pass and dribble, if you are successful, the odds increase. If you fail, you lose the ball.",Atak yaparken 3 hamle hakkin var. Pas ve Dribling yaptiğinda eğer başarili olursan oranlar artar. Başarisiz olursan topu kaybedersin.
 Tutorial4,"If you are successful when pressing, the odds increase. If you fail on the last move, you will concede a goal. If you cast ""GRABB"" and succeed, the attack passes to you. If you fail, you will concede a goal.","Eğer pres yaparken başarili olursan oranlar artar. Son hamlede başarisiz olursan gol yersin. ""KAY"" yapip başarili olursan atak sana geçer. Başarisiz olursan gol yersin. "
-Tutorial2,"1-Oyuncuyu satin almak icin 1.seviyeye yükselt. 
-
-2-Her oyuncu sadece altinda yazan pozisyonda oynar. Eğer orda başka biri varsa onun yerine geçer.
-
-3-Her yükseltmede oyuncunun otomatik altim kazandirma orani artar.
-
-DAHA DETAYLİ BİLGİ İCİN TİKLA.","1-Upgrade the player to level 1 to purchase it.
+Tutorial2,"1-Upgrade the player to level 1 to purchase it.
 
 2-Each player plays only in the position written below. If there is someone else there, he takes his place.
 
 3-With each upgrade, the player's automatic gold gain rate increases.
 
-CLICK FOR MORE DETAILED INFORMATION."
+CLICK FOR MORE DETAILED INFORMATION.","1-Oyuncuyu satin almak icin 1.seviyeye yükselt. 
+
+2-Her oyuncu sadece altinda yazan pozisyonda oynar. Eğer orda başka biri varsa onun yerine geçer.
+
+3-Her yükseltmede oyuncunun otomatik altin kazandirma orani artar.
+
+DAHA DETAYLİ BİLGİ İCİN TİKLA."
 AttackTime,ATTACK TIME!,ATAK ZAMANI!
 DefenceTime,DEFENCE TIME!,DEFANS ZAMANI!
+SettingsText,Settings,Ayarlar
+SupportText,Support,Destek
+Inbox1,Welcome! Play the simplest and most exciting version of football. Meet other players by joining our Discord server or Facebook group. We have a small gift for those who participate.,Hoşgeldin! Futbolun basit ve en heyecanlı halini oyna. Discord sunucumuza veya Facebook grubumuza katılarak diğer oyuncularla buluş. Katılanlara küçük bir hediyemiz var.
+firsteleven,FIRST ELEVEN,ILK 11
+ClubProfileText,CLUB PROFILE,KULUP PROFILI
+RemainingMoveAttack,REMAINING MOVES TO END THE ATTACK:,KALAN HAMLE SAYISI:
+RemainingMoveDefence,REMAINING MOVES TO END THE DEFENCE:,KALAN HAMLE SAYISI:
+InfoPass,"If you are successful when you pass, the odds increase. If you fail, the odds decrease.
+If you cannot score at the end of the attack, the odds are preserved and the next attack continues at the same rate. If you score a goal, it goes back to the starting odds.","Pas attiginda eger basarili olursan oranlar artar. Basarisiz olursan oranlar azalir. 
+Atak sonunda gol atamazsan oranlar korunur ve sonraki atak kaldigin orandan devam eder. Eger gol atarsan mac basindaki oranlara geri donersin."
+InfoDribble,"If dribbling is successful, other attack rates increase. If you fail, the odds go down.
+If you cannot score at the end of the attack, the odds are preserved and the next attack continues at the same rate. If you score a goal you go back to the starting odds.","Dribling basarili olursa diger atak oranlari artar. Eger basarisiz olursan oranlar düser. 
+Atak sonunda gol atamazsan oranlar korunur ve sonraki atak kaldigin orandan devam eder. Eger gol atarsan mac basindaki oranlara geri donersin."
+InfoShoot,"If you score a goal, all attack rates return to their initial state and you switch to defense. If you don't score, the odds are maintained and you switch to defense again.",Eger gol atarsan tüm atak oranlar mac basindaki haline döner ve defansa gecersin. Gol atamazsan oranlar korunur ve yine defansa gecersin. 
+InfoPress,"If you are successful while pressing, the rates increase. If you fail, the rates go down.
+If you press in your last defensive move, if you are successful you will attack, but if you fail you will concede a goal. Develop your tactics accordingly. Identify risks.","Pres yaparken basarili olursan oranlar artar. Basarisiz olursan oranlar düser.
+Eger son defans hamlende pres yaparsan basarili olursan atağa gecersin ama basarisiz olursan gol yersin. Ona göre taktigi gelistir. Riskleri belirle."
+InfoGrab,"If you slip and succeed, you will attack. If you fail, you concede a goal. This is the most critical button. You can press first, increase the rates and slide at the end.",Kayma yaparsan ve basarili olursan ataga gecersin. Eger basarisiz olursan gol yersin. En kritik buton budur. Once pres yapip oranlari yükseltip en sonda kayma yapabilirsin.
+PassText,PASS,PAS 
+DribbleText,DRIBBLE,DRIBLING  
+ShootText,SHOOT,SUT
+PressText,PRESS,PRES
+GrabText,GRAB,TOPA KAY

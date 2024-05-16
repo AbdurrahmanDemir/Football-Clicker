@@ -6,7 +6,7 @@ using UnityEngine.Pool;
 public class BonusParticlesManager : MonoBehaviour
 {
     [Header(" Elements ")]
-    [SerializeField] private PitchManager carrotManager;
+    [SerializeField] private DataManager carrotManager;
     [SerializeField] private GameObject bonusParticlePrefab;
 
 

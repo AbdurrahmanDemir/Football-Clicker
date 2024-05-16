@@ -38,7 +38,7 @@ public class UpgradeManager : MonoBehaviour
         double totalCarrots = GetCarrotsPerSecond();
 
         // At this point we have the amount of carrots we need to add every second
-        PitchManager.instance.AddCarrots(totalCarrots / addCarrotsFrequency);
+        DataManager.instance.AddGoldDouble(totalCarrots / addCarrotsFrequency);
     }
 
     public double GetCarrotsPerSecond()

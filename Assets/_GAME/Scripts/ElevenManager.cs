@@ -22,7 +22,7 @@ public class ElevenManager : MonoBehaviour
 
     public void AddEleven( int elevenIndex)
     {
-        elevenPoints[1].GetComponent<SpriteRenderer>().sprite = upgrades[elevenIndex].icon;
+        elevenPoints[1].GetComponent<SpriteRenderer>().sprite = upgrades[elevenIndex].bodyImage;
     }
 
 }
