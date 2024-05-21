@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: 03_MertKizar
   m_EditorClassIdentifier: 
   bodyImage: {fileID: 21300000, guid: 5de03d0e91829474daaf0a916af221e6, type: 3}
-  kitImage: {fileID: 21300000, guid: 9ddd7b413e0544edca2785f0a89496ea, type: 3}
+  kitImage: {fileID: 21300000, guid: 7f2454d649c314364a7f824ad8383ec3, type: 3}
   faceImage: {fileID: 21300000, guid: 81ed306d4da7b40a79b119636e9a8a0f, type: 3}
   hairImage: {fileID: 21300000, guid: d03e57756b5d74bf8a50710b11affff7, type: 3}
   title: Mert Kizar
   gen: 51
   pos: 3
-  cpsPerLevel: 0.8
-  basePrice: 10000
+  cpsPerLevel: 0.5
+  basePrice: 1000
   coefficient: 1.15

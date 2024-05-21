@@ -25,8 +25,6 @@ public class ShopManager : MonoBehaviour
     [Header("Settings")]
     [SerializeField] private Transform[] elevenPoints;
     [SerializeField] private TextMeshProUGUI[] elevenPointsText;
-    [SerializeField] private GameObject myPlayersTransform;
-    [SerializeField] private GameObject transferMarketTransform;
     int playerIndex;
 
     private void Awake()
@@ -50,63 +48,16 @@ public class ShopManager : MonoBehaviour
             }
 
         }
-        //myPlayersTransform.SetActive(true);
-        //transferMarketTransform.SetActive(false);
 
     }
-    //public void MyPlayersPanelOpen()
-    //{
-    //    if (myPlayersTransform.activeSelf)
-    //    {
-    //        myPlayersTransform.SetActive(true);
-    //        transferMarketTransform.SetActive(false);
-    //        for (int i = 0; i < myPlayersParents.childCount; i++)
-    //        {
-    //            Destroy(myPlayersParents.GetChild(i).gameObject);
-    //            Debug.Log("çalýþtý");
-    //        }
-    //        SpawnMyPlayers();
-    //    }
-    //    else
-    //    {
-    //        myPlayersTransform.SetActive(true);
-    //        transferMarketTransform.SetActive(false);
-    //        SpawnMyPlayers();
-    //    }
-    //}
-    //public void TransferMarketPanelOpen()
-    //{
-    //    if (transferMarketTransform.activeSelf)
-    //    {
-    //        myPlayersTransform.SetActive(false);
-    //        transferMarketTransform.SetActive(true);
-    //    }
-    //    else
-    //    {
-    //        myPlayersTransform.SetActive(false);
-    //        transferMarketTransform.SetActive(true);
-    //    }
-    //}
+    
 
     private void SpawnButtons()
     {
         for (int i = 0; i < upgrades.Length; i++)
             SpawnButton(i);      
     }
-    //private void SpawnMyPlayers()
-    //{
-    //    for (int i = 0; i < elevenPoints.Length; i++)
-    //    {
-    //        int savedElevenIndex = PlayerPrefs.GetInt("Eleven" + i, -1); // -1 varsayýlan bir deðer
-    //        if (savedElevenIndex != -1 && savedElevenIndex < upgrades.Length)
-    //        {
-    //            elevenPoints[i].GetComponent<SpriteRenderer>().sprite = upgrades[savedElevenIndex].bodyImage;
-    //            elevenPointsText[i].text = upgrades[savedElevenIndex].title;
-    //            myPlayerSpawn(i);
-    //        }
-
-    //    }
-    //}
+   
     private void SpawnButton(int index)
     {
         UpgradeButton upgradeButtonInstance = Instantiate(upgradeButton, upgradeButtonsParent);
@@ -140,39 +91,7 @@ public class ShopManager : MonoBehaviour
         upgradeButtonInstance.GetUpgradeButton().onClick.AddListener(() => UpgradeButtonClickedCallback(index,upgradeButtonInstance,upgrade));
         upgradeButtonInstance.GetElevenButton().onClick.AddListener(() => ElevenButtonClickedCallback(index));
     }
-    //public void myPlayerSpawn(int index)
-    //{
-    //    UpgradeButton upgradeButtonInstance = Instantiate(upgradeButton, myPlayersParents);
-
-    //    UpgradeSO upgrade = upgrades[index];
-
-    //    int upgradeLevel = GetUpgradeLevel(index);
-
-    //    if (upgradeLevel == 0)
-    //        upgradeButtonInstance.GetBuyButton().gameObject.SetActive(true);
-    //    else
-    //        upgradeButtonInstance.GetBuyButton().gameObject.SetActive(false);
-
-
-
-
-    //    int genText = upgradeLevel + upgrade.gen;
-
-    //    Sprite bodyIcon = upgrade.bodyImage;
-    //    Sprite kitIcon = upgrade.kitImage;
-    //    Sprite faceIcon = upgrade.faceImage;
-    //    Sprite hairIcon = upgrade.hairImage;
-    //    string title = upgrade.title;
-    //    string gen = genText.ToString();
-    //    string subtitle = string.Format("level{0} (+{1} Cps)", upgradeLevel, upgrade.cpsPerLevel);
-    //    string price = GetUpgradePriceString(index);
-    //    string pos = upgrade.pos.ToString();
-
-    //    upgradeButtonInstance.Configure(bodyIcon, kitIcon, faceIcon, hairIcon, title, subtitle, price, gen, pos);
-
-    //    upgradeButtonInstance.GetUpgradeButton().onClick.AddListener(() => UpgradeButtonClickedCallback(index, upgradeButtonInstance, upgrade));
-    //    upgradeButtonInstance.GetElevenButton().onClick.AddListener(() => ElevenButtonClickedCallback(index));
-    //}
+ 
 
     private void UpgradeButtonClickedCallback(int upgradeIndex, UpgradeButton activeButton, UpgradeSO upgrade)
     {

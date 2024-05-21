@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: 998_Messi
   m_EditorClassIdentifier: 
   bodyImage: {fileID: 21300000, guid: b756df9f213c1412787411e3f309d974, type: 3}
-  kitImage: {fileID: 21300000, guid: e7a3f6632fbf44cee80ed7365855041f, type: 3}
-  faceImage: {fileID: 21300000, guid: baabcfee76d4f422fa2d9ab783ee38b0, type: 3}
-  hairImage: {fileID: 21300000, guid: d471844bdbd494332976538d3518f3e3, type: 3}
+  kitImage: {fileID: 21300000, guid: 23a19f6a5c3944843a3a9ff7f0b31b45, type: 3}
+  faceImage: {fileID: 21300000, guid: 81ed306d4da7b40a79b119636e9a8a0f, type: 3}
+  hairImage: {fileID: 21300000, guid: c501879b455744ca29be92cb4c24c7fd, type: 3}
   title: Messi
   gen: 150
   pos: 10
-  cpsPerLevel: 0.8
+  cpsPerLevel: 5
   basePrice: 10000
   coefficient: 1.15

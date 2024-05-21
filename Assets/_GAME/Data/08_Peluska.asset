@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: 08_Peluska
   m_EditorClassIdentifier: 
   bodyImage: {fileID: 21300000, guid: b756df9f213c1412787411e3f309d974, type: 3}
-  kitImage: {fileID: 21300000, guid: 9ddd7b413e0544edca2785f0a89496ea, type: 3}
+  kitImage: {fileID: 21300000, guid: 7f2454d649c314364a7f824ad8383ec3, type: 3}
   faceImage: {fileID: 21300000, guid: 81ed306d4da7b40a79b119636e9a8a0f, type: 3}
   hairImage: {fileID: 21300000, guid: 81c2c221fd76045ed9b3a0d53086305a, type: 3}
   title: Peluska
   gen: 55
   pos: 8
-  cpsPerLevel: 0.8
-  basePrice: 10000
+  cpsPerLevel: 0.7
+  basePrice: 3000
   coefficient: 1.15

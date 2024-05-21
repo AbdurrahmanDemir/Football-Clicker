@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: 01_MartinAlgelsen
   m_EditorClassIdentifier: 
   bodyImage: {fileID: 21300000, guid: 5de03d0e91829474daaf0a916af221e6, type: 3}
-  kitImage: {fileID: 21300000, guid: 9ddd7b413e0544edca2785f0a89496ea, type: 3}
+  kitImage: {fileID: 21300000, guid: 7f2454d649c314364a7f824ad8383ec3, type: 3}
   faceImage: {fileID: 21300000, guid: baabcfee76d4f422fa2d9ab783ee38b0, type: 3}
   hairImage: {fileID: 21300000, guid: d471844bdbd494332976538d3518f3e3, type: 3}
   title: Martin Algelsen
   gen: 49
   pos: 1
-  cpsPerLevel: 0.8
-  basePrice: 10000
+  cpsPerLevel: 0.5
+  basePrice: 450
   coefficient: 1.15
