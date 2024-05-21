@@ -12,6 +12,7 @@ public class QuestTracker : MonoBehaviour
         InputManager.onPitchClickedQuest += ClickedCallback;
         MatchManager.onPlayMatch+=PlayMatchCallback;
         ShopManager.onPlayerPurchased += BuyPlayersCallback;
+        ShopManager.onPlayerUpgrade += PlayerUpgradesCallback;
         DataManager.onUpgradeClubHouse += ClubHouseUpgradeCallback;
     }
     
@@ -20,6 +21,7 @@ public class QuestTracker : MonoBehaviour
         InputManager.onPitchClickedQuest -= ClickedCallback;
         MatchManager.onPlayMatch -= PlayMatchCallback;
         ShopManager.onPlayerPurchased -= BuyPlayersCallback;
+        ShopManager.onPlayerUpgrade -= PlayerUpgradesCallback;
         DataManager.onUpgradeClubHouse -= ClubHouseUpgradeCallback;
     }
 
@@ -63,6 +65,26 @@ public class QuestTracker : MonoBehaviour
             }
         }
     }
+    private void PlayerUpgradesCallback()
+    {
+        Dictionary<int, Quest> quests = new Dictionary<int, Quest>(questManager.GetCurrentQuest());
+
+        foreach (KeyValuePair<int, Quest> questData in quests)
+        {
+            Quest quest = questData.Value;
+
+            if (quest.Type == QuestType.PlayerUpgrade)
+            {
+                int currentTowerLevel = (int)(quest.progress * quest.target);
+                currentTowerLevel++;
+
+                float newProgress = (float)currentTowerLevel / quest.target;
+
+                questManager.UpdateQuestProgress(questData.Key, newProgress);
+            }
+        }
+    }
+
 
 
     private void PlayMatchCallback()

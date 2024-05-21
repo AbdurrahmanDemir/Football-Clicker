@@ -119,6 +119,8 @@ public class QuestManager : MonoBehaviour
                 return "Play " + quest.target.ToString() + " Matches";
             case QuestType.ClubHoseUpgrade:
                 return "Upgrade " + quest.target.ToString() + " Club House";
+            case QuestType.PlayerUpgrade:
+                return "Upgrade " + quest.target.ToString() + " Players";
 
 
             default:
@@ -181,7 +183,7 @@ public class QuestManager : MonoBehaviour
 
     }
 }
-public enum QuestType { Click, BuyPlayers, PlayMatch, AdsWatch, ClubHoseUpgrade } //Görev türlerini belirliyoruz
+public enum QuestType { Click, BuyPlayers, PlayMatch, AdsWatch, ClubHoseUpgrade, PlayerUpgrade } //Görev türlerini belirliyoruz
 
 [System.Serializable]
 public struct Quest

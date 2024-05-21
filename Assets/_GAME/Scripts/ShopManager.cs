@@ -20,6 +20,7 @@ public class ShopManager : MonoBehaviour
     [Header(" Actions ")]
     public static Action<int> onUpgradePurchased;
     public static Action onPlayerPurchased;
+    public static Action onPlayerUpgrade;
 
 
     [Header("Settings")]
@@ -98,6 +99,7 @@ public class ShopManager : MonoBehaviour
         if (DataManager.instance.TryPurchaseGold(GetUpgradePrice(upgradeIndex)))
         {
             IncreaseUpgradeLevel(upgradeIndex);
+            onPlayerUpgrade?.Invoke();
 
 
             if (upgradeIndex >= 0)
