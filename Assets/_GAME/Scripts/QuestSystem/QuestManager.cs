@@ -81,7 +81,7 @@ public class QuestManager : MonoBehaviour
 
             uncompletedQuestDictionnary.Add(i, quest);
 
-            if (uncompletedQuestDictionnary.Count >= 3)
+            if (uncompletedQuestDictionnary.Count >= 5)
                 break;
         }
     }

@@ -10,6 +10,8 @@ public class Pitch : MonoBehaviour
     [SerializeField] private Transform pitchRenderer;
     [SerializeField] private Image fillImage;
 
+    public static Action onPitchClickedQuest;
+
     [Header(" Settings ")]
     [SerializeField] private float fillRate;
     private bool isFrenzyModeActive;
@@ -39,10 +41,8 @@ public class Pitch : MonoBehaviour
     {
         //// Animate the Carrot Renderer
         Animate();
+        onPitchClickedQuest?.Invoke();
 
-        //// Fill the carrot image
-        //if(!isFrenzyModeActive)
-        //    Fill();
     }
 
     private void Animate()
@@ -52,18 +52,5 @@ public class Pitch : MonoBehaviour
         LeanTween.scale(pitchRenderer.gameObject, Vector3.one * 1.1f, .15f).setLoopPingPong(1);
     }
 
-    private void StartFrenzyMode()
-    {
-        isFrenzyModeActive = true;
 
-        LeanTween.value(1, 0, 5).setOnUpdate((value) => fillImage.fillAmount = value)
-            .setOnComplete(StopFrenzyMode);
-
-    }
-
-    private void StopFrenzyMode()
-    {
-        isFrenzyModeActive = false;
-
-    }
 }

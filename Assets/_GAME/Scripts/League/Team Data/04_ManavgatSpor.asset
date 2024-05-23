@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teamLogo: {fileID: 21300000, guid: 749c76714cd9a6a45878b61d086879dc, type: 3}
   teamName: Manavgat
-  teamDefGen: 150
+  teamDefGen: 0
   teamMidGen: 188
   teamForGen: 190
   teamPrice: 200

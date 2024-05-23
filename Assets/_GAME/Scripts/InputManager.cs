@@ -7,7 +7,6 @@ public class InputManager : MonoBehaviour
 {
     [Header(" Actions ")]
     public static Action onPitchClicked;
-    public static Action onPitchClickedQuest;
 
     public static Action<Vector2> onPitchClickedPosition;
 
@@ -21,11 +20,15 @@ public class InputManager : MonoBehaviour
     void Update()
     {
         if (Input.touchCount > 0)
+        {
             ManageTouches();
+        }
 
         
         if (Input.GetMouseButtonDown(0))
+        {
             ThrowRaycast(Input.mousePosition);
+        }
     }
 
     private void ManageTouches()
@@ -49,7 +52,6 @@ public class InputManager : MonoBehaviour
 
 
         onPitchClicked?.Invoke();
-        onPitchClickedQuest?.Invoke();
 
 
         onPitchClickedPosition?.Invoke(hit.point);

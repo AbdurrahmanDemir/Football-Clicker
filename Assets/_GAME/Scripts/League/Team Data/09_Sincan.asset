@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teamLogo: {fileID: 21300000, guid: f9f9547cfd43f48799eb35ebf9d37c19, type: 3}
   teamName: Sincan B.
-  teamDefGen: 350
-  teamMidGen: 377
-  teamForGen: 489
-  teamPrice: 650
+  teamDefGen: 0
+  teamMidGen: 100
+  teamForGen: 100
+  teamPrice: 100

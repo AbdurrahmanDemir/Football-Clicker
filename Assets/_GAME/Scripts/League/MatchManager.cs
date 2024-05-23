@@ -154,34 +154,10 @@ public class MatchManager : MonoBehaviour
             resultText.text = "KAYBETTÝN";
         }
     }
-    //public void MatchEnd(int myScore, int opponentScore)
-    //{
-    //    if (myScore > opponentScore)
-    //    {
-    //        myGoal = myScore;
-    //        opponentGoal = opponentScore;
-    //        myGoalText.text = myGoal.ToString();
-    //        opponentGoalText.text = opponentGoal.ToString();
-    //        timeText.text = "90'";
-    //        resultText.text = "KAZANDIN";
-
-    //        LeagueManager.instance.SetLevel();
-    //    }
-    //    else
-    //    {
-    //        myGoal = myScore;
-    //        opponentGoal = opponentScore;
-    //        myGoalText.text = myGoal.ToString();
-    //        opponentGoalText.text = opponentGoal.ToString();
-    //        timeText.text = "90'";
-    //        resultText.text = "KAYBETTÝN";
-
-    //    }
-    //}
     public void CloseMatchPanel()
     {
         matchPanel.SetActive(false);
-        LeagueManager.instance.SpawnTeams();
+        LeagueManager.instance.SpawnTeams(teams);
     }
     public void SaveWinTeam(string text)
     {

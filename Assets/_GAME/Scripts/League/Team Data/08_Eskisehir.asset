@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teamLogo: {fileID: 21300000, guid: f9f9547cfd43f48799eb35ebf9d37c19, type: 3}
   teamName: 'Eskisehir '
-  teamDefGen: 450
-  teamMidGen: 300
-  teamForGen: 350
-  teamPrice: 600
+  teamDefGen: 0
+  teamMidGen: 100
+  teamForGen: 100
+  teamPrice: 100
