@@ -18,7 +18,7 @@ MonoBehaviour:
   hairImage: {fileID: 21300000, guid: c501879b455744ca29be92cb4c24c7fd, type: 3}
   title: Rufer
   gen: 51
-  pos: 4
+  pos: 10
   cpsPerLevel: 0.8
-  basePrice: 1000
+  basePrice: 5000
   coefficient: 1.15

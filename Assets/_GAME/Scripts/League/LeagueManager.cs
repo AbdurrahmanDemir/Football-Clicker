@@ -129,6 +129,18 @@ public class LeagueManager : MonoBehaviour
             PlayerPrefs.SetInt("league", currentLeague);
             currentLevel = 0;
             PlayerPrefs.SetInt("Level", currentLevel);
+
+            switch (GetLeagueLevel())
+            {
+                case 1:
+                    SpawnTeams(league1teams);
+                    leagueTitleText.text = "Bronze League";
+                    break;
+                case 2:
+                    SpawnTeams(league2teams);
+                    leagueTitleText.text = "Silver League";
+                    break;
+            }
         }
         
     }

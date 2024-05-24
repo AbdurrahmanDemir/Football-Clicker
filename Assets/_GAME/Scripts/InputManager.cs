@@ -7,6 +7,7 @@ public class InputManager : MonoBehaviour
 {
     [Header(" Actions ")]
     public static Action onPitchClicked;
+    public static Action onGoldClicked;
 
     public static Action<Vector2> onPitchClickedPosition;
 
@@ -52,6 +53,7 @@ public class InputManager : MonoBehaviour
 
 
         onPitchClicked?.Invoke();
+        onGoldClicked?.Invoke();
 
 
         onPitchClickedPosition?.Invoke(hit.point);

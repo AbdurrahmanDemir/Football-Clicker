@@ -20,5 +20,5 @@ MonoBehaviour:
   gen: 51
   pos: 2
   cpsPerLevel: 0.5
-  basePrice: 500
+  basePrice: 2000
   coefficient: 1.15

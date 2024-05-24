@@ -109,6 +109,9 @@ public class QuestManager : MonoBehaviour
             case QuestType.Click:
                 return "Click " + quest.target.ToString() + " Times";
 
+            case QuestType.Gold:
+                return "Collect " + quest.target.ToString() + " Gold";
+
             case QuestType.BuyPlayers:
                 return "Buy " + quest.target.ToString() + " Players";
 
@@ -183,7 +186,7 @@ public class QuestManager : MonoBehaviour
 
     }
 }
-public enum QuestType { Click, BuyPlayers, PlayMatch, AdsWatch, ClubHoseUpgrade, PlayerUpgrade } //Görev türlerini belirliyoruz
+public enum QuestType { Click, BuyPlayers, PlayMatch, AdsWatch, ClubHoseUpgrade, PlayerUpgrade, Gold } //Görev türlerini belirliyoruz
 
 [System.Serializable]
 public struct Quest

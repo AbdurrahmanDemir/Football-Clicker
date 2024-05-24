@@ -16,9 +16,9 @@ MonoBehaviour:
   kitImage: {fileID: 21300000, guid: 23a19f6a5c3944843a3a9ff7f0b31b45, type: 3}
   faceImage: {fileID: 21300000, guid: 81ed306d4da7b40a79b119636e9a8a0f, type: 3}
   hairImage: {fileID: 21300000, guid: c501879b455744ca29be92cb4c24c7fd, type: 3}
-  title: Messi
+  title: Lio Tessi
   gen: 150
   pos: 10
-  cpsPerLevel: 5
-  basePrice: 10000
+  cpsPerLevel: 15
+  basePrice: 500000
   coefficient: 1.15

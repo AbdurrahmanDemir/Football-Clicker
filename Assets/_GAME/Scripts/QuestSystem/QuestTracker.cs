@@ -10,6 +10,7 @@ public class QuestTracker : MonoBehaviour
         questManager = GetComponent<QuestManager>();
 
         Pitch.onPitchClickedQuest += ClickCallback;
+        InputManager.onGoldClicked += GoldCallBack;
         MatchManager.onPlayMatch+=PlayMatchCallback;
         ShopManager.onPlayerPurchased += BuyPlayersCallback;
         ShopManager.onPlayerUpgrade += PlayerUpgradesCallback;
@@ -19,13 +20,14 @@ public class QuestTracker : MonoBehaviour
     private void OnDestroy()
     {
         Pitch.onPitchClickedQuest -= ClickCallback;
+        InputManager.onGoldClicked -= GoldCallBack;
         MatchManager.onPlayMatch -= PlayMatchCallback;
         ShopManager.onPlayerPurchased -= BuyPlayersCallback;
         ShopManager.onPlayerUpgrade -= PlayerUpgradesCallback;
         DataManager.onUpgradeClubHouse -= ClubHouseUpgradeCallback;
     }
 
-    private void ClickedCallback()
+    private void GoldCallBack()
     {
         Dictionary<int, Quest> quests = new Dictionary<int, Quest>(questManager.GetCurrentQuest()); //aktif görevi alýyoruz
 
@@ -33,10 +35,11 @@ public class QuestTracker : MonoBehaviour
         {
             Quest quest = questData.Value;
 
-            if (quest.Type == QuestType.Click)
+            if (quest.Type == QuestType.Gold)
             {
                 int currentEnemiesKilled = (int)(quest.progress * quest.target);
-                currentEnemiesKilled++;
+                int totalKill = int.Parse(PlayerPrefs.GetString("Carrots"));
+                currentEnemiesKilled = totalKill;
                 float newProgress = (float)currentEnemiesKilled / quest.target;
 
                 questManager.UpdateQuestProgress(questData.Key, newProgress);
