@@ -49,6 +49,12 @@ public class ShopManager : MonoBehaviour
             }
 
         }
+        if (!PlayerPrefs.HasKey("FreePlayer"))
+        {
+            SetInitialUpgradeLevels();
+            PlayerPrefs.SetInt("FreePlayer", 1);
+            PlayerPrefs.Save();
+        }
 
     }
     
@@ -118,6 +124,7 @@ public class ShopManager : MonoBehaviour
         else
             Debug.Log("You're too poor for the upgrade ! ");
     }
+
     private void ElevenButtonClickedCallback(int elevenIndex)
     {
         if (elevenIndex >= 0 && elevenIndex < upgrades.Length)
@@ -209,6 +216,41 @@ public class ShopManager : MonoBehaviour
 
         onUpgradePurchased?.Invoke(upgradeIndex);
     }
+
+    public void FreePlayer()
+    {
+        SetInitialUpgradeLevels();
+    }
+
+    public void SetInitialUpgradeLevels()
+{
+        // Index 0, 1 ve 2 için upgrade seviyelerini 1 olarak ayarlýyoruz
+        for (int i = 0; i < 3; i++)
+        {
+            SaveUpgradeLevel(i, 1);
+
+            // Düðmeyi aktif duruma getir
+            UpgradeButton upgradeButton = upgradeButtonsParent.GetChild(i).GetComponent<UpgradeButton>();
+            upgradeButton.GetBuyButton().gameObject.SetActive(false);
+
+            // Görselleri güncelle
+            UpdateVisuals(i);
+            ElevenButtonClickedCallback(i);
+        }
+    }
+
+private void SetUpgradeLevel(int upgradeIndex, int level)
+{
+    // Upgrade seviyesini ayarlýyoruz
+    SaveUpgradeLevel(upgradeIndex, level);
+
+    // Görselleri güncelliyoruz
+    UpdateVisuals(upgradeIndex);
+
+    // OnUpgradePurchased aksiyonunu tetikliyoruz
+    onUpgradePurchased?.Invoke(upgradeIndex);
+}
+
 
     private void UpdateVisuals(int upgradeIndex)
     {

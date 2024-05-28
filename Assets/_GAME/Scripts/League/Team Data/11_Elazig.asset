@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teamLogo: {fileID: 21300034, guid: 1263f101bd3658846bfa6ca84e97543c, type: 3}
   teamName: ElazigSpor
-  teamDefGen: 0
-  teamMidGen: 100
-  teamForGen: 100
-  teamPrice: 100
+  teamDefGen: 300
+  teamMidGen: 300
+  teamForGen: 300
+  teamPrice: 500

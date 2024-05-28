@@ -18,7 +18,7 @@ MonoBehaviour:
   hairImage: {fileID: 21300000, guid: d471844bdbd494332976538d3518f3e3, type: 3}
   title: Martin Algelsen
   gen: 49
-  pos: 1
+  pos: 7
   cpsPerLevel: 0.5
   basePrice: 450
   coefficient: 1.15

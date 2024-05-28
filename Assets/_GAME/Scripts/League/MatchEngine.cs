@@ -155,7 +155,7 @@ public class MatchEngine : MonoBehaviour
             }
         }
 
-        if (myScore >= 1 || opponentScore >= 3)
+        if (myScore >= 3 || opponentScore >= 3)
         {
             MatchManager.instance.matchScene.SetActive(false);
             MatchManager.instance.MatchEnd(myScore, opponentScore);

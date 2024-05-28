@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teamLogo: {fileID: 21300080, guid: 85165b344aa784048a7747c34315a3e7, type: 3}
   teamName: Mugla Spor
-  teamDefGen: 0
-  teamMidGen: 400
+  teamDefGen: 200
+  teamMidGen: 200
   teamForGen: 70
   teamPrice: 500

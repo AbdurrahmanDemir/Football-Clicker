@@ -37,7 +37,9 @@ public class QuestManager : MonoBehaviour
 
         // oyuncuya ödülünü veriyoruz
         int reward = quests[questIndex].reward;
-        DataManager.instance.AddGem(reward);
+        DataManager.instance.AddGoldFloat(reward);
+
+        LaggedAPIUnity.Instance.SaveAchievement("football_clicker_nsdni001");
 
         UpdateQuest();
 

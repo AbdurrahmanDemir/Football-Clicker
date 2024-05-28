@@ -28,7 +28,7 @@ public class UIManager : MonoBehaviour
         powerSlider.maxValue = 1000;
         UpdateSlider();
 
-
+        LaggedAPIUnity.Instance.CheckRewardAd();
     }
     public void UpdateSlider()
     {
@@ -67,6 +67,22 @@ public class UIManager : MonoBehaviour
     public void DiscordLink()
     {
         Application.OpenURL("https://discord.gg/f2vDJdq6d5");
-        DataManager.instance.AddGoldFloat(500);
+        if (!PlayerPrefs.HasKey("discordGift"))
+        {
+            DataManager.instance.AddGoldFloat(500);
+            PlayerPrefs.SetInt("discordGift", 1);
+
+        }
+    }
+    public void PlayStoreLink()
+    {
+        Application.OpenURL("https://play.google.com/store/apps/details?id=com.demir.FootballClicker");
+    }
+
+    public void GoldRewards()
+    {
+        LaggedAPIUnity.Instance.PlayRewardAd();
+        LaggedAPIUnity.Instance.CheckRewardAd();
+        DataManager.instance.AddGoldFloat(100);
     }
 }

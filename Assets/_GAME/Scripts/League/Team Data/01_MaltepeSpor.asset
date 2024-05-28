@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teamLogo: {fileID: 21300080, guid: 85165b344aa784048a7747c34315a3e7, type: 3}
   teamName: Maltepe Spor
-  teamDefGen: 0
-  teamMidGen: 150
-  teamForGen: 80
-  teamPrice: 120
+  teamDefGen: 42
+  teamMidGen: 30
+  teamForGen: 50
+  teamPrice: 200

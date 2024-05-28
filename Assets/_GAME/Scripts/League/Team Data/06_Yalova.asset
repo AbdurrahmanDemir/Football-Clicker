@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   teamLogo: {fileID: 21300000, guid: f9f9547cfd43f48799eb35ebf9d37c19, type: 3}
   teamName: Yalova SK
-  teamDefGen: 0
-  teamMidGen: 400
-  teamForGen: 20
+  teamDefGen: 100
+  teamMidGen: 150
+  teamForGen: 130
   teamPrice: 350

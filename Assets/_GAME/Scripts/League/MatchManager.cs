@@ -109,6 +109,8 @@ public class MatchManager : MonoBehaviour
             matchScene.SetActive(true);
             onPlayMatch?.Invoke();
 
+            LaggedAPIUnity.Instance.SaveAchievement("football_clicker_nsdni002");
+
             if (!PlayerPrefs.HasKey("TutorialPanel3"))
             {
                 tutorialManager.TutorialPanel3Open();
@@ -143,6 +145,8 @@ public class MatchManager : MonoBehaviour
                 LeagueManager.instance.SetLevel();
                 SaveWinTeam(opponentKey);
             }
+
+
         }
         else
         {
@@ -153,6 +157,11 @@ public class MatchManager : MonoBehaviour
             timeText.text = "90'";
             resultText.text = "KAYBETTÝN";
         }
+
+
+
+        LaggedAPIUnity.Instance.PlayRewardAd();
+        LaggedAPIUnity.Instance.CheckRewardAd();
     }
     public void CloseMatchPanel()
     {

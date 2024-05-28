@@ -29,7 +29,7 @@ public class QuestTracker : MonoBehaviour
 
     private void GoldCallBack()
     {
-        Dictionary<int, Quest> quests = new Dictionary<int, Quest>(questManager.GetCurrentQuest()); //aktif görevi alýyoruz
+        Dictionary<int, Quest> quests = new Dictionary<int, Quest>(questManager.GetCurrentQuest()); // Aktif görevi alıyoruz
 
         foreach (KeyValuePair<int, Quest> questData in quests)
         {
@@ -37,15 +37,25 @@ public class QuestTracker : MonoBehaviour
 
             if (quest.Type == QuestType.Gold)
             {
-                int currentEnemiesKilled = (int)(quest.progress * quest.target);
-                int totalKill = int.Parse(PlayerPrefs.GetString("Carrots"));
-                currentEnemiesKilled = totalKill;
-                float newProgress = (float)currentEnemiesKilled / quest.target;
+                float currentEnemiesKilled = quest.progress * quest.target;
+                string carrotsString = PlayerPrefs.GetString("Carrots");
+                float totalKill;
 
-                questManager.UpdateQuestProgress(questData.Key, newProgress);
+                if (float.TryParse(carrotsString, out totalKill))
+                {
+                    currentEnemiesKilled = totalKill;
+                    float newProgress = currentEnemiesKilled / quest.target;
+
+                    questManager.UpdateQuestProgress(questData.Key, newProgress);
+                }
+                else
+                {
+                    Debug.LogError("PlayerPrefs 'Carrots' anahtarının değeri geçerli bir float değil.");
+                }
             }
         }
     }
+
 
     private void ClickCallback()
     {

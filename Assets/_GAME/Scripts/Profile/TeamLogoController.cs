@@ -60,7 +60,12 @@ public class TeamLogoController : MonoBehaviour
     public void ProfilePanelOpen()
     {
         if (!profilePanel.activeSelf)
+        {
             profilePanel.SetActive(true);
+
+            LaggedAPIUnity.Instance.PlayRewardAd();
+            LaggedAPIUnity.Instance.CheckRewardAd();
+        }
         else
         {
             profilePanel.SetActive(false);
