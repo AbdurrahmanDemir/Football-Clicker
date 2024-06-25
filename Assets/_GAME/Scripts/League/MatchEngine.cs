@@ -14,6 +14,7 @@ public enum MatchState
 public class MatchEngine : MonoBehaviour
 {
     MatchState matchState;
+    public EventMatch eventMatch;
 
     [Header("MATCH STATS")]
     [SerializeField] private int myScore=0;
@@ -157,6 +158,16 @@ public class MatchEngine : MonoBehaviour
 
         if (myScore >= 3 || opponentScore >= 3)
         {
+            if (eventMatch.isEventMatch)
+            {
+
+                for (int i = 0; i < announcerParents.childCount; i++)
+                {
+                    Destroy(announcerParents.GetChild(i).gameObject);
+                }
+                eventMatch.EventMatchOver(myScore,opponentScore);
+                return;
+            }
             MatchManager.instance.matchScene.SetActive(false);
             MatchManager.instance.MatchEnd(myScore, opponentScore);
             myScore = 0;
@@ -164,10 +175,12 @@ public class MatchEngine : MonoBehaviour
             myScoreText.text = myScore.ToString();
             opponentScoreText.text = opponentScore.ToString();
 
+
             for (int i = 0; i < announcerParents.childCount; i++)
             {
                 Destroy(announcerParents.GetChild(i).gameObject);
             }
+
         }
 
         EnumState();
@@ -185,6 +198,8 @@ public class MatchEngine : MonoBehaviour
             grab = 100;
         if (press >= 100)
             press = 100;
+
+        RateTextUpdate();
     }
 
     public void OpponentTeamConfig(float DefGen, float MidGen, float ForGen)
@@ -627,8 +642,39 @@ public class MatchEngine : MonoBehaviour
     public IEnumerator PanelTime(GameObject panel)
     {
         panel.SetActive(true);
-        yield return new WaitForSeconds(1.2f);
+        yield return new WaitForSeconds(2f);
         panel.SetActive(false);
     }
 
+    public void LeaveTheMatch()
+    {       
+            if (eventMatch.isEventMatch)
+            {
+            myScore = 0;
+            opponentScore = 0;
+            myScoreText.text = myScore.ToString();
+            opponentScoreText.text = opponentScore.ToString();
+
+
+            for (int i = 0; i < announcerParents.childCount; i++)
+            {
+                Destroy(announcerParents.GetChild(i).gameObject);
+            }
+            eventMatch.EventMatchOver(0, 3);
+                return;
+            }
+            MatchManager.instance.matchScene.SetActive(false);
+            MatchManager.instance.MatchEnd(0, 3);
+            myScore = 0;
+            opponentScore = 0;
+            myScoreText.text = myScore.ToString();
+            opponentScoreText.text = opponentScore.ToString();
+
+
+            for (int i = 0; i < announcerParents.childCount; i++)
+            {
+                Destroy(announcerParents.GetChild(i).gameObject);
+            }
+        
+    }
 }

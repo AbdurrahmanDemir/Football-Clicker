@@ -89,7 +89,7 @@ public class ShopManager : MonoBehaviour
         Sprite hairIcon = upgrade.hairImage;
         string title = upgrade.title;
         string gen = genText.ToString();
-        string subtitle = string.Format("level{0} (+{1} Cps)", upgradeLevel, upgrade.cpsPerLevel);
+        string subtitle = string.Format("LEVEL {0}  (+{1}  Cps)", upgradeLevel, upgrade.cpsPerLevel);
         string price = GetUpgradePriceString(index);
         string pos = upgrade.pos.ToString();
 
@@ -263,7 +263,7 @@ private void SetUpgradeLevel(int upgradeIndex, int level)
 
         string gen = genText.ToString();
 
-        string subtitle = string.Format("lvl{0} (+{1} Cps)", upgradeLevel, upgrade.cpsPerLevel);
+        string subtitle = string.Format("LEVEL {0} (+{1} Cps)", upgradeLevel, upgrade.cpsPerLevel);
         string price = GetUpgradePriceString(upgradeIndex);
 
         upgradeButton.UpdateVisuals(subtitle, price,gen);

@@ -1,5 +1,7 @@
+using LayerLab;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +16,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject inboxPanel;
     [SerializeField] private GameObject questPanel;
     [SerializeField] private GameObject clubHousePanel;
+    [SerializeField] private GameObject popUpPanel;
+    [SerializeField] private TextMeshProUGUI popUpPanelText;
 
     private void Awake()
     {
@@ -84,5 +88,13 @@ public class UIManager : MonoBehaviour
         LaggedAPIUnity.Instance.PlayRewardAd();
         LaggedAPIUnity.Instance.CheckRewardAd();
         DataManager.instance.AddGoldFloat(100);
+    }
+    public IEnumerator PopUpPanelOn(string text)
+    {
+        popUpPanel.SetActive(true);
+        popUpPanelText.text = text;
+        yield return new WaitForSeconds(3f);
+        popUpPanel.SetActive(false);
+
     }
 }

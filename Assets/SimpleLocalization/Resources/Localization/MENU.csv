@@ -7,7 +7,7 @@ Soon,Soon,Yakında
 LeagueNameText1,Bronze League 2,Bronz Lig 2
 LeagueNameText2,Bronze League 1,Bronz Lig 1
 MatchFee,Match Fee: ,Mac Ucreti:
-MatchStart,START,BAŞLA
+MatchStart,START,MACI OYNA
 MatchLeave,LEAVE THE MATCH,MAÇTAN AYRIL
 GoldRequired,GOLD ,ALTIN
 HouseUpgradeInfo,Upgrade to earn more gold with every click,Her tıklamada daha çok altın kazanmak icin yükselt
@@ -63,3 +63,12 @@ DribbleText,DRIBBLE,DRIBLING
 ShootText,SHOOT,SUT
 PressText,PRESS,PRES
 GrabText,GRAB,TOPA KAY
+MatchPrize,Winning Prize,Galibiyet Ucreti
+Events,EVENTS,ETKINLIKLER
+EventMatchTitle,PLAY A MATCH,MAC OYNA
+EventMatch,The matches you play here are trophy winning matches independent of the league. You may face teams that are stronger or weaker than you.,Burda yaptığın maçlar ligden bağımsız kupa kazanma maçlarıdır. Senden güçlü veya daha zayıf takımlarla karşılaşabilirsin. 
+LeaveMatch,Leave the match,Maçtan ayrıl
+QuestMenuText,Quest,Görevler
+RankingMenuText,Ranking,Sıralama
+GiftMenuText,Gift,Hediye
+InboxMenuText,Inbox,Duyurular

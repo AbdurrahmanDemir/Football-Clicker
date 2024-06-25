@@ -25,8 +25,8 @@ public class MatchManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI resultText;
     [SerializeField] private Image myTeamLogo;
     [SerializeField] private Image opponentTeamLogo;
+    [SerializeField] private GameObject menuBar;
     [Header("Settings")]
-    private int myGen;
     public int myGoal;
     public int opponentGoal;
     private bool isMatchStart = false;
@@ -98,9 +98,9 @@ public class MatchManager : MonoBehaviour
     public void StartButton(int index)
     {
         TeamSO team = teams[index];
-        myGen = DataManager.instance.GetTotalGen();
-        int opponentGen = team.teamDefGen + team.teamMidGen + team.teamForGen;
         opponentIndex=index;
+        PlayerPrefs.SetInt("VictoryTrophy", team.victoryTrophy);
+        Debug.Log("WinPRice" + PlayerPrefs.GetInt("VictoryTrophy"));
 
         if (DataManager.instance.TryPurchaseGold(team.teamPrice))
         {
@@ -116,12 +116,14 @@ public class MatchManager : MonoBehaviour
                 tutorialManager.TutorialPanel3Open();
             }
 
+            menuBar.SetActive(false);
+
 
             
         }
         else
         {
-            Debug.Log("PARA YOK");
+            StartCoroutine(UIManager.instance.PopUpPanelOn("YOU HAVE NOT ENOUGH GOLD"));
         }
 
 
@@ -130,6 +132,8 @@ public class MatchManager : MonoBehaviour
 
     public void MatchEnd(int myScore, int opponentScore)
     {
+        menuBar.SetActive(true);
+
         if (myScore > opponentScore)
         {
             myGoal = myScore;
@@ -137,13 +141,14 @@ public class MatchManager : MonoBehaviour
             myGoalText.text = myGoal.ToString();
             opponentGoalText.text = opponentGoal.ToString();
             timeText.text = "90'";
-            resultText.text = "KAZANDIN";
+            resultText.text = "YOU WON";
 
             string opponentKey = "Won_" + opponentIndex;
             if (!PlayerPrefs.HasKey(opponentKey))
             {
                 LeagueManager.instance.SetLevel();
                 SaveWinTeam(opponentKey);
+                DataManager.instance.AddGoldDouble(PlayerPrefs.GetInt("VictoryTrophy"));
             }
 
 
@@ -155,7 +160,7 @@ public class MatchManager : MonoBehaviour
             myGoalText.text = myGoal.ToString();
             opponentGoalText.text = opponentGoal.ToString();
             timeText.text = "90'";
-            resultText.text = "KAYBETTÝN";
+            resultText.text = "YOU LOST";
         }
 
 

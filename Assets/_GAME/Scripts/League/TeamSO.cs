@@ -13,5 +13,6 @@ public class TeamSO : ScriptableObject
     public int teamForGen;
 
     public int teamPrice;
+    public int victoryTrophy;
 
 }

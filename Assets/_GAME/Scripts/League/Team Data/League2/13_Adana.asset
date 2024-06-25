@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a281d7464a26884eaa43a3901256c40, type: 3}
+  m_Name: 13_Adana
+  m_EditorClassIdentifier: 
+  teamLogo: {fileID: 21300000, guid: e43f69d3dd5fc41e69095efdb02ef031, type: 3}
+  teamName: ElazigSpor
+  teamDefGen: 450
+  teamMidGen: 350
+  teamForGen: 5000
+  teamPrice: 4000
+  victoryTrophy: 8000

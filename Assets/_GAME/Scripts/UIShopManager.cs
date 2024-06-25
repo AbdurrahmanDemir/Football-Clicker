@@ -9,6 +9,7 @@ public class UIShopManager : MonoBehaviour
     [SerializeField] private RectTransform shopPanel;
     [SerializeField] private RectTransform leaderboardPanel;
     [SerializeField] private RectTransform leaguePanel;
+    [SerializeField] private RectTransform eventsPanel;
     [SerializeField] private GameObject firstElevenPanel;
 
 
@@ -21,6 +22,8 @@ public class UIShopManager : MonoBehaviour
     private Vector2 leaderboardClosedPos;
     private Vector2 leagueOpenedPos;
     private Vector2 leagueClosedPos;
+    private Vector2 eventsOpenedPos;
+    private Vector2 eventsClosedPos;
 
     [SerializeField] private TutorialManager tutorialManager;
 
@@ -31,16 +34,19 @@ public class UIShopManager : MonoBehaviour
         shopOpenedPos = Vector2.zero;
         leaderboardOpenedPos = Vector2.zero;
         leagueOpenedPos = Vector2.zero;
+        eventsOpenedPos = Vector2.zero;
 
         elevenClosedPos = new Vector2(elevenPanel.rect.width, 0);
         shopClosedPos = new Vector2(elevenPanel.rect.width, 0);
         leaderboardClosedPos = new Vector2(elevenPanel.rect.width, 0);
         leagueClosedPos = new Vector2(elevenPanel.rect.width, 0);
+        eventsClosedPos= new Vector2(elevenPanel.rect.width, 0);
 
         elevenPanel.anchoredPosition = elevenClosedPos;
         shopPanel.anchoredPosition = shopClosedPos;
         leaderboardPanel.anchoredPosition = leaderboardClosedPos;
         leaguePanel.anchoredPosition = leagueClosedPos;
+        eventsPanel.anchoredPosition = eventsClosedPos;
             
     }
 
@@ -50,6 +56,7 @@ public class UIShopManager : MonoBehaviour
         LeanTween.move(shopPanel, shopClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
         LeanTween.move(leaderboardPanel, leaderboardClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
         LeanTween.move(leaguePanel, leagueClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
+        LeanTween.move(eventsPanel, eventsClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
     }
 
     public void ElevenPanelOpen()
@@ -59,6 +66,7 @@ public class UIShopManager : MonoBehaviour
         LeanTween.move(shopPanel, shopClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
         LeanTween.move(leaderboardPanel, leaderboardClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
         LeanTween.move(leaguePanel, leagueClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
+        LeanTween.move(eventsPanel, eventsClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
 
         if (!PlayerPrefs.HasKey("TutorialPanel2"))
         {
@@ -79,6 +87,7 @@ public class UIShopManager : MonoBehaviour
         LeanTween.move(elevenPanel, elevenClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
         LeanTween.move(leaderboardPanel, leaderboardClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
         LeanTween.move(leaguePanel, leagueClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
+        LeanTween.move(eventsPanel, eventsClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
     }
 
     public void ShopPanelClose()
@@ -90,10 +99,11 @@ public class UIShopManager : MonoBehaviour
     public void LeaderboardPanelOpen()
     {
         LeanTween.cancel(leaderboardPanel);
-        LeanTween.move(leaderboardPanel, leagueOpenedPos, .3f).setEase(LeanTweenType.easeInOutSine);
+        LeanTween.move(leaderboardPanel, leaderboardOpenedPos, .3f).setEase(LeanTweenType.easeInOutSine);
         LeanTween.move(elevenPanel, elevenClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
         LeanTween.move(shopPanel, shopClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
         LeanTween.move(leaguePanel, leagueClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
+        LeanTween.move(eventsPanel, eventsClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
 
         //PlayfabManager.instance.SendLeaderboard(DataManager.instance.totalTeamGen);
     }
@@ -111,6 +121,7 @@ public class UIShopManager : MonoBehaviour
         LeanTween.move(elevenPanel, elevenClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
         LeanTween.move(shopPanel, shopClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
         LeanTween.move(leaderboardPanel, leaderboardClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
+        LeanTween.move(eventsPanel, eventsClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
     }
 
     public void LeaguePanelClose()
@@ -119,6 +130,20 @@ public class UIShopManager : MonoBehaviour
         LeanTween.move(leaguePanel, leagueClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
     }
 
+    public void EventsPanelOpen()
+    {
+        LeanTween.cancel(eventsPanel);
+        LeanTween.move(eventsPanel, eventsOpenedPos, .3f).setEase(LeanTweenType.easeInOutSine);
+        LeanTween.move(leaguePanel, leagueClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
+        LeanTween.move(elevenPanel, elevenClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
+        LeanTween.move(shopPanel, shopClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
+        LeanTween.move(leaderboardPanel, leaderboardClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
+    }
+    public void EventsPanelClose()
+    {
+        LeanTween.cancel(eventsPanel);
+        LeanTween.move(eventsPanel, eventsClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
+    }
     public void FirstElevenPanel()
     {
         if (firstElevenPanel.activeSelf)

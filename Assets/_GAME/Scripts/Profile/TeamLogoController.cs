@@ -63,8 +63,6 @@ public class TeamLogoController : MonoBehaviour
         {
             profilePanel.SetActive(true);
 
-            LaggedAPIUnity.Instance.PlayRewardAd();
-            LaggedAPIUnity.Instance.CheckRewardAd();
         }
         else
         {

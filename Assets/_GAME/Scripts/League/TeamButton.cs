@@ -11,15 +11,17 @@ public class TeamButton : MonoBehaviour
     [SerializeField] private TextMeshProUGUI clubNameText;
     [SerializeField] private TextMeshProUGUI clubGenText;
     [SerializeField] private TextMeshProUGUI clubPriceText;
+    [SerializeField] private TextMeshProUGUI clubWinningPrizeText;
     [SerializeField] private Button playButton;
 
     
-    public void Config(Sprite clubL, string clubName, string clubGen,string clubPrice)
+    public void Config(Sprite clubL, string clubName, string clubGen,string clubPrice,string winPrize)
     {
         clubLogo.sprite = clubL;
         clubNameText.text = clubName;
         clubGenText.text = clubGen;
         clubPriceText.text = clubPrice;
+        clubWinningPrizeText.text = winPrize;
 
     }
 

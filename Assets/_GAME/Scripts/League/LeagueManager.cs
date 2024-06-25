@@ -89,9 +89,10 @@ public class LeagueManager : MonoBehaviour
         string name= team.teamName;
         string gen = (team.teamDefGen+team.teamMidGen+ team.teamForGen).ToString();
         string price= team.teamPrice.ToString();
+        string prize= team.victoryTrophy.ToString();
 
 
-        teamButtonInstance.Config(logo, name, gen,price);
+        teamButtonInstance.Config(logo, name, gen,price,prize);
 
         teamButtonInstance.GetPlayButton().onClick.AddListener(() => TeamButtonCallback(index));
 
@@ -110,10 +111,10 @@ public class LeagueManager : MonoBehaviour
         {
             case 1:
                 return league1teams;
-                break;
+                
             case 2:
                 return league2teams;
-                break;
+                
             default: return league1teams;
         }
     }
