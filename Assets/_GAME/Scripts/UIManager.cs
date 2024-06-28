@@ -32,7 +32,7 @@ public class UIManager : MonoBehaviour
         powerSlider.maxValue = 1000;
         UpdateSlider();
 
-        LaggedAPIUnity.Instance.CheckRewardAd();
+        //LaggedAPIUnity.Instance.CheckRewardAd();
     }
     public void UpdateSlider()
     {
@@ -85,8 +85,8 @@ public class UIManager : MonoBehaviour
 
     public void GoldRewards()
     {
-        LaggedAPIUnity.Instance.PlayRewardAd();
-        LaggedAPIUnity.Instance.CheckRewardAd();
+        //LaggedAPIUnity.Instance.PlayRewardAd();
+        //LaggedAPIUnity.Instance.CheckRewardAd();
         DataManager.instance.AddGoldFloat(100);
     }
     public IEnumerator PopUpPanelOn(string text)

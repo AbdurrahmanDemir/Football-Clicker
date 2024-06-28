@@ -39,7 +39,7 @@ public class QuestManager : MonoBehaviour
         int reward = quests[questIndex].reward;
         DataManager.instance.AddGoldFloat(reward);
 
-        LaggedAPIUnity.Instance.SaveAchievement("football_clicker_nsdni001");
+        //LaggedAPIUnity.Instance.SaveAchievement("football_clicker_nsdni001");
 
         UpdateQuest();
 

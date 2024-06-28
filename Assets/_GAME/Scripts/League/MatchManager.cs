@@ -109,7 +109,7 @@ public class MatchManager : MonoBehaviour
             matchScene.SetActive(true);
             onPlayMatch?.Invoke();
 
-            LaggedAPIUnity.Instance.SaveAchievement("football_clicker_nsdni002");
+            //LaggedAPIUnity.Instance.SaveAchievement("football_clicker_nsdni002");
 
             if (!PlayerPrefs.HasKey("TutorialPanel3"))
             {
@@ -165,8 +165,8 @@ public class MatchManager : MonoBehaviour
 
 
 
-        LaggedAPIUnity.Instance.PlayRewardAd();
-        LaggedAPIUnity.Instance.CheckRewardAd();
+        //LaggedAPIUnity.Instance.PlayRewardAd();
+        //LaggedAPIUnity.Instance.CheckRewardAd();
     }
     public void CloseMatchPanel()
     {
