@@ -40,9 +40,17 @@ public class EventMatch : MonoBehaviour
     {
         matchPanel.SetActive(true);
         startButton.SetActive(true);
-        int opponentDef = Random.Range(-100, 100) + DataManager.instance.GetDefGen();
-        int opponentMid = Random.Range(-100, 100) + DataManager.instance.GetMidGen();
-        int opponentFor = Random.Range(-100, 100) + DataManager.instance.GetForGen();
+        int opponentDef = Random.Range(-100, 50) + DataManager.instance.GetDefGen();
+        int opponentMid = Random.Range(-100, 50) + DataManager.instance.GetMidGen();
+        int opponentFor = Random.Range(-100, 50) + DataManager.instance.GetForGen();
+
+        if (opponentDef < 0)
+            opponentDef = 0;
+        if (opponentMid < 0)
+            opponentMid = 0;
+        if (opponentFor < 0)
+            opponentFor = 0;
+
 
         myGenText.text = DataManager.instance.GetTotalGen().ToString();
         oppenentGenText.text = (opponentDef + opponentMid + opponentFor).ToString();
@@ -55,10 +63,10 @@ public class EventMatch : MonoBehaviour
         opponentGoalText.text = "0";
 
         myTeamNameText.text = "My Team";
-        oppenentTeamNameText.text = "Deneme Takýmý Team";
+        oppenentTeamNameText.text = "Opponent Team";
 
-        myTeamLogo.sprite = null;
-        opponentTeamLogo.sprite = null;
+        //myTeamLogo.sprite = null;
+        //opponentTeamLogo.sprite = null;
     }
     public void EventMatchPlay()
     {

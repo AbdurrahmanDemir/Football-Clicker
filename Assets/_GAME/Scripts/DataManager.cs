@@ -16,7 +16,7 @@ public class DataManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI incrementPriceText;
 
     [Header(" Data ")]
-    [SerializeField] private double totalGoldText;
+    public double totalGoldText;
     [SerializeField] private int gem;
     [SerializeField] private int frenzyModeMultiplier;
     private int goldIncrement;
@@ -127,6 +127,7 @@ public class DataManager : MonoBehaviour
     private void UpdateGoldText()
     {
         goldText.text = DoubleUtilities.ToIdleNotation(totalGoldText);
+
     }
     private void UpdateGemText()
     {
@@ -159,7 +160,7 @@ public class DataManager : MonoBehaviour
         }
         else
         {
-            AddGoldFloat(500);
+            AddGoldFloat(5000);
             AddGem(10);
         }
         int gems = PlayerPrefs.GetInt("Gem");
@@ -290,7 +291,6 @@ public class DataManager : MonoBehaviour
         Debug.Log(defGen);
         Debug.Log(midGen);
         Debug.Log(forGen);
-
 
 
 

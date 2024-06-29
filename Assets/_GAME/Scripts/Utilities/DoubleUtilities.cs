@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
@@ -101,5 +102,10 @@ public static class DoubleUtilities
         nfi.NumberDecimalSeparator = ".";
 
         return value.ToString("N", nfi);
+    }
+
+    internal static double ToIdleNotation(string value)
+    {
+        throw new NotImplementedException();
     }
 }

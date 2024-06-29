@@ -1,7 +1,6 @@
 using PlayFab.AuthenticationModels;
 using System.Collections;
 using System.Collections.Generic;
-using System;
 using UnityEngine;
 using PlayFab;
 using PlayFab.ClientModels;
@@ -12,6 +11,8 @@ using Mono.CompilerServices.SymbolWriter;
 public class PlayfabManager : MonoBehaviour
 {
     public static PlayfabManager instance;
+
+    [SerializeField] private DataManager dataManager;
 
     public GameObject rankPrefabs;
     public Transform rankParent;
@@ -67,12 +68,49 @@ public class PlayfabManager : MonoBehaviour
         if (name == null)
         {
             nameWindow.SetActive(true);
-            TeamLogoController.instance.LoadTeamLogo(rankPrefabs.transform.GetChild(1)/*.transform.GetChild(0)*/);
+            //TeamLogoController.instance.LoadTeamLogo(rankPrefabs.transform.GetChild(1)/*.transform.GetChild(0)*/);
 
         }
+
+
+        //GetPlayerCoinData();
+
         //else
         //    leaderboardWindow.SetActive(true);
     }
+
+
+    //public void GetPlayerCoinData()
+    //{
+    //    PlayFabClientAPI.GetUserData(new GetUserDataRequest(), OnDataRecieved, OnError);
+    //}
+    //void OnDataRecieved(GetUserDataResult result)
+    //{
+    //    if (result.Data != null && result.Data.ContainsKey("Coin"))
+    //    {            
+    //        dataManager.totalGoldText = double.Parse(result.Data["Coin"].Value) ;
+    //    }
+    //}
+
+    //public void SavePlayerCoinData()
+    //{
+    //    var request = new UpdateUserDataRequest
+    //    {
+    //        Data = new Dictionary<string, string>
+    //        {
+    //            {"Coin", dataManager.totalGoldText.ToString() }
+    //        }
+    //    };
+
+    //    PlayFabClientAPI.UpdateUserData(request, OnDataSend, OnError);
+    //}
+
+    //void OnDataSend(UpdateUserDataResult result)
+    //{
+    //    Debug.Log("data gönderme baþarýlý");
+    //}
+
+
     public void SubmitNameButton()
     {
         var request = new UpdateUserTitleDisplayNameRequest
@@ -81,6 +119,9 @@ public class PlayfabManager : MonoBehaviour
             
         };
         PlayFabClientAPI.UpdateUserTitleDisplayName(request, OnDisplayNameUpdate, OnError);
+        nameWindow.SetActive(false);
+
+
     }
 
     void OnDisplayNameUpdate(UpdateUserTitleDisplayNameResult result)

@@ -105,7 +105,7 @@ public class UIShopManager : MonoBehaviour
         LeanTween.move(leaguePanel, leagueClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
         LeanTween.move(eventsPanel, eventsClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
 
-        //PlayfabManager.instance.SendLeaderboard(DataManager.instance.totalTeamGen);
+        PlayfabManager.instance.SendLeaderboard(DataManager.instance.totalTeamGen);
     }
 
     public void LeaderboardPanelClose()

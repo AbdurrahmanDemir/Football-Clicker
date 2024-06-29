@@ -78,6 +78,16 @@ public class UIManager : MonoBehaviour
 
         }
     }
+    public void FacebookLink()
+    {
+        Application.OpenURL("https://www.facebook.com/people/Football-Clicker/61561667848741/");
+        if (!PlayerPrefs.HasKey("discordGift"))
+        {
+            DataManager.instance.AddGoldFloat(500);
+            PlayerPrefs.SetInt("discordGift", 1);
+
+        }
+    }
     public void PlayStoreLink()
     {
         Application.OpenURL("https://play.google.com/store/apps/details?id=com.demir.FootballClicker");

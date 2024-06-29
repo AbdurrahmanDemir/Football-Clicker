@@ -17,7 +17,7 @@ ForwardAddText,ADD AS FORWARD,FORVET OLARAK EKLE
 MidAddText,ADD AS MIDFIELDER,ORTA SAHA OLARAK EKLE
 DefenderAddText,ADD AS DEFENDER,DEFANS OLARAK EKLE
 GKAddText,ADD AS GOALKEEPER,KALECI OLARAK EKLE
-Leaderboard,Leaderboard,Liderlik Tablosu
+Leaderboard,Leaderboard (Team Power),Liderlik Tablosu (Takım Gücü)
 Tutorial1,"Welcome!
 You earn gold every time you click on the field.
 Buy football players with the gold you earn.","Hosgeldin!
@@ -45,8 +45,8 @@ SupportText,Support,Destek
 Inbox1,Welcome! Play the simplest and most exciting version of football. Meet other players by joining our Discord server or Facebook group. We have a small gift for those who participate.,Hoşgeldin! Futbolun basit ve en heyecanlı halini oyna. Discord sunucumuza veya Facebook grubumuza katılarak diğer oyuncularla buluş. Katılanlara küçük bir hediyemiz var.
 firsteleven,FIRST ELEVEN,ILK 11
 ClubProfileText,CLUB PROFILE,KULUP PROFILI
-RemainingMoveAttack,REMAINING MOVES TO END THE ATTACK:,KALAN HAMLE SAYISI:
-RemainingMoveDefence,REMAINING MOVES TO END THE DEFENCE:,KALAN HAMLE SAYISI:
+RemainingMoveAttack,REMAINING MOVES TO END THE ATTACK:,ATAK KALAN HAMLE SAYISI:
+RemainingMoveDefence,REMAINING MOVES TO END THE DEFENCE:,DEFANS KALAN HAMLE SAYISI:
 InfoPass,"If you are successful when you pass, the odds increase. If you fail, the odds decrease.
 If you cannot score at the end of the attack, the odds are preserved and the next attack continues at the same rate. If you score a goal, it goes back to the starting odds.","Pas attiginda eger basarili olursan oranlar artar. Basarisiz olursan oranlar azalir. 
 Atak sonunda gol atamazsan oranlar korunur ve sonraki atak kaldigin orandan devam eder. Eger gol atarsan mac basindaki oranlara geri donersin."
@@ -66,9 +66,10 @@ GrabText,GRAB,TOPA KAY
 MatchPrize,Winning Prize,Galibiyet Ucreti
 Events,EVENTS,ETKINLIKLER
 EventMatchTitle,PLAY A MATCH,MAC OYNA
-EventMatch,The matches you play here are trophy winning matches independent of the league. You may face teams that are stronger or weaker than you.,Burda yaptığın maçlar ligden bağımsız kupa kazanma maçlarıdır. Senden güçlü veya daha zayıf takımlarla karşılaşabilirsin. 
+EventMatch,The matches you play here are trophy winning matches independent of the league. You may face teams that are stronger or weaker than you.,Burda yaptigin maclar ligden baiımsiz kupa kazanma maclaridir. Senden guclu veya daha zayif takimlarla karsilasabilirsin. 
 LeaveMatch,Leave the match,Maçtan ayrıl
 QuestMenuText,Quest,Görevler
 RankingMenuText,Ranking,Sıralama
 GiftMenuText,Gift,Hediye
 InboxMenuText,Inbox,Duyurular
+Inbox2,Don't you understand the game? Send us a message on Discord or Facebook and we will help you.,Oyunu anlamadın mı? Discord'dan veya Facebook'tan mesaj at sana yardımcı olalım.
