@@ -38,39 +38,48 @@ public class EventMatch : MonoBehaviour
 
     public void OpenMatchPanel()
     {
-        matchPanel.SetActive(true);
-        startButton.SetActive(true);
-        int opponentDef = Random.Range(-100, 50) + DataManager.instance.GetDefGen();
-        int opponentMid = Random.Range(-100, 50) + DataManager.instance.GetMidGen();
-        int opponentFor = Random.Range(-100, 50) + DataManager.instance.GetForGen();
+        if (DataManager.instance.GetTotalGen() > 1000)
+        {
+            matchPanel.SetActive(true);
+            startButton.SetActive(true);
+            int opponentDef = Random.Range(-100, 50) + DataManager.instance.GetDefGen();
+            int opponentMid = Random.Range(-100, 50) + DataManager.instance.GetMidGen();
+            int opponentFor = Random.Range(-100, 50) + DataManager.instance.GetForGen();
 
-        if (opponentDef < 0)
-            opponentDef = 0;
-        if (opponentMid < 0)
-            opponentMid = 0;
-        if (opponentFor < 0)
-            opponentFor = 0;
+            if (opponentDef < 0)
+                opponentDef = 0;
+            if (opponentMid < 0)
+                opponentMid = 0;
+            if (opponentFor < 0)
+                opponentFor = 0;
 
 
-        myGenText.text = DataManager.instance.GetTotalGen().ToString();
-        oppenentGenText.text = (opponentDef + opponentMid + opponentFor).ToString();
+            myGenText.text = DataManager.instance.GetTotalGen().ToString();
+            oppenentGenText.text = (opponentDef + opponentMid + opponentFor).ToString();
 
-        matchEngine.OpponentTeamConfig(opponentDef, opponentMid, opponentFor);
-        matchEngine.MyTeamConfig(DataManager.instance.GetDefGen(), DataManager.instance.GetMidGen(), DataManager.instance.GetForGen());
-        matchEngine.CalculateRate();
+            matchEngine.OpponentTeamConfig(opponentDef, opponentMid, opponentFor);
+            matchEngine.MyTeamConfig(DataManager.instance.GetDefGen(), DataManager.instance.GetMidGen(), DataManager.instance.GetForGen());
+            matchEngine.CalculateRate();
 
-        myGoalText.text = "0";
-        opponentGoalText.text = "0";
+            myGoalText.text = "0";
+            opponentGoalText.text = "0";
 
-        myTeamNameText.text = "My Team";
-        oppenentTeamNameText.text = "Opponent Team";
+            myTeamNameText.text = "My Team";
+            oppenentTeamNameText.text = "Opponent Team";
 
-        //myTeamLogo.sprite = null;
-        //opponentTeamLogo.sprite = null;
+            //myTeamLogo.sprite = null;
+            //opponentTeamLogo.sprite = null;
+        }
+        else
+        {
+            UIManager.instance.eventPlayMatchError.SetActive(true);
+        }
+
+        
     }
     public void EventMatchPlay()
     {
-        if (DataManager.instance.TryPurchaseGold(0))
+        if (DataManager.instance.GetTotalGen()>1000)
         {
             uiManager.LeaguePanelOpen();
             matchScene.SetActive(true);
@@ -84,7 +93,7 @@ public class EventMatch : MonoBehaviour
         }
         else
         {
-            StartCoroutine(UIManager.instance.PopUpPanelOn("YOU HAVE NOT ENOUGH GOLD"));
+            UIManager.instance.eventPlayMatchError.SetActive(true);
         }
     }
     public void EventMatchOver(int myGoal, int opponentGoal)

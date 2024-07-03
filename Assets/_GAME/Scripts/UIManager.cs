@@ -18,6 +18,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject clubHousePanel;
     [SerializeField] private GameObject popUpPanel;
     [SerializeField] private TextMeshProUGUI popUpPanelText;
+    public GameObject eventPlayMatchError;
 
     private void Awake()
     {

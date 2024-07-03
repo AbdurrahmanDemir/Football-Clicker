@@ -69,7 +69,9 @@ EventMatchTitle,PLAY A MATCH,MAC OYNA
 EventMatch,The matches you play here are trophy winning matches independent of the league. You may face teams that are stronger or weaker than you.,Burda yaptigin maclar ligden baiımsiz kupa kazanma maclaridir. Senden guclu veya daha zayif takimlarla karsilasabilirsin. 
 LeaveMatch,Leave the match,Maçtan ayrıl
 QuestMenuText,Quest,Görevler
-RankingMenuText,Ranking,Sıralama
+RankingMenuText,Ranking,Siralama
 GiftMenuText,Gift,Hediye
 InboxMenuText,Inbox,Duyurular
 Inbox2,Don't you understand the game? Send us a message on Discord or Facebook and we will help you.,Oyunu anlamadın mı? Discord'dan veya Facebook'tan mesaj at sana yardımcı olalım.
+EventMatchError,It unlocks when team power is 1000. Play league matches for now,Takım gücü 1000 olduğunda açılır. Şimdilik lig maçlarını oyna.
+EventMatchErrorButton,Play League Match,Lig Maci Oyna
