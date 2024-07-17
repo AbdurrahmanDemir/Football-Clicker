@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class UIShopManager : MonoBehaviour
@@ -11,6 +12,7 @@ public class UIShopManager : MonoBehaviour
     [SerializeField] private RectTransform leaguePanel;
     [SerializeField] private RectTransform eventsPanel;
     [SerializeField] private GameObject firstElevenPanel;
+    [SerializeField] private GameObject leagueSlider;
 
 
     [Header(" Settings ")]
@@ -47,7 +49,7 @@ public class UIShopManager : MonoBehaviour
         leaderboardPanel.anchoredPosition = leaderboardClosedPos;
         leaguePanel.anchoredPosition = leagueClosedPos;
         eventsPanel.anchoredPosition = eventsClosedPos;
-            
+        leagueSlider.SetActive(false);
     }
 
     public void HousePanelOpen()
@@ -57,6 +59,7 @@ public class UIShopManager : MonoBehaviour
         LeanTween.move(leaderboardPanel, leaderboardClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
         LeanTween.move(leaguePanel, leagueClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
         LeanTween.move(eventsPanel, eventsClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
+        leagueSlider.SetActive(false);
     }
 
     public void ElevenPanelOpen()
@@ -67,6 +70,7 @@ public class UIShopManager : MonoBehaviour
         LeanTween.move(leaderboardPanel, leaderboardClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
         LeanTween.move(leaguePanel, leagueClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
         LeanTween.move(eventsPanel, eventsClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
+        leagueSlider.SetActive(false);
 
         if (!PlayerPrefs.HasKey("TutorialPanel2"))
         {
@@ -88,6 +92,7 @@ public class UIShopManager : MonoBehaviour
         LeanTween.move(leaderboardPanel, leaderboardClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
         LeanTween.move(leaguePanel, leagueClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
         LeanTween.move(eventsPanel, eventsClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
+        leagueSlider.SetActive(false);
     }
 
     public void ShopPanelClose()
@@ -104,8 +109,9 @@ public class UIShopManager : MonoBehaviour
         LeanTween.move(shopPanel, shopClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
         LeanTween.move(leaguePanel, leagueClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
         LeanTween.move(eventsPanel, eventsClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
+        leagueSlider.SetActive(false);
 
-        PlayfabManager.instance.SendLeaderboard(DataManager.instance.totalTeamGen);
+        PlayfabManager.instance.SendLeaderboard(SupporterManager.instance.GetFansNumber());
     }
 
     public void LeaderboardPanelClose()
@@ -122,6 +128,7 @@ public class UIShopManager : MonoBehaviour
         LeanTween.move(shopPanel, shopClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
         LeanTween.move(leaderboardPanel, leaderboardClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
         LeanTween.move(eventsPanel, eventsClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
+        leagueSlider.SetActive(false);
     }
 
     public void LeaguePanelClose()
@@ -138,11 +145,13 @@ public class UIShopManager : MonoBehaviour
         LeanTween.move(elevenPanel, elevenClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
         LeanTween.move(shopPanel, shopClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
         LeanTween.move(leaderboardPanel, leaderboardClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
+        leagueSlider.SetActive(true);
     }
     public void EventsPanelClose()
     {
         LeanTween.cancel(eventsPanel);
         LeanTween.move(eventsPanel, eventsClosedPos, .3f).setEase(LeanTweenType.easeInOutSine);
+        leagueSlider.SetActive(false);
     }
     public void FirstElevenPanel()
     {
@@ -152,4 +161,6 @@ public class UIShopManager : MonoBehaviour
             firstElevenPanel.gameObject.SetActive(true);
 
     }
+
+   
 }

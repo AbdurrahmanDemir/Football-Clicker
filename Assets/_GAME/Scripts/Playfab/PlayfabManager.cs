@@ -71,12 +71,6 @@ public class PlayfabManager : MonoBehaviour
             //TeamLogoController.instance.LoadTeamLogo(rankPrefabs.transform.GetChild(1)/*.transform.GetChild(0)*/);
 
         }
-
-
-        //GetPlayerCoinData();
-
-        //else
-        //    leaderboardWindow.SetActive(true);
     }
 
 
@@ -164,7 +158,7 @@ public class PlayfabManager : MonoBehaviour
         {
             StatisticName = "TeamGen",
             StartPosition = 0,
-            MaxResultsCount = 10
+            MaxResultsCount = 50
         };
         PlayFabClientAPI.GetLeaderboard(request, OnLeaderboardGet, OnError);
     }
@@ -183,6 +177,7 @@ public class PlayfabManager : MonoBehaviour
             text[0].text = (item.Position+1).ToString();
             text[1].text = item.DisplayName;
             text[2].text= item.StatValue.ToString();
+
 
             Debug.Log(item.Position + " " + item.PlayFabId + " " + item.StatValue);
         }

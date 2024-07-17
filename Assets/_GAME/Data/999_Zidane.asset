@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31aaa88ddc1d38f46bf950b0238eb4a6, type: 3}
+  m_Name: 999_Zidane
+  m_EditorClassIdentifier: 
+  bodyImage: {fileID: 21300000, guid: b756df9f213c1412787411e3f309d974, type: 3}
+  kitImage: {fileID: 21300000, guid: e49539b8d01c349bfa61e1d3402b26f5, type: 3}
+  faceImage: {fileID: 21300000, guid: baabcfee76d4f422fa2d9ab783ee38b0, type: 3}
+  hairImage: {fileID: 21300000, guid: 81c2c221fd76045ed9b3a0d53086305a, type: 3}
+  title: Zidame
+  gen: 120
+  pos: 7
+  cpsPerLevel: 18
+  basePrice: 800000
+  coefficient: 1.15

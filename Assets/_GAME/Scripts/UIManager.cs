@@ -13,11 +13,12 @@ public class UIManager : MonoBehaviour
     [Header("Elements")]
     [SerializeField] private Slider powerSlider;
     [SerializeField] private GameObject settingsPanel;
+    [SerializeField] private GameObject popUpName;
     [SerializeField] private GameObject inboxPanel;
     [SerializeField] private GameObject questPanel;
     [SerializeField] private GameObject clubHousePanel;
-    [SerializeField] private GameObject popUpPanel;
-    [SerializeField] private TextMeshProUGUI popUpPanelText;
+    [SerializeField] private GameObject _popUpPrefabs;
+    [SerializeField] private TextMeshProUGUI _popUpPrefabsText;
     public GameObject eventPlayMatchError;
 
     private void Awake()
@@ -62,6 +63,10 @@ public class UIManager : MonoBehaviour
         else
             questPanel.SetActive(true);
     }
+    public void NameChange()
+    {
+        popUpName.SetActive(true);
+    }
     public void ClubHouse()
     {
         if (!clubHousePanel.activeSelf)
@@ -76,7 +81,6 @@ public class UIManager : MonoBehaviour
         {
             DataManager.instance.AddGoldFloat(500);
             PlayerPrefs.SetInt("discordGift", 1);
-
         }
     }
     public void FacebookLink()
@@ -100,12 +104,14 @@ public class UIManager : MonoBehaviour
         //LaggedAPIUnity.Instance.CheckRewardAd();
         DataManager.instance.AddGoldFloat(100);
     }
-    public IEnumerator PopUpPanelOn(string text)
+    public IEnumerator popUpCreat(string massage)
     {
-        popUpPanel.SetActive(true);
-        popUpPanelText.text = text;
-        yield return new WaitForSeconds(3f);
-        popUpPanel.SetActive(false);
+
+        _popUpPrefabs.SetActive(true);
+        _popUpPrefabsText.text = massage;
+
+        yield return new WaitForSeconds(1.8f);
+        _popUpPrefabs.SetActive(false);
 
     }
 }

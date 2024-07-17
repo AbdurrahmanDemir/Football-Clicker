@@ -159,7 +159,7 @@ namespace UnityEngine.UI.Extensions
             Vector2 temp = Vector2.zero;
             Vector2 corner1 = Vector2.zero;
             Vector2 corner2 = Vector2.zero;
-            // iterate through current particles
+            //iterate through current particles
             int count = pSystem.GetParticles(particles);
 
             for (int i = 0; i < count; ++i)

@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using System.Reflection;
 using TMPro;
+using UnityEngine.UI;
 
 public class ShopManager : MonoBehaviour
 {
@@ -76,7 +77,11 @@ public class ShopManager : MonoBehaviour
         if (upgradeLevel == 0)
             upgradeButtonInstance.GetBuyButton().gameObject.SetActive(true);
         else
+        {
             upgradeButtonInstance.GetBuyButton().gameObject.SetActive(false);
+            upgradeButtonInstance.soldBackGround().gameObject.SetActive(true);
+
+        }
 
         
         
@@ -112,6 +117,7 @@ public class ShopManager : MonoBehaviour
             {
                 activeButton.GetBuyButton().gameObject.SetActive(false);
                 onPlayerPurchased?.Invoke();
+                activeButton.soldBackGround().gameObject.SetActive(true);
 
             }
 
@@ -120,9 +126,9 @@ public class ShopManager : MonoBehaviour
             UIManager.instance.UpdateSlider();
 
         }
-            
+
         else
-            Debug.Log("You're too poor for the upgrade ! ");
+            StartCoroutine(UIManager.instance.popUpCreat("NOT ENOUGH GOLD"));
     }
 
     private void ElevenButtonClickedCallback(int elevenIndex)
@@ -232,11 +238,25 @@ public class ShopManager : MonoBehaviour
             // Düðmeyi aktif duruma getir
             UpgradeButton upgradeButton = upgradeButtonsParent.GetChild(i).GetComponent<UpgradeButton>();
             upgradeButton.GetBuyButton().gameObject.SetActive(false);
+            upgradeButton.soldBackGround().gameObject.SetActive(true);
 
             // Görselleri güncelle
             UpdateVisuals(i);
             ElevenButtonClickedCallback(i);
         }
+    }
+
+    public void shopPlayerBuy(int playerIndex)
+    {
+        SaveUpgradeLevel(playerIndex, 1);
+        // Düðmeyi aktif duruma getir
+        UpgradeButton upgradeButton = upgradeButtonsParent.GetChild(playerIndex).GetComponent<UpgradeButton>();
+        upgradeButton.GetBuyButton().gameObject.SetActive(false);
+        upgradeButton.soldBackGround().gameObject.SetActive(true);
+
+        // Görselleri güncelle
+        UpdateVisuals(playerIndex);
+        ElevenButtonClickedCallback(playerIndex);
     }
 
 private void SetUpgradeLevel(int upgradeIndex, int level)
@@ -299,4 +319,107 @@ private void SetUpgradeLevel(int upgradeIndex, int level)
     {
         return upgrades;
     }
+
+    public void AutoAssignBestPlayers()
+    {
+        Dictionary<PlayerPos, (UpgradeSO upgrade, int totalGen)> bestPlayers = new Dictionary<PlayerPos, (UpgradeSO, int)>();
+
+        // Initialize the dictionary with default values
+        foreach (PlayerPos pos in Enum.GetValues(typeof(PlayerPos)))
+        {
+            bestPlayers[pos] = (null, 0);
+        }
+
+        // Find the best player for each position among purchased players
+        for (int i = 0; i < upgrades.Length; i++)
+        {
+            int upgradeLevel = GetUpgradeLevel(i);
+            if (upgradeLevel >= 1) // Player is purchased
+            {
+                var upgrade = upgrades[i];
+                int totalGen = upgrade.gen + upgradeLevel; // Calculate the total gen value
+
+                if (bestPlayers[upgrade.pos].upgrade == null ||
+                    totalGen > bestPlayers[upgrade.pos].totalGen)
+                {
+                    bestPlayers[upgrade.pos] = (upgrade, totalGen);
+                }
+            }
+        }
+
+        // Assign the best players to their positions
+        foreach (var kvp in bestPlayers)
+        {
+            if (kvp.Value.upgrade != null)
+            {
+                int upgradeIndex = Array.IndexOf(upgrades, kvp.Value.upgrade);
+                switch (kvp.Key)
+                {
+                    case PlayerPos.GK:
+                        elevenPoints[0].GetComponent<SpriteRenderer>().sprite = kvp.Value.upgrade.bodyImage;
+                        elevenPointsText[0].text = kvp.Value.upgrade.title;
+                        PlayerPrefs.SetInt("Eleven" + 0, upgradeIndex);
+                        break;
+                    case PlayerPos.LCB:
+                        elevenPoints[1].GetComponent<SpriteRenderer>().sprite = kvp.Value.upgrade.bodyImage;
+                        elevenPointsText[1].text = kvp.Value.upgrade.title;
+                        PlayerPrefs.SetInt("Eleven" + 1, upgradeIndex);
+                        break;
+                    case PlayerPos.RCB:
+                        elevenPoints[2].GetComponent<SpriteRenderer>().sprite = kvp.Value.upgrade.bodyImage;
+                        elevenPointsText[2].text = kvp.Value.upgrade.title;
+                        PlayerPrefs.SetInt("Eleven" + 2, upgradeIndex);
+                        break;
+                    case PlayerPos.LB:
+                        elevenPoints[3].GetComponent<SpriteRenderer>().sprite = kvp.Value.upgrade.bodyImage;
+                        elevenPointsText[3].text = kvp.Value.upgrade.title;
+                        PlayerPrefs.SetInt("Eleven" + 3, upgradeIndex);
+                        break;
+                    case PlayerPos.RB:
+                        elevenPoints[4].GetComponent<SpriteRenderer>().sprite = kvp.Value.upgrade.bodyImage;
+                        elevenPointsText[4].text = kvp.Value.upgrade.title;
+                        PlayerPrefs.SetInt("Eleven" + 4, upgradeIndex);
+                        break;
+                    case PlayerPos.LM:
+                        elevenPoints[5].GetComponent<SpriteRenderer>().sprite = kvp.Value.upgrade.bodyImage;
+                        elevenPointsText[5].text = kvp.Value.upgrade.title;
+                        PlayerPrefs.SetInt("Eleven" + 5, upgradeIndex);
+                        break;
+                    case PlayerPos.RM:
+                        elevenPoints[6].GetComponent<SpriteRenderer>().sprite = kvp.Value.upgrade.bodyImage;
+                        elevenPointsText[6].text = kvp.Value.upgrade.title;
+                        PlayerPrefs.SetInt("Eleven" + 6, upgradeIndex);
+                        break;
+                    case PlayerPos.CM:
+                        elevenPoints[7].GetComponent<SpriteRenderer>().sprite = kvp.Value.upgrade.bodyImage;
+                        elevenPointsText[7].text = kvp.Value.upgrade.title;
+                        PlayerPrefs.SetInt("Eleven" + 7, upgradeIndex);
+                        break;
+                    case PlayerPos.LW:
+                        elevenPoints[8].GetComponent<SpriteRenderer>().sprite = kvp.Value.upgrade.bodyImage;
+                        elevenPointsText[8].text = kvp.Value.upgrade.title;
+                        PlayerPrefs.SetInt("Eleven" + 8, upgradeIndex);
+                        break;
+                    case PlayerPos.RW:
+                        elevenPoints[9].GetComponent<SpriteRenderer>().sprite = kvp.Value.upgrade.bodyImage;
+                        elevenPointsText[9].text = kvp.Value.upgrade.title;
+                        PlayerPrefs.SetInt("Eleven" + 9, upgradeIndex);
+                        break;
+                    case PlayerPos.ST:
+                        elevenPoints[10].GetComponent<SpriteRenderer>().sprite = kvp.Value.upgrade.bodyImage;
+                        elevenPointsText[10].text = kvp.Value.upgrade.title;
+                        PlayerPrefs.SetInt("Eleven" + 10, upgradeIndex);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        DataManager.instance.totalGen();
+        UIManager.instance.UpdateSlider();
+    }
+
+
+
+
 }

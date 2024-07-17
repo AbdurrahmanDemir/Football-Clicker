@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using System.Xml.Schema;
 using System;
+using Unity.VisualScripting;
 
 public class DataManager : MonoBehaviour
 {
@@ -13,13 +14,15 @@ public class DataManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI goldText;
     [SerializeField] private TextMeshProUGUI gemText;
     [SerializeField] private TextMeshProUGUI cpsText;
-    [SerializeField] private TextMeshProUGUI incrementPriceText;
+    public TextMeshProUGUI incrementPriceText;
+    public GameObject goldDoubleButton;
+    public GameObject clubHouseButton;
 
     [Header(" Data ")]
     public double totalGoldText;
     [SerializeField] private int gem;
     [SerializeField] private int frenzyModeMultiplier;
-    private int goldIncrement;
+    public int goldIncrement;
     private double previousGoldCount;
 
     [Header(" Data ")]
@@ -64,13 +67,98 @@ public class DataManager : MonoBehaviour
         incrementPriceText.text = (GetCurrentMultiplier() * 1000).ToString();
 
         totalGen();
+
+        // 2x bonusun aktif olup olmadýðýný kontrol ediyoruz.
+        if (PlayerPrefs.GetInt("IsDoubleActive", 0) == 1)
+        {
+            DateTime startTime = DateTime.Parse(PlayerPrefs.GetString("DoubleStartTime", DateTime.Now.ToString()));
+            TimeSpan elapsed = DateTime.Now - startTime;
+
+            // Eðer 60 saniye dolmamýþsa, kalan süreyi hesaplýyoruz.
+            if (elapsed.TotalSeconds < 60)
+            {
+                goldIncrement *= 2;
+                goldDoubleButton.SetActive(false);
+                clubHouseButton.SetActive(false);
+                AddGem(0);
+                StartCoroutine(ResumeGoldIncrement((float)(60 - elapsed.TotalSeconds)));
+            }
+            else
+            {
+                // 60 saniye dolmuþsa, deðerleri normal hale getiriyoruz.
+                int oldGold = PlayerPrefs.GetInt("OldGoldIncrement", goldIncrement / 2);
+                goldIncrement = oldGold;
+                PlayerPrefs.SetInt("Increment", goldIncrement);
+                PlayerPrefs.SetInt("IsDoubleActive", 0);
+            }
+        }
+
+        if (!PlayerPrefs.HasKey("GemBugFix"))
+        {
+            Debug.Log("çalýþtý1");
+            if (PlayerPrefs.HasKey("Gem"))
+            {
+                AddGem(-gem);
+                PlayerPrefs.SetInt("GemBugFix", 1);
+                Debug.Log("çalýþtý2");
+            }
+
+        }
     }
+
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.C))
             AddGoldDouble(totalGoldText);
     }
+
+    public IEnumerator ResumeGoldIncrement(float remainingTime)
+    {
+        yield return new WaitForSeconds(remainingTime);
+
+        goldDoubleButton.SetActive(true);
+        clubHouseButton.SetActive(true);
+        int oldGold = PlayerPrefs.GetInt("OldGoldIncrement", goldIncrement / 2);
+        goldIncrement = oldGold;
+        PlayerPrefs.SetInt("Increment", goldIncrement);
+        PlayerPrefs.SetInt("IsDoubleActive", 0); // 2x bonusun bittiðini iþaretliyoruz.
+    }
+    public void GoldIncrementDouble()
+    {
+        if (TryPurchaseGem(20))
+        {
+        StartCoroutine(GoldIncrement2X());
+
+        }
+        else
+        {
+            StartCoroutine(UIManager.instance.popUpCreat("NOT ENOUGH ENERGY"));
+        }
+    }
+
+    public IEnumerator GoldIncrement2X()
+    {
+        int oldGold = goldIncrement;
+        goldIncrement *= 2;
+        PlayerPrefs.SetInt("Increment", goldIncrement);
+        goldDoubleButton.SetActive(false);
+        clubHouseButton.SetActive(false);
+        AddGem(0);
+
+        // Coroutine'in baþlama zamanýný kaydediyoruz.
+        PlayerPrefs.SetString("DoubleStartTime", DateTime.Now.ToString());
+        PlayerPrefs.SetInt("IsDoubleActive", 1);
+
+        yield return new WaitForSeconds(60);
+
+        goldDoubleButton.SetActive(true);
+        clubHouseButton.SetActive(true);
+        goldIncrement = oldGold;
+        PlayerPrefs.SetInt("Increment", goldIncrement);
+        PlayerPrefs.SetInt("IsDoubleActive", 0); // 2x bonusun bittiðini iþaretliyoruz.
+    }
+
     public bool TryPurchaseGold(double price)
     {
         if (price <= totalGoldText)
@@ -99,6 +187,18 @@ public class DataManager : MonoBehaviour
         UpdateGemText();
 
         SaveData();
+    }
+
+    public void EnergyBuy20()
+    {
+        if (TryPurchaseGold(10000))
+        {
+            AddGem(30);
+        }
+        else
+        {
+            StartCoroutine(UIManager.instance.popUpCreat("NOT ENOUGH ENERGY"));
+        }
     }
 
     public void AddGoldDouble(double value)
@@ -176,17 +276,69 @@ public class DataManager : MonoBehaviour
     }
     public void UpgradeClubHouse()
     {
-        if (TryPurchaseGold(PlayerPrefs.GetInt("Increment") * 1000))
+        if (PlayerPrefs.GetInt("Increment") < 5)
         {
-            goldIncrement += 1;
-            PlayerPrefs.SetInt("Increment", goldIncrement);
-            incrementPriceText.text = (GetCurrentMultiplier() * 1000).ToString();
-            onUpgradeClubHouse?.Invoke();
+                incrementPriceText.text = (GetCurrentMultiplier() * 1000).ToString();
+            if (TryPurchaseGold(PlayerPrefs.GetInt("Increment") * 1000))
+            {
+                goldIncrement += 1;
+                PlayerPrefs.SetInt("Increment", goldIncrement);
+                incrementPriceText.text = (GetCurrentMultiplier() * 1000).ToString();
+                onUpgradeClubHouse?.Invoke();
+            }
+            else
+            {
+                StartCoroutine(UIManager.instance.popUpCreat("NOT ENOUGH GOLD"));
+            }
         }
-        else
+        else if (PlayerPrefs.GetInt("Increment") == 5)
         {
-            Debug.Log("yetersiz");
+                incrementPriceText.text = 60000.ToString();
+            if (TryPurchaseGold(PlayerPrefs.GetInt("Increment") * 10000))
+            {
+                goldIncrement += 1;
+                PlayerPrefs.SetInt("Increment", goldIncrement);
+                incrementPriceText.text = (GetCurrentMultiplier() * 10000).ToString();
+                onUpgradeClubHouse?.Invoke();
+            }
+            else
+            {
+                StartCoroutine(UIManager.instance.popUpCreat("NOT ENOUGH GOLD"));
+            }
         }
+        else if(PlayerPrefs.GetInt("Increment")>=6)
+        {
+                incrementPriceText.text = (GetCurrentMultiplier() * 10000).ToString();
+            if (TryPurchaseGold(PlayerPrefs.GetInt("Increment") * 10000))
+            {
+                goldIncrement += 1;
+                PlayerPrefs.SetInt("Increment", goldIncrement);
+                incrementPriceText.text = (GetCurrentMultiplier() * 10000).ToString();
+                onUpgradeClubHouse?.Invoke();
+            }
+            else
+            {
+                StartCoroutine(UIManager.instance.popUpCreat("NOT ENOUGH GOLD"));
+            }
+        }
+        else if(PlayerPrefs.GetInt("Increment") >= 10)
+        {
+                incrementPriceText.text = (GetCurrentMultiplier() * 100000).ToString();
+            if (TryPurchaseGold(PlayerPrefs.GetInt("Increment") * 100000))
+            {
+                goldIncrement += 1;
+                PlayerPrefs.SetInt("Increment", goldIncrement);
+                incrementPriceText.text = (GetCurrentMultiplier() * 100000).ToString();
+                onUpgradeClubHouse?.Invoke();
+            }
+            else
+            {
+                StartCoroutine(UIManager.instance.popUpCreat("NOT ENOUGH GOLD"));
+            }
+
+        }
+
+        
     }
     public void totalGen()
     {
@@ -292,7 +444,7 @@ public class DataManager : MonoBehaviour
         Debug.Log(midGen);
         Debug.Log(forGen);
 
-
+        SupporterManager.instance.LoadFans();
 
     }
     public int GetTotalGen()

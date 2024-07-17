@@ -123,7 +123,7 @@ public class MatchManager : MonoBehaviour
         }
         else
         {
-            StartCoroutine(UIManager.instance.PopUpPanelOn("YOU HAVE NOT ENOUGH GOLD"));
+            StartCoroutine(UIManager.instance.popUpCreat("NOT ENOUGH GOLD"));
         }
 
 
@@ -143,12 +143,20 @@ public class MatchManager : MonoBehaviour
             timeText.text = "90'";
             resultText.text = "YOU WON";
 
+            
+
             string opponentKey = "Won_" + opponentIndex;
             if (!PlayerPrefs.HasKey(opponentKey))
             {
                 LeagueManager.instance.SetLevel();
                 SaveWinTeam(opponentKey);
                 DataManager.instance.AddGoldDouble(PlayerPrefs.GetInt("VictoryTrophy"));
+
+                int winNumber = PlayerPrefs.GetInt("WinNumber", 1);
+                winNumber++;
+                PlayerPrefs.SetInt("WinNumber", winNumber);
+
+                SupporterManager.instance.LoadFans();
             }
 
 

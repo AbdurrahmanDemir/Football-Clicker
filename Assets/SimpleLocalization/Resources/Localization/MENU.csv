@@ -7,7 +7,7 @@ Soon,Soon,Yakında
 LeagueNameText1,Bronze League 2,Bronz Lig 2
 LeagueNameText2,Bronze League 1,Bronz Lig 1
 MatchFee,Match Fee: ,Mac Ucreti:
-MatchStart,START,MACI OYNA
+MatchStart,PLAY MATCH,MAC OYNA
 MatchLeave,LEAVE THE MATCH,MAÇTAN AYRIL
 GoldRequired,GOLD ,ALTIN
 HouseUpgradeInfo,Upgrade to earn more gold with every click,Her tıklamada daha çok altın kazanmak icin yükselt
@@ -17,7 +17,7 @@ ForwardAddText,ADD AS FORWARD,FORVET OLARAK EKLE
 MidAddText,ADD AS MIDFIELDER,ORTA SAHA OLARAK EKLE
 DefenderAddText,ADD AS DEFENDER,DEFANS OLARAK EKLE
 GKAddText,ADD AS GOALKEEPER,KALECI OLARAK EKLE
-Leaderboard,Leaderboard (Team Power),Liderlik Tablosu (Takım Gücü)
+Leaderboard,Leaderboard (Fan Count),Liderlik Tablosu (Taraftar Sayisi)
 Tutorial1,"Welcome!
 You earn gold every time you click on the field.
 Buy football players with the gold you earn.","Hosgeldin!
@@ -64,14 +64,44 @@ ShootText,SHOOT,SUT
 PressText,PRESS,PRES
 GrabText,GRAB,TOPA KAY
 MatchPrize,Winning Prize,Galibiyet Ucreti
-Events,EVENTS,ETKINLIKLER
+Events,LEAGUE,LIG
 EventMatchTitle,PLAY A MATCH,MAC OYNA
-EventMatch,The matches you play here are trophy winning matches independent of the league. You may face teams that are stronger or weaker than you.,Burda yaptigin maclar ligden baiımsiz kupa kazanma maclaridir. Senden guclu veya daha zayif takimlarla karsilasabilirsin. 
+EventMatch,Play in new leagues by making matches. For every win you gain 5 trophies and for every loss you lose 2 trophies.,Mac yaparak yeni liglerde oyna. Her galibiyette 5 kazanir kupa her maglubiyette 2 kupa kaybedersin.
 LeaveMatch,Leave the match,Maçtan ayrıl
 QuestMenuText,Quest,Görevler
 RankingMenuText,Ranking,Siralama
 GiftMenuText,Gift,Hediye
 InboxMenuText,Inbox,Duyurular
-Inbox2,Don't you understand the game? Send us a message on Discord or Facebook and we will help you.,Oyunu anlamadın mı? Discord'dan veya Facebook'tan mesaj at sana yardımcı olalım.
-EventMatchError,It unlocks when team power is 1000. Play league matches for now,Takım gücü 1000 olduğunda açılır. Şimdilik lig maçlarını oyna.
+Inbox3,Don't you understand the game? Send us a message on Discord or Facebook and we will help you.,Oyunu anlamadın mı? Discord'dan veya Facebook'tan mesaj at sana yardımcı olalım.
+EventMatchError,It unlocks when team power is 1000. Play league matches for now,Takim gucu 1000 oldugunda acilir. Simdilik lig maci oyna.
 EventMatchErrorButton,Play League Match,Lig Maci Oyna
+StartedPack1Title,STARTED PACK,BASLANGIC PAKETI
+StartedPack2Title,LEGENDARY STARTED PACK,EFSANEVI BASLANGIC PAKETI
+StarPack1Title,GOLD PACK,ALTIN PAKETI
+FansHouseTitle,FANS HOUSE,TARAFTAR EVI
+FansHouseInfo,You gain 5 fans for each team power and 30 fans for each match win.,"Her takim gucu icin 5 taraftar, her mac galibiyeti icin 30 taraftar kazanirsin."
+TotalPowerFansText,Team Power:,Takim Gucun:
+TotalWinFansText,Total Wins:,Toplam Galibiyetin:
+FansHouseUpgradeText,ADVERSITE,REKLAM YAP
+TotalFansText,TOTAL FANS NUMBER:,TOPLAM TARAFTAR SAYIN:
+FansHouseUpgrade,You can get 50 fans by doing advertising work.,Reklam yaparak 50 taraftar kazanabilirsin.
+GalaPack,ISTANBUL GALA PACK,ISTANBUL GALA PAKETI
+ClubProfileNameText,"To change your team name, send us an e-mail or contact us on our Discord server.",Takim ismini degistirmek icin bize mail gönder veya Discord sunucumuzdan bize ulas.
+ShareDiscordLinkText,Share your squad with other players!,Kadronu diger oyuncularla paylas!
+CompletedText,COMPLETED,TAMAMLANDI
+ShopMenuBarText,SHOP,MARKET
+PlayersMenuBarText,PLAYERS,OYUNCULAR
+MenuMenuBarText,MENU,EV
+LeagueMenuBarText,LEAGUE,LIG
+IncreaseGold,Increase every click by 2X,Her tiklama ile 2X kazan
+IncreaseGoldBack,2X started. It will end in 60 seconds.,2X başladi. 60 saniyede bitecek.
+Inbox2," 2x button added. Gold earnings per click will double for 1 minute.
++ Energies have been added to the game.
++ Match odds have been increased to make the game easier.
++ League fees have been increased. Even in the bronze league, the victory fee was 5000 gold.
++ Fan gain per win increased from 10 to 30.","2x butonu eklendi. 1 dakika boyunca tiklama başina altin kazanimi 2 katina çikacak. 
++ Enerjiler oyuna eklendi. 
++ Oyunu daha kolay hale getirmek icin mac oranlari arttirildi. 
++ Lig ücretleri arttirildi. Bronze ligde bile galibiyet ücreti 5000 altin oldu.
++ Galibiyet basina taraftar kazanimi 10 dan 30 a yükseltildi."
+OtoElevenText,AUTO CREATE FIRST 11,ILK 11'i OTOMATIK OLUSTUR

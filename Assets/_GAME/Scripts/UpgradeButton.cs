@@ -11,6 +11,7 @@ public class UpgradeButton : MonoBehaviour
     [SerializeField] private Image kitImage;
     [SerializeField] private Image faceImage;
     [SerializeField] private Image hairImage;
+    [SerializeField] private GameObject soldBackground;
     [SerializeField] private TextMeshProUGUI titleText;
     [SerializeField] private TextMeshProUGUI subtitleText;
     [SerializeField] private TextMeshProUGUI priceText;
@@ -56,5 +57,9 @@ public class UpgradeButton : MonoBehaviour
     public TextMeshProUGUI GetGenText()
     {
         return genText;
+    }
+    public GameObject soldBackGround()
+    {
+        return soldBackground;
     }
 }

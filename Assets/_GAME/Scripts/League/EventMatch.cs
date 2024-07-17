@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,6 +23,10 @@ public class EventMatch : MonoBehaviour
     [SerializeField] private GameObject startButton;
     [SerializeField] private Image myTeamLogo;
     [SerializeField] private Image opponentTeamLogo;
+    [SerializeField] private string[] opponentTeamNames;
+    [SerializeField] private string[] leaguesTitle;
+    [SerializeField] private Slider[] leaguesSlider;
+    [SerializeField] private GameObject[] leaguesCompletedImage;
     public UIShopManager uiManager;
     [Header("New Match")]
     public MatchEngine matchEngine;
@@ -33,39 +38,109 @@ public class EventMatch : MonoBehaviour
     private void Start()
     {
         LoadTrophy();
-        eventMatchSlider.maxValue = 100;
+        eventMatchSlider.maxValue = 1000;
     }
 
     public void OpenMatchPanel()
     {
-        if (DataManager.instance.GetTotalGen() > 1000)
+        if (DataManager.instance.GetTotalGen() > 0)
         {
             matchPanel.SetActive(true);
             startButton.SetActive(true);
-            int opponentDef = Random.Range(-100, 50) + DataManager.instance.GetDefGen();
-            int opponentMid = Random.Range(-100, 50) + DataManager.instance.GetMidGen();
-            int opponentFor = Random.Range(-100, 50) + DataManager.instance.GetForGen();
 
-            if (opponentDef < 0)
-                opponentDef = 0;
-            if (opponentMid < 0)
-                opponentMid = 0;
-            if (opponentFor < 0)
-                opponentFor = 0;
+            if (DataManager.instance.GetTotalGen() < 300)
+            {
+                int opponentDef = Random.Range(-100, 10) + DataManager.instance.GetDefGen();
+                int opponentMid = Random.Range(-100, 10) + DataManager.instance.GetMidGen();
+                int opponentFor = Random.Range(-100, 10) + DataManager.instance.GetForGen();
+
+                if (opponentDef < 0)
+                    opponentDef = 0;
+                if (opponentMid < 0)
+                    opponentMid = 0;
+                if (opponentFor < 0)
+                    opponentFor = 0;
 
 
-            myGenText.text = DataManager.instance.GetTotalGen().ToString();
-            oppenentGenText.text = (opponentDef + opponentMid + opponentFor).ToString();
+                myGenText.text = DataManager.instance.GetTotalGen().ToString();
+                oppenentGenText.text = (opponentDef + opponentMid + opponentFor).ToString();
 
-            matchEngine.OpponentTeamConfig(opponentDef, opponentMid, opponentFor);
-            matchEngine.MyTeamConfig(DataManager.instance.GetDefGen(), DataManager.instance.GetMidGen(), DataManager.instance.GetForGen());
-            matchEngine.CalculateRate();
+                matchEngine.OpponentTeamConfig(opponentDef, opponentMid, opponentFor);
+                matchEngine.MyTeamConfig(DataManager.instance.GetDefGen(), DataManager.instance.GetMidGen(), DataManager.instance.GetForGen());
+                matchEngine.CalculateRate();
+            }
+            else if (DataManager.instance.GetTotalGen() >= 300 && DataManager.instance.GetTotalGen() < 1000)
+            {
+                int opponentDef = Random.Range(-150, 50) + DataManager.instance.GetDefGen();
+                int opponentMid = Random.Range(-150, 50) + DataManager.instance.GetMidGen();
+                int opponentFor = Random.Range(-150, 50) + DataManager.instance.GetForGen();
+
+                if (opponentDef < 0)
+                    opponentDef = 0;
+                if (opponentMid < 0)
+                    opponentMid = 0;
+                if (opponentFor < 0)
+                    opponentFor = 0;
+
+                myGenText.text = DataManager.instance.GetTotalGen().ToString();
+                oppenentGenText.text = (opponentDef + opponentMid + opponentFor).ToString();
+
+                matchEngine.OpponentTeamConfig(opponentDef, opponentMid, opponentFor);
+                matchEngine.MyTeamConfig(DataManager.instance.GetDefGen(), DataManager.instance.GetMidGen(), DataManager.instance.GetForGen());
+                matchEngine.CalculateRate();
+            }
+            else if (DataManager.instance.GetTotalGen() >= 1000 && DataManager.instance.GetTotalGen() < 2000)
+            {
+                int opponentDef = Random.Range(-350, 200) + DataManager.instance.GetDefGen();
+                int opponentMid = Random.Range(-350, 200) + DataManager.instance.GetMidGen();
+                int opponentFor = Random.Range(-350, 200) + DataManager.instance.GetForGen();
+
+                if (opponentDef < 0)
+                    opponentDef = 0;
+                if (opponentMid < 0)
+                    opponentMid = 0;
+                if (opponentFor < 0)
+                    opponentFor = 0;
+
+                myGenText.text = DataManager.instance.GetTotalGen().ToString();
+                oppenentGenText.text = (opponentDef + opponentMid + opponentFor).ToString();
+
+                matchEngine.OpponentTeamConfig(opponentDef, opponentMid, opponentFor);
+                matchEngine.MyTeamConfig(DataManager.instance.GetDefGen(), DataManager.instance.GetMidGen(), DataManager.instance.GetForGen());
+                matchEngine.CalculateRate();
+
+            }
+            else
+            {
+                int opponentDef = Random.Range(-500, 200) + DataManager.instance.GetDefGen();
+                int opponentMid = Random.Range(-500, 200) + DataManager.instance.GetMidGen();
+                int opponentFor = Random.Range(-500, 200) + DataManager.instance.GetForGen();
+
+                if (opponentDef < 0)
+                    opponentDef = 0;
+                if (opponentMid < 0)
+                    opponentMid = 0;
+                if (opponentFor < 0)
+                    opponentFor = 0;
+
+                myGenText.text = DataManager.instance.GetTotalGen().ToString();
+                oppenentGenText.text = (opponentDef + opponentMid + opponentFor).ToString();
+
+                matchEngine.OpponentTeamConfig(opponentDef, opponentMid, opponentFor);
+                matchEngine.MyTeamConfig(DataManager.instance.GetDefGen(), DataManager.instance.GetMidGen(), DataManager.instance.GetForGen());
+                matchEngine.CalculateRate();
+            }
+
+
+        
+
 
             myGoalText.text = "0";
             opponentGoalText.text = "0";
 
             myTeamNameText.text = "My Team";
-            oppenentTeamNameText.text = "Opponent Team";
+            int RandomNames = Random.Range(0, opponentTeamNames.Length);
+            oppenentTeamNameText.text = opponentTeamNames[RandomNames];
 
             //myTeamLogo.sprite = null;
             //opponentTeamLogo.sprite = null;
@@ -79,7 +154,7 @@ public class EventMatch : MonoBehaviour
     }
     public void EventMatchPlay()
     {
-        if (DataManager.instance.GetTotalGen()>1000)
+        if (DataManager.instance.GetTotalGen()>0)
         {
             uiManager.LeaguePanelOpen();
             matchScene.SetActive(true);
@@ -111,6 +186,25 @@ public class EventMatch : MonoBehaviour
             timeText.text = "90'";
             resultText.text = "YOU WON";
             AddTrophy(5);
+
+            if (trophy >= 0 && trophy < 50)
+                DataManager.instance.AddGoldDouble(5000);
+            if (trophy >= 50 && trophy < 200)
+                DataManager.instance.AddGoldDouble(10000);
+            if (trophy >= 200 && trophy < 500)
+                DataManager.instance.AddGoldDouble(30000);
+            if (trophy >= 5000 && trophy < 1000)
+                DataManager.instance.AddGoldDouble(60000);
+            if (trophy >= 1000 && trophy < 2000)
+                DataManager.instance.AddGoldDouble(80000);
+            if (trophy >= 2000 && trophy < 5000)
+                DataManager.instance.AddGoldDouble(100000);
+
+            int winNumber = PlayerPrefs.GetInt("WinNumber", 1);
+            winNumber++;
+            PlayerPrefs.SetInt("WinNumber", winNumber);
+            LeagueControl();
+            SupporterManager.instance.LoadFans();
         }
         else
         {
@@ -119,6 +213,7 @@ public class EventMatch : MonoBehaviour
             timeText.text = "90'";
             resultText.text = "YOU LOST";
             AddTrophy(-2);
+            LeagueControl();
         }
         
     }
@@ -127,6 +222,89 @@ public class EventMatch : MonoBehaviour
     {
         matchPanel.SetActive(false);
         isEventMatch = false;
+
+    }
+
+    void LeagueControl()
+    {
+        if (trophy < 50)
+        {
+            leaguesSlider[0].value = trophy;
+            leaguesSlider[0].maxValue = 50;
+            return;
+        }
+        else
+        {
+            leaguesCompletedImage[0].gameObject.SetActive(true);
+        }
+        if(trophy >= 50 && trophy < 200)
+        {
+            leaguesSlider[1].value = trophy;
+            leaguesSlider[1].maxValue = 200;
+            return;
+
+        }
+        else
+        {
+            leaguesCompletedImage[0].gameObject.SetActive(true);
+            leaguesCompletedImage[1].gameObject.SetActive(true);
+        }
+        if (trophy >= 200 && trophy < 500)
+        {
+            leaguesSlider[2].value = (float)trophy;
+            leaguesSlider[2].maxValue = 500;
+            return;
+
+        }
+        else
+        {
+            leaguesCompletedImage[0].gameObject.SetActive(true);
+            leaguesCompletedImage[1].gameObject.SetActive(true);
+            leaguesCompletedImage[2].gameObject.SetActive(true);
+
+        }
+        if (trophy >= 500 && trophy < 1000)
+        {
+            leaguesSlider[3].value = trophy;
+            leaguesSlider[3].maxValue = 1000;
+            return;
+        }
+        else
+        {
+            leaguesCompletedImage[0].gameObject.SetActive(true);
+            leaguesCompletedImage[1].gameObject.SetActive(true);
+            leaguesCompletedImage[2].gameObject.SetActive(true);
+            leaguesCompletedImage[3].gameObject.SetActive(true);
+        }
+        if (trophy >= 1000 && trophy <= 2000)
+        {
+            leaguesSlider[4].value = trophy;
+            leaguesSlider[4].maxValue = 2000;
+            return;
+        }
+        else
+        {
+            leaguesCompletedImage[0].gameObject.SetActive(true);
+            leaguesCompletedImage[1].gameObject.SetActive(true);
+            leaguesCompletedImage[2].gameObject.SetActive(true);
+            leaguesCompletedImage[3].gameObject.SetActive(true);
+            leaguesCompletedImage[4].gameObject.SetActive(true);
+        }
+        if (trophy >=2000 && trophy <= 5000)
+        {
+            leaguesSlider[5].value = trophy;
+            leaguesSlider[5].maxValue = 5000;
+            return;
+        }
+        else
+        {
+            leaguesCompletedImage[0].gameObject.SetActive(true);
+            leaguesCompletedImage[1].gameObject.SetActive(true);
+            leaguesCompletedImage[2].gameObject.SetActive(true);
+            leaguesCompletedImage[3].gameObject.SetActive(true);
+            leaguesCompletedImage[4].gameObject.SetActive(true);
+            leaguesCompletedImage[5].gameObject.SetActive(true);
+        }
 
     }
 
@@ -151,5 +329,6 @@ public class EventMatch : MonoBehaviour
 
         trophyText.text = trophy.ToString();
         eventMatchSlider.value = trophy;
+        LeagueControl();
     }
 }

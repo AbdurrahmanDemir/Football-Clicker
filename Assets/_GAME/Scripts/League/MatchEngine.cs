@@ -238,11 +238,11 @@ public class MatchEngine : MonoBehaviour
 
     public void CalculateRate()
     {
-        pass = (myTeamTotalGen / (myTeamTotalGen + opponentTotalGen))*100f;
-        dribble = ((myTeamMidGen + myTeamForGen) / (myTeamMidGen + myTeamForGen + opponentMidGen + opponentDefGen))*100f;
-        shoot = (myTeamForGen / (myTeamForGen + opponentDefGen)) * 100f;
-        press = (myTeamTotalGen / (myTeamTotalGen + opponentTotalGen))*100f ;
-        grab = (myTeamForGen / (myTeamForGen + opponentDefGen)) * 100f;
+        pass = (myTeamTotalGen / (myTeamTotalGen + opponentTotalGen))*100f + 10;
+        dribble = ((myTeamMidGen + myTeamForGen) / (myTeamMidGen + myTeamForGen + opponentMidGen + opponentDefGen))*100f+10;
+        shoot = (myTeamForGen / (myTeamForGen + opponentDefGen)) * 100f + 10;
+        press = (myTeamTotalGen / (myTeamTotalGen + opponentTotalGen))*100f+10 ;
+        grab = (myTeamForGen / (myTeamForGen + opponentDefGen)) * 100f + 10;
 
         firstPassRate = pass;
         firstDribbleRate = dribble;
@@ -299,7 +299,7 @@ public class MatchEngine : MonoBehaviour
             DefencePanelActive();
             yield return new WaitForSeconds(1f);
             DefencePanelActive();
-            DefenceRate(5f, 2f);
+            DefenceRate(10f, 5f);
             defenceMove--;          
             MoveTextUpdate();
             if (LocalizationManager.Language == "Türkçe")
@@ -427,7 +427,7 @@ public class MatchEngine : MonoBehaviour
             AttackPanelActive();
             yield return new WaitForSeconds(1f);
             AttackPanelActive();
-            AttackRate(5f, 3f, 2f);
+            AttackRate(10f, 10f, 8f);
             attackMove--;
             if (LocalizationManager.Language == "Türkçe")
             {
@@ -480,7 +480,7 @@ public class MatchEngine : MonoBehaviour
             AttackPanelActive();
             yield return new WaitForSeconds(1f);
             AttackPanelActive();
-            AttackRate(5f, 5f, 5f);
+            AttackRate(5f, 10f, 10f);
             attackMove--;
 
             if (LocalizationManager.Language == "Türkçe")
@@ -556,7 +556,7 @@ public class MatchEngine : MonoBehaviour
         {
             AttackPanelActive();
             yield return new WaitForSeconds(1f);
-            AttackRate(-8f, -8f, -5f);
+            AttackRate(-2f, -2f, -2f);
             DefenceState();
 
             if (LocalizationManager.Language == "Türkçe")

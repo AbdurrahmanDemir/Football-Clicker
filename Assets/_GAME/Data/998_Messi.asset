@@ -18,7 +18,7 @@ MonoBehaviour:
   hairImage: {fileID: 21300000, guid: c501879b455744ca29be92cb4c24c7fd, type: 3}
   title: Lio Tessi
   gen: 150
-  pos: 10
-  cpsPerLevel: 15
-  basePrice: 500000
+  pos: 8
+  cpsPerLevel: 20
+  basePrice: 1000001
   coefficient: 1.15
