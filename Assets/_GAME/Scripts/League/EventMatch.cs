@@ -188,17 +188,17 @@ public class EventMatch : MonoBehaviour
             AddTrophy(5);
 
             if (trophy >= 0 && trophy < 50)
-                DataManager.instance.AddGoldDouble(5000);
+                DataManager.instance.AddGoldDouble(3000);
             if (trophy >= 50 && trophy < 200)
-                DataManager.instance.AddGoldDouble(10000);
+                DataManager.instance.AddGoldDouble(5000);
             if (trophy >= 200 && trophy < 500)
-                DataManager.instance.AddGoldDouble(30000);
+                DataManager.instance.AddGoldDouble(8000);
             if (trophy >= 5000 && trophy < 1000)
-                DataManager.instance.AddGoldDouble(60000);
+                DataManager.instance.AddGoldDouble(12000);
             if (trophy >= 1000 && trophy < 2000)
-                DataManager.instance.AddGoldDouble(80000);
+                DataManager.instance.AddGoldDouble(15000);
             if (trophy >= 2000 && trophy < 5000)
-                DataManager.instance.AddGoldDouble(100000);
+                DataManager.instance.AddGoldDouble(20000);
 
             int winNumber = PlayerPrefs.GetInt("WinNumber", 1);
             winNumber++;

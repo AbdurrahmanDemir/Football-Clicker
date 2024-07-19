@@ -31,35 +31,35 @@ public class SupporterManager : MonoBehaviour
     {
         LoadFans();
 
-        //if (!PlayerPrefs.HasKey("PlayerDataUpdateSpecial"))
-        //{
-        //    if (PlayerPrefs.GetInt("FansNumber") >= 20000)
-        //    {
-        //        if (PlayerPrefs.GetInt("FansNumber") >= 20000)
-        //        {
-        //            DataManager.instance.totalGoldText = 1000000;
-        //            DataManager.instance.goldIncrement = 1;
-        //            fansLevels = 1;
-        //            PlayerPrefs.SetInt("FanLevel", fansLevels);
-        //            PlayerPrefs.SetInt("Increment", DataManager.instance.goldIncrement);
-        //            DataManager.instance.incrementPriceText.text = (DataManager.instance.GetCurrentMultiplier() * 1000).ToString();
-        //            Debug.Log("çalýþþþtýýýýýý");
-        //            PlayerPrefs.SetInt("PlayerDataUpdateSpecial", 1);
+        if (!PlayerPrefs.HasKey("PlayerDataUpdateSpecial"))
+        {
+            if (PlayerPrefs.GetInt("FansNumber") >= 90000)
+            {
+                if (PlayerPrefs.GetInt("FansNumber") >= 900000)
+                {
+                    DataManager.instance.totalGoldText = 2000000;
+                    DataManager.instance.goldIncrement = 1;
+                    fansLevels = 1;
+                    PlayerPrefs.SetInt("FanLevel", fansLevels);
+                    PlayerPrefs.SetInt("Increment", DataManager.instance.goldIncrement);
+                    DataManager.instance.incrementPriceText.text = (DataManager.instance.GetCurrentMultiplier() * 1000).ToString();
+                    Debug.Log("çalýþþþtýýýýýý");
+                    PlayerPrefs.SetInt("PlayerDataUpdateSpecial", 1);
 
-        //        }
-        //        //else
-        //        //{
-        //        //    DataManager.instance.totalGoldText = 1000000;
-        //        //    DataManager.instance.goldIncrement = 1;
-        //        //    fansLevels = 1;
-        //        //    PlayerPrefs.SetInt("FanLevel", fansLevels);
-        //        //    PlayerPrefs.SetInt("Increment", DataManager.instance.goldIncrement);
-        //        //    DataManager.instance.incrementPriceText.text = (DataManager.instance.GetCurrentMultiplier() * 1000).ToString();
-        //        //    Debug.Log("çalýþþþtýýýýýý");
-        //        //    PlayerPrefs.SetInt("PlayerDataUpdateSpecial", 1);
-        //        //}
-        //    }
-        //}
+                }
+                //else
+                //{
+                //    DataManager.instance.totalGoldText = 1000000;
+                //    DataManager.instance.goldIncrement = 1;
+                //    fansLevels = 1;
+                //    PlayerPrefs.SetInt("FanLevel", fansLevels);
+                //    PlayerPrefs.SetInt("Increment", DataManager.instance.goldIncrement);
+                //    DataManager.instance.incrementPriceText.text = (DataManager.instance.GetCurrentMultiplier() * 1000).ToString();
+                //    Debug.Log("çalýþþþtýýýýýý");
+                //    PlayerPrefs.SetInt("PlayerDataUpdateSpecial", 1);
+                //}
+            }
+        }
 
 
 
@@ -69,7 +69,7 @@ public class SupporterManager : MonoBehaviour
     public int GetFansNumber()
     {
         int gen = DataManager.instance.GetTotalGen() * 5;
-        int winNumber = PlayerPrefs.GetInt("WinNumber", 0)*30;
+        int winNumber = PlayerPrefs.GetInt("WinNumber", 0)*20;
         int fanLevel = fansLevels * 50;
         fansNumber = gen + winNumber+fanLevel;
         PlayerPrefs.SetInt("FansNumber", fansNumber);
