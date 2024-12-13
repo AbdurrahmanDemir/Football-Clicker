@@ -64,7 +64,23 @@ public class DataManager : MonoBehaviour
     {
         
         InvokeRepeating("UpdateCpsText", 0, 1);
-        incrementPriceText.text = (GetCurrentMultiplier() * 1000).ToString();
+
+        if (PlayerPrefs.GetInt("Increment") < 5)
+        {
+                incrementPriceText.text = (GetCurrentMultiplier() * 1000).ToString();
+        }
+        else if (PlayerPrefs.GetInt("Increment") == 5)
+        {
+                incrementPriceText.text = (GetCurrentMultiplier() * 10000).ToString();
+        }
+        else if (PlayerPrefs.GetInt("Increment") >= 6)
+        {
+                incrementPriceText.text = (GetCurrentMultiplier() * 10000).ToString();
+        }
+        else if (PlayerPrefs.GetInt("Increment") >= 10)
+        {
+                incrementPriceText.text = (GetCurrentMultiplier() * 100000).ToString();
+        }
 
         totalGen();
 
@@ -93,17 +109,17 @@ public class DataManager : MonoBehaviour
             }
         }
 
-        if (!PlayerPrefs.HasKey("GemBugFix"))
-        {
-            Debug.Log("çalýþtý1");
-            if (PlayerPrefs.HasKey("Gem"))
-            {
-                AddGem(-gem);
-                PlayerPrefs.SetInt("GemBugFix", 1);
-                Debug.Log("çalýþtý2");
-            }
+        //if (!PlayerPrefs.HasKey("GemBugFix"))
+        //{
+        //    Debug.Log("çalýþtý1");
+        //    if (PlayerPrefs.HasKey("Gem"))
+        //    {
+        //        AddGem(-gem);
+        //        PlayerPrefs.SetInt("GemBugFix", 1);
+        //        Debug.Log("çalýþtý2");
+        //    }
 
-        }
+        //}
     }
 
 
@@ -278,7 +294,6 @@ public class DataManager : MonoBehaviour
     {
         if (PlayerPrefs.GetInt("Increment") < 5)
         {
-                incrementPriceText.text = (GetCurrentMultiplier() * 1000).ToString();
             if (TryPurchaseGold(PlayerPrefs.GetInt("Increment") * 1000))
             {
                 goldIncrement += 1;
@@ -293,7 +308,6 @@ public class DataManager : MonoBehaviour
         }
         else if (PlayerPrefs.GetInt("Increment") == 5)
         {
-                incrementPriceText.text = 60000.ToString();
             if (TryPurchaseGold(PlayerPrefs.GetInt("Increment") * 10000))
             {
                 goldIncrement += 1;
@@ -308,7 +322,6 @@ public class DataManager : MonoBehaviour
         }
         else if(PlayerPrefs.GetInt("Increment")>=6)
         {
-                incrementPriceText.text = (GetCurrentMultiplier() * 10000).ToString();
             if (TryPurchaseGold(PlayerPrefs.GetInt("Increment") * 10000))
             {
                 goldIncrement += 1;
@@ -323,7 +336,6 @@ public class DataManager : MonoBehaviour
         }
         else if(PlayerPrefs.GetInt("Increment") >= 10)
         {
-                incrementPriceText.text = (GetCurrentMultiplier() * 100000).ToString();
             if (TryPurchaseGold(PlayerPrefs.GetInt("Increment") * 100000))
             {
                 goldIncrement += 1;
@@ -340,6 +352,14 @@ public class DataManager : MonoBehaviour
 
         
     }
+
+    public void FixIncrement()
+    {
+        AddGoldDouble(5000000);
+        PlayerPrefs.SetInt("Increment", goldIncrement);
+        UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.SetActive(false);
+    }
+
     public void totalGen()
     {
         totalTeamGen = 0; // totalTeamGen'i sýfýrla

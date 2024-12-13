@@ -13,6 +13,7 @@ public class UIManager : MonoBehaviour
     [Header("Elements")]
     [SerializeField] private Slider powerSlider;
     [SerializeField] private GameObject settingsPanel;
+    [SerializeField] private GameObject fixPanel;
     [SerializeField] private GameObject popUpName;
     [SerializeField] private GameObject inboxPanel;
     [SerializeField] private GameObject questPanel;
@@ -33,7 +34,6 @@ public class UIManager : MonoBehaviour
     {
         powerSlider.maxValue = 1000;
         UpdateSlider();
-
         //LaggedAPIUnity.Instance.CheckRewardAd();
     }
     public void UpdateSlider()
@@ -91,6 +91,18 @@ public class UIManager : MonoBehaviour
             DataManager.instance.AddGoldFloat(500);
             PlayerPrefs.SetInt("discordGift", 1);
 
+        }
+    }
+
+    public void FixPanel()
+    {
+        if (!PlayerPrefs.HasKey("FixPanel"))
+        {
+            fixPanel.SetActive(true);            
+        }
+        else
+        {
+            fixPanel.SetActive(false);
         }
     }
     public void PlayStoreLink()

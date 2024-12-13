@@ -31,35 +31,35 @@ public class SupporterManager : MonoBehaviour
     {
         LoadFans();
 
-        if (!PlayerPrefs.HasKey("PlayerDataUpdateSpecial"))
-        {
-            if (PlayerPrefs.GetInt("FansNumber") >= 90000)
-            {
-                if (PlayerPrefs.GetInt("FansNumber") >= 900000)
-                {
-                    DataManager.instance.totalGoldText = 2000000;
-                    DataManager.instance.goldIncrement = 1;
-                    fansLevels = 1;
-                    PlayerPrefs.SetInt("FanLevel", fansLevels);
-                    PlayerPrefs.SetInt("Increment", DataManager.instance.goldIncrement);
-                    DataManager.instance.incrementPriceText.text = (DataManager.instance.GetCurrentMultiplier() * 1000).ToString();
-                    Debug.Log("çalýþþþtýýýýýý");
-                    PlayerPrefs.SetInt("PlayerDataUpdateSpecial", 1);
+        //if (!PlayerPrefs.HasKey("PlayerDataUpdateSpecial"))
+        //{
+        //    if (PlayerPrefs.GetInt("FansNumber") >= 90000)
+        //    {
+        //        if (PlayerPrefs.GetInt("FansNumber") >= 900000)
+        //        {
+        //            DataManager.instance.totalGoldText = 2000000;
+        //            DataManager.instance.goldIncrement = 1;
+        //            fansLevels = 1;
+        //            PlayerPrefs.SetInt("FanLevel", fansLevels);
+        //            PlayerPrefs.SetInt("Increment", DataManager.instance.goldIncrement);
+        //            DataManager.instance.incrementPriceText.text = (DataManager.instance.GetCurrentMultiplier() * 1000).ToString();
+        //            Debug.Log("çalýþþþtýýýýýý");
+        //            PlayerPrefs.SetInt("PlayerDataUpdateSpecial", 1);
 
-                }
-                //else
-                //{
-                //    DataManager.instance.totalGoldText = 1000000;
-                //    DataManager.instance.goldIncrement = 1;
-                //    fansLevels = 1;
-                //    PlayerPrefs.SetInt("FanLevel", fansLevels);
-                //    PlayerPrefs.SetInt("Increment", DataManager.instance.goldIncrement);
-                //    DataManager.instance.incrementPriceText.text = (DataManager.instance.GetCurrentMultiplier() * 1000).ToString();
-                //    Debug.Log("çalýþþþtýýýýýý");
-                //    PlayerPrefs.SetInt("PlayerDataUpdateSpecial", 1);
-                //}
-            }
-        }
+        //        }
+        //        //else
+        //        //{
+        //        //    DataManager.instance.totalGoldText = 1000000;
+        //        //    DataManager.instance.goldIncrement = 1;
+        //        //    fansLevels = 1;
+        //        //    PlayerPrefs.SetInt("FanLevel", fansLevels);
+        //        //    PlayerPrefs.SetInt("Increment", DataManager.instance.goldIncrement);
+        //        //    DataManager.instance.incrementPriceText.text = (DataManager.instance.GetCurrentMultiplier() * 1000).ToString();
+        //        //    Debug.Log("çalýþþþtýýýýýý");
+        //        //    PlayerPrefs.SetInt("PlayerDataUpdateSpecial", 1);
+        //        //}
+        //    }
+        //}
 
 
 
@@ -69,7 +69,7 @@ public class SupporterManager : MonoBehaviour
     public int GetFansNumber()
     {
         int gen = DataManager.instance.GetTotalGen() * 5;
-        int winNumber = PlayerPrefs.GetInt("WinNumber", 0)*20;
+        int winNumber = 56*20;
         int fanLevel = fansLevels * 50;
         fansNumber = gen + winNumber+fanLevel;
         PlayerPrefs.SetInt("FansNumber", fansNumber);
@@ -83,7 +83,7 @@ public class SupporterManager : MonoBehaviour
         fansNumberText.text = fansNumber.ToString();
         fansNumberMenuText.text = fansNumber.ToString();
         genNumberText.text = DataManager.instance.GetTotalGen().ToString();
-        fanAdsText.text = (10000 * fansLevels).ToString();
+        fanAdsText.text = (1000 * fansLevels).ToString();
     }
 
     public void FansUpgrade()
@@ -112,4 +112,13 @@ public class SupporterManager : MonoBehaviour
             fansPanel.gameObject.SetActive(true);
 
     }
+
+    public void FixFansLevel()
+    {
+        //fansLevels = 562;
+        //PlayerPrefs.SetInt("FanLevel", fansLevels);
+        //UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject.SetActive(false);
+        //PlayerPrefs.SetInt("FixPanel", 1);
+    }
+
 }
